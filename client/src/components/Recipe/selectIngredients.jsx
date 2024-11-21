@@ -8,7 +8,6 @@ export function ZutatenForm() {
   const { fetchData } = useFetch();
   const [ingredientsData, setIngredientsData] = useState([]);
   const [ingredientsArr, setIngredientsArr] = useState([{ ingredient: "" }]);
-  const [ingredientObj, setIngredientObj] = useState({ ingredient: "" });
 
   // *** Daten für Kategorien und Zutaten laden ***
   useEffect(() => {
@@ -20,16 +19,16 @@ export function ZutatenForm() {
   }, []);
   // ---------------------------
 
-  useEffect(() => {
-    console.debug("useEffect after ingredientObj has changed");
-  }, [ingredientObj]);
+  const handleOnSelectIngredient = (selectedIndex, ingredientId) => {
+    setIngredientsArr((prev) =>
+      prev.map((item, index) =>
+        selectedIndex === index ? { ingredient: ingredientId } : item
+      )
+    );
+  };
 
   const handleAddIngredient = () => {
-    setIngredientsArr([
-      ...ingredientsArr,
-      { ingredient: ingredientObj.ingredient },
-    ]);
-    setIngredientObj({ ingredient: "" });
+    setIngredientsArr((prev) => [...prev, { ingredient: "" }]);
   };
 
   const handleRemoveIngredient = (array, index) => {
@@ -43,6 +42,13 @@ export function ZutatenForm() {
     alert("Rezept gespeichert");
   };
 
+  const options = Array.isArray(ingredientsData)
+    ? ingredientsData.map((ing) => ({
+        value: ing.id,
+        label: ing.name,
+      }))
+    : [];
+
   return (
     <form onSubmit={handleSubmit}>
       <h1>Zutaten hinzufügen</h1>
@@ -50,30 +56,15 @@ export function ZutatenForm() {
       {ingredientsArr.map((ingredient, index) => (
         <div key={index} className="ingredient-row">
           <Select
+            defaultInputValue={ingredient.ingredient}
             className="basic-single"
-            // defaultInputValue={JSON.stringify(ingredient)}
-            // value={ingredient.ingredient}
             classNamePrefix="select"
             isClearable="true"
             isSearchable="true"
             placeholder="Zutate auswählen"
             name={`ingredients_select_${index}`}
-            options={
-              Array.isArray(ingredientsData)
-                ? ingredientsData.map((ing) => ({
-                    value: ing.id,
-                    label: ing.name,
-                  }))
-                : []
-            }
-            onChange={(e) => {
-              console.log("--> obj", ingredientObj, "target value", e);
-              console.log("--> Value:", e.value);
-              setIngredientObj({
-                ...ingredientObj,
-                ingredient: e ? e.value : "",
-              });
-            }}
+            options={options}
+            onChange={(e) => handleOnSelectIngredient(index, e.value)}
           />
 
           {ingredientsArr.length > 1 && (
