@@ -2,17 +2,12 @@ import Select from "react-select";
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function ZutatenForm() {
   const { fetchData } = useFetch();
-
   const [ingredientsData, setIngredientsData] = useState([]);
-
   const [ingredientsArr, setIngredientsArr] = useState([{ ingredient: "" }]);
-  const [ingredientObj, setingredientObj] = useState({
-    ingredient: "",
-  });
-
-  let API_URL = import.meta.env.VITE_API_URL;
 
   // *** Daten für Kategorien und Zutaten laden ***
   useEffect(() => {
@@ -24,13 +19,16 @@ export function ZutatenForm() {
   }, []);
   // ---------------------------
 
-  const handleAddIngredient = () => {
-    setIngredientsArr([
-      ...ingredientsArr,
-      { ingredient: ingredientObj.ingredient },
-    ]);
+  const handleOnSelectIngredient = (selectedIndex, ingredientId) => {
+    setIngredientsArr((prev) =>
+      prev.map((item, index) =>
+        selectedIndex === index ? { ingredient: ingredientId } : item
+      )
+    );
+  };
 
-    setingredientObj({ ingredient: "" });
+  const handleAddIngredient = () => {
+    setIngredientsArr((prev) => [...prev, { ingredient: "" }]);
   };
 
   const handleRemoveIngredient = (array, index) => {
@@ -44,35 +42,29 @@ export function ZutatenForm() {
     alert("Rezept gespeichert");
   };
 
+  const options = Array.isArray(ingredientsData)
+    ? ingredientsData.map((ing) => ({
+        value: ing.id,
+        label: ing.name,
+      }))
+    : [];
+
   return (
     <form onSubmit={handleSubmit}>
       <h1>Zutaten hinzufügen</h1>
+      <div>{JSON.stringify(ingredientsArr)}</div>
       {ingredientsArr.map((ingredient, index) => (
         <div key={index} className="ingredient-row">
           <Select
+            defaultInputValue={ingredient.ingredient}
             className="basic-single"
-            value={ingredient.ingredient}
             classNamePrefix="select"
             isClearable="true"
             isSearchable="true"
             placeholder="Zutate auswählen"
             name={`ingredients_select_${index}`}
-            options={
-              Array.isArray(ingredientsData)
-                ? ingredientsData.map((ing) => ({
-                    value: ing.id,
-                    label: ing.name,
-                  }))
-                : []
-            }
-            onChange={(e) => {
-              console.log("obj", ingredientObj, "target value", e);
-              console.log("Value:", e.value);
-              setingredientObj({
-                ...ingredientObj,
-                ingredient: e ? e.value : "",
-              });
-            }}
+            options={options}
+            onChange={(e) => handleOnSelectIngredient(index, e.value)}
           />
 
           {ingredientsArr.length > 1 && (
