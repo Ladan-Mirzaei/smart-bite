@@ -1,0 +1,95 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ccd9e0;
+}
+
+.form-container {
+  text-align: center;
+}
+
+h1 {
+  color: #e6e8ed;
+  margin-bottom: 20px;
+  margin-left: 250px;
+}
+
+.input-container {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1b3148;
+}
+
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f5f3f3;
+}
+.gender-container input[type="radio"] {
+  background-color: #f5f3f3;
+}
+
+/* Input field focus styles */
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.container button:hover {
+  background-color: #2b6db3;
+}
+.gender-container {
+  display: flex;
+  flex-direction: row;
+  align-content: start;
+  gap: 20px;
+}
+.gender-container p {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1b3148;
+}
+
+.image-container {
+  text-align: end;
+  margin-top: 0px;
+  margin-right: 0px;
+}
+
+.image-container img {
+  max-width: 100%;
+  margin-right: 0px;
+  height: 150px;
+  border-radius: 10px;
+}
+.App-header {
+  display: flex;
+  gap: 120px;
+  align-items: start;
+  align-content: end;
+}

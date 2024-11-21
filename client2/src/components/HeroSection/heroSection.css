@@ -1,0 +1,33 @@
+/* src/components/HeroSection.css */
+.hero-section {
+  background-image: url("https://example.com/hero-background.jpg"); /* Replace with actual background image URL */
+  background-size: cover;
+  background-position: center;
+  padding: 100px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.hero-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #e74c3c;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #c0392b;
+}

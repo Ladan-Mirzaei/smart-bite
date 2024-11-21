@@ -1,0 +1,63 @@
+1-npm install firebase-admin in der /server
+
+2-// App.js 
+const admin = require("firebase-admin");
+
+// Initialisiere Firebase Admin SDK
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+});
+admin.initializeApp():
+
+// Dies ist die Methode des Firebase Admin SDKs, die eine Verbindung zwischen deinem Server und Firebase herstellt.
+// Sie muss vor jeder Firebase-Interaktion auf dem Server aufgerufen werden.
+// credential: admin.credential.applicationDefault():
+
+// Diese Option gibt an, welche Zugangsdaten (Credentials) verwendet werden sollen, um Firebase-Dienste zu authentifizieren und zu autorisieren.
+// applicationDefault() weist Firebase an, die „Standard-Zugangsdaten der Anwendung“ zu verwenden
+
+3-//ID-Token vom Client an den Server senden
+// Der ID-Token bestätigt, dass der Benutzer authentifiziert ist.
+
+const token = await firebase.auth().currentUser.getIdToken();
+// Dieser Token wird benötigt, um den Benutzer sicher auf einem Backend-Server oder einer API zu authentifizieren.
+// firebase.auth().currentUser:
+
+// Dies ist der aktuell angemeldete Benutzer im Firebase Authentication-System auf der Client-Seite (z. B. in einer Web- oder Mobile-App).
+// Falls currentUser null ist, bedeutet das, dass der Benutzer nicht authentifiziert ist.
+// getIdToken():
+
+// Diese Methode fordert einen ID-Token an, der ein sicheres, signiertes Token ist und vom Firebase Authentication-System ausgestellt wird.
+// Der Token enthält Informationen über den Benutzer (z. B. die uid, die Firebase-ID des Benutzers) und wird alle 60 Minuten automatisch aktualisiert.
+
+
+// Sende den Token im Header an den Server
+fetch("https://......", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${token}`,
+    // hat die Funktion, den ID-Token als sogenannten Bearer Token an den Server zu übermitteln.
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify...
+
+});
+
+4-// Token auf dem Server verifizieren
+import admin from "firebase-admin";
+async function (req, res) {
+const idToken = req.headers.authorization?.split("Bearer ")[1];
+
+  if (!idToken) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  try {
+    // ID-Token verifizieren
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const tokenUid = decodedToken.uid;
+
+    // Überprüfen, ob der UID im Token mit dem angefragten UID übereinstimmt
+    if (uid !== tokenUid) {
+      return res.status(403).json({ msg: "Unauthorized: UID mismatch" });
+    }
