@@ -42,7 +42,6 @@ input[type="text"] {
   background-color: #f5f3f3;
 }
 
-/* Input field focus styles */
 input[type="text"]:focus {
   border-color: #007bff;
   outline: none;

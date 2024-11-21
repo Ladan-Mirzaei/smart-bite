@@ -21,11 +21,14 @@ export function ZutatenForm() {
       setIngredientsData(data);
     }
     loadFetch();
-  });
+  }, []);
   // ---------------------------
 
-  const handleAddIngredient = (ingredient) => {
-    setIngredientsArr([...ingredientsArr, { ingredient }]);
+  const handleAddIngredient = () => {
+    setIngredientsArr([
+      ...ingredientsArr,
+      { ingredient: ingredientObj.ingredient },
+    ]);
 
     setingredientObj({ ingredient: "" });
   };
@@ -48,13 +51,6 @@ export function ZutatenForm() {
         <div key={index} className="ingredient-row">
           <Select
             className="basic-single"
-            onChange={(e) => {
-              console.log("obj", ingredientObj, "target value", e.target.value);
-              setingredientObj({
-                ...ingredientObj,
-                ingredient: e.target.value,
-              });
-            }}
             value={ingredient.ingredient}
             classNamePrefix="select"
             isClearable="true"
@@ -69,6 +65,14 @@ export function ZutatenForm() {
                   }))
                 : []
             }
+            onChange={(e) => {
+              console.log("obj", ingredientObj, "target value", e);
+              console.log("Value:", e.value);
+              setingredientObj({
+                ...ingredientObj,
+                ingredient: e ? e.value : "",
+              });
+            }}
           />
 
           {ingredientsArr.length > 1 && (
@@ -83,10 +87,7 @@ export function ZutatenForm() {
           )}
         </div>
       ))}
-      <button
-        type="button"
-        onClick={() => handleAddIngredient(ingredientObj.ingredient)}
-      >
+      <button type="button" onClick={() => handleAddIngredient()}>
         +
       </button>
 
