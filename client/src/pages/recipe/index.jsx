@@ -6,7 +6,6 @@ export default function Recipe() {
 
   const { fetchData } = useFetch();
 
-  // POST-Anfrage-ein neues Rezept hinzuzufügen
   const onFormSubmit = async (formData) => {
     console.log("Form Data:", formData);
 
@@ -34,7 +33,7 @@ export default function Recipe() {
     </>
   );
 }
-// // `GET`-Anfrage, um die Liste der Rezepte zu laden
+//
 // useEffect(() => {
 //   async function fetchRecipes() {
 //     const recipeData = await triggerFetch(`${API_URL}/recipes`, "GET");
@@ -43,7 +42,7 @@ export default function Recipe() {
 
 //   fetchRecipes();
 // }, []);
-//   // Liste der Rezepte nach dem Hinzufügen aktualisieren
+//
 //   const updatedRecipes = await triggerFetch(`${API_URL}/recipes`, "GET");
 //   setRecipes(updatedRecipes || []);
 // } catch (error) {

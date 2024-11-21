@@ -4,7 +4,6 @@ import "./components/BMIStyle.css";
 import BMIIMage from "./assets/BMI.jpg";
 
 function App() {
-  // Zustand für Benutzerinformationen und Fehler
   const [users, setUsers] = useState([]);
 
   return (

@@ -42,9 +42,9 @@ export default function Home() {
       </p>
       Button zeigt sich je nach Login-Status
       {user ? (
-        <button onClick={handleLogout}>Logout</button> // Zeigt den Logout-Button, wenn der Benutzer eingeloggt ist
+        <button onClick={handleLogout}>Logout</button> 
       ) : (
-        <button onClick={() => navigate("/login")}>Login</button> // Zeigt den Login-Button, wenn der Benutzer nicht eingeloggt ist
+        <button onClick={() => navigate("/login")}>Login</button> 
       )} */}
     </div>
   );

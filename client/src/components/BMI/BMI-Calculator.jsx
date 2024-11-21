@@ -13,10 +13,10 @@ export default function Calculator() {
   });
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target; //das ist ein Object,Destructuring: Durch die Destructuring-Syntax (const { name, value }) werden die Eigenschaften name und value aus dem event.target-Objekt extrahiert.
+    const { name, value } = event.target;
     setInputValue({
       ...inputValue,
-      [name]: value, //Hier wird eine dynamische Schlüsselzuweisung verwendet. Der Schlüssel (der Name des Eingabefelds, z. B. "alter") wird durch die Verwendung der eckigen Klammern ([]) angegeben.
+      [name]: value,
     });
   };
 
@@ -25,13 +25,11 @@ export default function Calculator() {
     let errors = {};
     let hasError = false;
 
-    // Eingabeprüfung für Alter
     if (!/^\d{1,3}$/.test(inputValue.alter)) {
       errors.alter = "Alter muss eine Zahl mit maximal 3 Ziffern sein";
       hasError = true;
     }
 
-    // Eingabeprüfung für Gewicht
     if (!inputValue.weight) {
       errors.weight = "Gewicht darf nicht leer sein";
       hasError = true;
@@ -40,7 +38,6 @@ export default function Calculator() {
       hasError = true;
     }
 
-    // Eingabeprüfung für Größe
     if (!inputValue.height) {
       errors.height = "Größe darf nicht leer sein";
       hasError = true;
@@ -49,17 +46,14 @@ export default function Calculator() {
       hasError = true;
     }
 
-    // Wenn es Fehler gibt, setze die Fehlermeldungen
     if (hasError) {
       setErrorMessage(errors);
     } else {
-      // Fehler zurücksetzen und Berechnung durchführen
       setErrorMessage({});
 
-      const weightInkg = parseFloat(inputValue.weight); // Gewicht in kg
-      const heightInMeter = parseFloat(inputValue.height) / 100; // Umwandeln von cm in Meter
+      const weightInkg = parseFloat(inputValue.weight);
+      const heightInMeter = parseFloat(inputValue.height) / 100;
 
-      //  BMI Berechnung
       const bmi = (weightInkg / (heightInMeter * heightInMeter)).toFixed(2);
 
       setBmiResult(bmi);
@@ -90,14 +84,14 @@ export default function Calculator() {
                 type="radio"
                 name="anrede"
                 value="w"
-                onChange={handleInputChange} // Richtiger Event-Handler
+                onChange={handleInputChange}
               />
               weiblich
               <input
                 type="radio"
                 name="anrede"
                 value="m"
-                onChange={handleInputChange} // Richtiger Event-Handler
+                onChange={handleInputChange}
               />
               männlich
             </div>
@@ -107,8 +101,8 @@ export default function Calculator() {
                 type="text"
                 name="alter"
                 value={inputValue.alter}
-                maxLength="3" // Die maximale Länge ist 3 Zeichen
-                onChange={handleInputChange} // Richtiger Event-Handler
+                maxLength="3"
+                onChange={handleInputChange}
                 style={{
                   border: errorMessage.alter ? "1px solid red" : "",
                 }}
@@ -121,8 +115,8 @@ export default function Calculator() {
                 type="text"
                 name="weight"
                 value={inputValue.weight}
-                maxLength="3" // Die maximale Länge ist 3 Zeichen
-                onChange={handleInputChange} // Richtiger Event-Handler
+                maxLength="3"
+                onChange={handleInputChange}
                 style={{
                   border: errorMessage.weight ? "1px solid red" : "",
                 }}
@@ -135,8 +129,8 @@ export default function Calculator() {
                 type="text"
                 name="height"
                 value={inputValue.height}
-                maxLength="3" // Die maximale Länge ist 3 Zeichen
-                onChange={handleInputChange} // Richtiger Event-Handler
+                maxLength="3"
+                onChange={handleInputChange}
                 style={{
                   border: errorMessage.height ? "1px solid red" : "",
                 }}

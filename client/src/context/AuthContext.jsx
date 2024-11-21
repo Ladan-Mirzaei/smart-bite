@@ -4,7 +4,6 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 export const AuthContext = createContext();
 
-// Custom hook to use the AuthContext
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
@@ -20,7 +19,6 @@ export const AuthProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
-  // Token abrufen
   const getToken = async () => {
     if (user) {
       return await user.getIdToken();

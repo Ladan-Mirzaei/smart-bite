@@ -18,10 +18,9 @@ export default function AllergyInfo() {
     e.preventDefault();
     console.log("Selected allergens:", allergen);
   };
-  // Get-Anfrage-
   useEffect(() => {
     async function loadAllergens() {
-      const allergens = await fetchData(`${API_URL}/allergene`, "GET"); // API-Aufruf mit fetchData
+      const allergens = await fetchData(`${API_URL}/allergene`, "GET");
       setAllergenData(allergens || []);
     }
 

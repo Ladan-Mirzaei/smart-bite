@@ -1,10 +1,9 @@
 import { getAuth } from "firebase/auth";
-import { logoutUser } from "./authService.js"; // Importiere die Login-Funktion
+import { logoutUser } from "./authService.js";
 
 const auth = getAuth();
 const user = auth.currentUser;
 if (user !== null) {
-  // The user object has basic properties such as display name, email, etc.
   const displayName = user.displayName;
   const email = user.email;
   const photoURL = user.photoURL;

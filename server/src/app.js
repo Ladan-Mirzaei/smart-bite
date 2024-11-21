@@ -15,8 +15,6 @@ import Multer from "multer";
 import bodyParser from "body-parser";
 import { config as dotenvConfig } from "dotenv";
 
-// npm i express-fileupload
-
 // import admin from "firebase-admin"; //Firebase-Google
 // admin.initializeApp({
 //   credential: admin.credential.applicationDefault(), //Firebase-Google

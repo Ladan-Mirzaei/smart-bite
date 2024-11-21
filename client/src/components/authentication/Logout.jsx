@@ -1,4 +1,4 @@
-import { logoutUser } from "./authService.js"; // Importiere die Logout-Funktion
+import { logoutUser } from "./authService.js";
 
 function Logout() {
   const handleLogout = async () => {

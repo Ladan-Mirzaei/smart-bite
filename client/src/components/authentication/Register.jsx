@@ -20,7 +20,6 @@ function Register() {
 
   const auth = getAuth();
   const db = getFirestore();
-  // Function to advance the step
   const goToNextStep = () =>
     setStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
 
@@ -33,7 +32,6 @@ function Register() {
     try {
       const registeredUser = await registerUser(email, password);
 
-      // Store additional user information in Firestore
       console.log("Benutzer registriert und eingeloggt:", registeredUser.email);
 
       // Schritt 2: Zusätzliche Benutzerdaten in Firestore speichern
@@ -51,13 +49,11 @@ function Register() {
   console.log(firstName);
   return (
     <div>
-      {/* Progress Bar */}
       <div className="progress-bar">
         <div className={`step ${step >= 1 ? "active" : ""}`}>1</div>
         <div className={`step ${step >= 2 ? "active" : ""}`}>2</div>
         <div className={`step ${step >= 3 ? "active" : ""}`}>3</div>
       </div>
-      {/* Steps Labels */}
       <div className="progress-labels">
         <span>Registrierung</span>
         <span>Persönliche Informationen</span>

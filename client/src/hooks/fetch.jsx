@@ -11,11 +11,6 @@ export function useFetch() {
     setErrorMessage("");
 
     try {
-      console.log("Request URL:", url);
-      console.log("Request Method:", method);
-      console.log("Request Body:", body);
-      console.log("Authorization Header:");
-
       const token = await getToken();
 
       setIsLoading(true);
@@ -28,12 +23,10 @@ export function useFetch() {
         },
         body: body ? JSON.stringify(body) : null,
       });
-      console.log("Response JSON:33333", response);
 
       if (response.ok) {
         const jsonData = await response.json();
         setData(jsonData);
-        console.log("Response JSON:", jsonData);
         return jsonData;
       } else if (response.status === 404) {
         setErrorMessage("Not found.");

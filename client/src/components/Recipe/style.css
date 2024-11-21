@@ -1,4 +1,3 @@
-/* Allgemeine Container-Stile */
 .form-container {
   width: 90%;
   max-width: 800px;
@@ -19,7 +18,6 @@
   font-weight: bold;
 }
 
-/* Einzelne Zutat (Reihe) */
 .ingredient-item {
   display: flex;
   align-items: center;
@@ -34,7 +32,6 @@
   min-width: 80px;
 }
 
-/* Input- und Select-Felder */
 .ingredient-item input[type="number"] {
   padding: 8px;
   border: 1px solid #ccc;
@@ -49,7 +46,6 @@
   width: 80px;
 }
 
-/* Löschen-Button */
 .remove-ingredient-button {
   background-color: #dc3545;
   color: white;
@@ -63,7 +59,6 @@
   background-color: #a71d2a;
 }
 
-/* "Zutat hinzufügen"-Button */
 .add-ingredient-button {
   display: block;
   margin: 10px 0;
@@ -80,7 +75,6 @@
   background-color: #0056b3;
 }
 
-/* Alle Inputs und Buttons in einer Reihe */
 .ingredient-item > * {
   flex: 1;
   margin-right: 10px;

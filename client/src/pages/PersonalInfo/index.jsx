@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { Navigate } from "react-router-dom";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
-import { auth } from "../../firebaseConfig.js"; // Firebase-Konfigurationsdatei
+import { auth } from "../../firebaseConfig.js";
 import "./style.css";
 export default function UserProfile({ goToNextStep }) {
   const [userData, setUserData] = useState("null");

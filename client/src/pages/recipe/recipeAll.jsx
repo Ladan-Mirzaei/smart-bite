@@ -7,7 +7,6 @@ export default function Recipe() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // ***Daten für All-Recipes laden***
   useEffect(() => {
     async function loadFetch() {
       const response = await fetchData(`${API_URL}/recipes`);

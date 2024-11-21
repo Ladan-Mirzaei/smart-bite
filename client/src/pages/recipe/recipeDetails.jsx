@@ -50,8 +50,7 @@ const RecipeDetails = () => {
           <div className="P-15-text-container">
             <h2>Gebratene Ravioli mit gemischten Pilzen</h2>
             {/* <p>
-            Hier steht der Text für die zweite Zeile. Der Text befindet sich auf
-            der linken Seite.
+           test
           </p> */}
             <ul className="ingredients-list">
               <li>1 Bund Lauchzwiebel(n) (Zwiebellauch)</li>
