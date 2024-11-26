@@ -25,7 +25,7 @@ export default function Calculator() {
     let errors = {};
     let hasError = false;
 
-    if (!/^\d{1,3}$/.test(inputValue.alter)) {
+    if (!inputValue.alter) {
       errors.alter = "Alter muss eine Zahl mit maximal 3 Ziffern sein";
       hasError = true;
     }
@@ -33,7 +33,7 @@ export default function Calculator() {
     if (!inputValue.weight) {
       errors.weight = "Gewicht darf nicht leer sein";
       hasError = true;
-    } else if (!/^\d+$/.test(inputValue.weight)) {
+    } else if (inputValue.weight) {
       errors.weight = "Gewicht muss eine Zahl sein";
       hasError = true;
     }
@@ -41,7 +41,7 @@ export default function Calculator() {
     if (!inputValue.height) {
       errors.height = "Größe darf nicht leer sein";
       hasError = true;
-    } else if (!/^\d+$/.test(inputValue.height)) {
+    } else if (inputValue.height) {
       errors.height = "Größe muss eine Zahl sein";
       hasError = true;
     }
@@ -115,6 +115,7 @@ export default function Calculator() {
                 type="text"
                 name="weight"
                 value={inputValue.weight}
+                min="2"
                 maxLength="3"
                 onChange={handleInputChange}
                 style={{
@@ -126,8 +127,9 @@ export default function Calculator() {
             <div className="input-container">
               <label htmlFor="height">Größe(in cm): </label>
               <input
-                type="text"
+                type="number"
                 name="height"
+                min="2"
                 value={inputValue.height}
                 maxLength="3"
                 onChange={handleInputChange}
