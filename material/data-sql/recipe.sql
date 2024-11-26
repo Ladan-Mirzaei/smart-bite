@@ -7,6 +7,7 @@
 
 CREATE TABLE recipe (
     id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES recipe_user(id),
     title VARCHAR(255) NOT NULL, 
     description TEXT, 
     preparation_time INT, 
@@ -19,6 +20,7 @@ CREATE TABLE recipe (
 );
 
 INSERT INTO recipe (
+    user_id,
     title, 
     description, 
     preparation_time, 

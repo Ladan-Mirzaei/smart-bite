@@ -1,5 +1,6 @@
 .recipe-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
   margin: 40px;
@@ -13,7 +14,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
   width: 100%;
-  max-width: 200px;
+  max-width: 220px;
 }
 
 .recipe-card:hover {
@@ -59,14 +60,14 @@
 .left-side {
   margin: 20px;
   text-align: left;
-  width: 16%;
+  width: 19%;
   background-color: #f4f4f4;
   padding: 20px;
   box-sizing: border-box;
 }
 
 .right-side {
-  width: 80%;
+  width: 75%;
   background-color: #fff;
   padding: 20px;
   box-sizing: border-box;

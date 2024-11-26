@@ -1,23 +1,32 @@
 import RecipeForm from "../../components/Recipe/recipeForm.jsx";
-import { useFetch } from "../../hooks/fetch.jsx";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 export default function Recipe() {
+  const { user } = useContext(AuthContext);
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const { fetchData } = useFetch();
-
-  const onFormSubmit = async (formData) => {
-    console.log("Form Data:", formData);
-
+  const onFormSubmit = async (finalData) => {
+    if (!user) {
+      console.error("User not logged in");
+      return;
+    }
+    const token = await user.getIdToken();
     try {
-      const response = await fetchData(`${API_URL}/recipes`, "POST", formData);
-      console.log("formData:", formData);
-
-      console.error("Keine gültige Recipe-ID erhalten.");
-
-      console.log("Rezept erfolgreich erstellt:", response);
-    } catch (error) {
-      console.error("Fehler beim Erstellen des Rezepts:", error);
+      const response = await fetch(`${API_URL}/recipes`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...finalData, uid: user.uid }),
+      });
+      if (!response.ok) {
+        console.error("Data fetching error");
+      }
+      const data = await response.json();
+    } catch (err) {
+      console.log(err);
     }
   };
   // if (userData) {
@@ -28,7 +37,7 @@ export default function Recipe() {
     <>
       <h2>Neues Rezept erstellen</h2>
       <div>
-        <RecipeForm onFormSubmit={onFormSubmit} />
+        <RecipeForm onFormSubmit={onFormSubmit} />{" "}
       </div>
     </>
   );

@@ -4,6 +4,8 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import PersonalInfo from "../../pages/PersonalInfo/index.jsx";
 import AllergenInfo from "../../pages/PersonalInfo/allergenInfo.jsx";
+import UploadImage from "../UploadImage/index.jsx";
+
 import "./Login.css";
 import "./Register.css";
 
@@ -12,6 +14,8 @@ function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -30,22 +34,50 @@ function Register() {
     }
 
     try {
-      const registeredUser = await registerUser(email, password);
+      const registeredUser = await registerUser(
+        email,
+        password,
+        displayName,
+        photoURL.secure_url
+      );
 
       console.log("Benutzer registriert und eingeloggt:", registeredUser.email);
 
-      // Schritt 2: Zusätzliche Benutzerdaten in Firestore speichern
+      // Zusätzliche Benutzerdaten in Firestore speichern
       await setDoc(doc(db, "users", registeredUser.uid), {
         firstName: firstName,
         lastName: lastName,
       });
       console.log("firstname", firstName);
-      console.log("Erfolgreich registriert:", registeredUser.email);
-      goToNextStep();
+      alert(
+        "Willkommen",
+        { firstName },
+        "Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail, bevor Sie fortfahren."
+      );
+      const checkEmailVerification = async () => {
+        await auth.currentUser.reload(); // Benutzerstatus aktualisieren
+        if (auth.currentUser.emailVerified) {
+          console.log("E-Mail ist verifiziert.");
+          goToNextStep(); // Weiter zu Schritt 2
+        } else {
+          alert(
+            "E-Mail ist nicht verifiziert. Bitte überprüfen Sie Ihre E-Mails."
+          );
+        }
+      };
+
+      // Verifizierungsprüfung starten
+      const interval = setInterval(async () => {
+        await checkEmailVerification();
+        if (auth.currentUser && auth.currentUser.emailVerified) {
+          clearInterval(interval); // Intervall stoppen, wenn verifiziert
+        }
+      }, 5000); // Alle 5 Sekunden prüfen
     } catch (error) {
       setError(error.message);
     }
   };
+
   console.log(firstName);
   return (
     <div>
@@ -64,7 +96,6 @@ function Register() {
           <div className="login-section">
             <h2>Neukunden:</h2>
             <div className="login-form">
-              <label htmlFor="firstName">Vorname</label>
               <input
                 id="firstName"
                 type="text"
@@ -75,7 +106,6 @@ function Register() {
               />
             </div>
             <div className="login-form">
-              <label htmlFor="lastName">Nachname</label>
               <input
                 id="lastName"
                 type="text"
@@ -86,7 +116,6 @@ function Register() {
               />
             </div>
             <div className="login-form">
-              <label htmlFor="email">E-Mail-Adresse</label>
               <input
                 id="email"
                 type="email"
@@ -97,7 +126,6 @@ function Register() {
               />
             </div>
             <div className="login-form">
-              <label htmlFor="password">Passwort</label>
               <input
                 id="password"
                 type="password"
@@ -107,6 +135,23 @@ function Register() {
                 className="login-input-field"
               />
             </div>
+
+            <div className="login-form">
+              <label htmlFor="url">Photo URL</label>
+              {/* <input
+                id="url"
+                type="url"
+                value={photoURL}
+                onChange={(e) => setPhotoURL(e.target.value)}
+                placeholder="Photo"
+                className="login-input-field"
+              /> */}
+              <UploadImage setImageUrl={setPhotoURL} />
+              {photoURL.secure_url && (
+                <p>Bild hochgeladen: {photoURL.secure_url}</p>
+              )}
+            </div>
+
             <button onClick={handleRegister} className="btn-login">
               Registrieren
             </button>

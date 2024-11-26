@@ -14,6 +14,7 @@ export default function Recipe() {
     }
     loadFetch();
   }, []);
+  console.log("recipesData", recipesData);
 
   return (
     <>
@@ -71,25 +72,29 @@ export default function Recipe() {
         </div>
         <div className="right-side">
           <main className="recipe-container">
-            <div className="recipe-card">
-              <div className="recipe-image">
-                <img
-                  src="gefuellte-zucchini-aus-dem-ofen.webp"
-                  alt="Hähnchenschnitzel mit Cornflakes-Panade"
-                />
-              </div>{" "}
-              <span className="recipe-type">keto</span>
-              <h3>Hähnchenschnitzel mit Cornflakes-Panade</h3>
-              <div className="recipe-info">
-                <p>
-                  <span>⏱️ 35 Min.</span> | <span>⭐ 5,0</span> |
-                  <span>Easy</span>
-                </p>
-              </div>
-            </div>
+            {Array.isArray(recipesData) &&
+              recipesData.map((recip, index) => (
+                <div className="recipe-card" key={index}>
+                  <div className="recipe-image">
+                    <img src={recip.image} alt={recip.title || "Rezeptbild"} />
+                  </div>
+                  <span className="recipe-type">
+                    {recip.diet_types?.join(" | ") || "N/A"}
+                  </span>
+                  <h3>{recip.title}</h3>
+                  <div className="recipe-info">
+                    <p>
+                      <span>⏱️ {recip.prep_time} Min.</span> |{" "}
+                      <span>⭐ {recip.rating}</span> |{" "}
+                      <span>{recip.difficulty || ""}</span>
+                    </p>
+                  </div>
+                </div>
+              ))}
           </main>
         </div>
       </div>
+
       {/* <div className="page-layout">
         <aside className="filter-menu">
           <h2>Filter</h2>

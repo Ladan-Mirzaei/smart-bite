@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { creatUserProfile } from "../controllers/users.js";
+import { creatUserProfile, creatUserAllergene } from "../controllers/users.js";
+import firebaseAuthMiddleware from "../firebaseAuthMiddleware.js";
 
 const router = Router();
-router.post("/", creatUserProfile);
-// router.post("/", creatUserrecepieAllergene);
+router.post("/", firebaseAuthMiddleware, creatUserProfile);
+router.post("/userallergene", firebaseAuthMiddleware, creatUserAllergene);
 
 export default router;

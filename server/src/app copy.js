@@ -7,7 +7,6 @@ import ingredientsRoutes from "./routes/ingredients.js";
 import dietsRoutes from "./routes/diets.js";
 import categoriesRoutes from "./routes/categories.js";
 import allergeneRoutes from "./routes/allergene.js";
-import plannerRoutes from "./routes/planner.js";
 import fileUpload from "express-fileupload";
 // import uploadRoutes from "./routes/uploadImage.js";
 import path from "path";
@@ -16,7 +15,7 @@ import Multer from "multer";
 import bodyParser from "body-parser";
 import { config as dotenvConfig } from "dotenv";
 
-import admin from "firebase-admin";
+import admin from "firebase-admin"; //Firebase-Google
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
@@ -37,7 +36,41 @@ app.use("/ingredients", ingredientsRoutes);
 app.use("/diets", dietsRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/allergene", allergeneRoutes);
-app.use("/planner", plannerRoutes);
+// app.use("/upload", uploadRoutes);
+// app.use("/ingredients", ingredientsRoutes);
+
+// // Configuration
+// cloudinary.config({
+//   cloud_name: "dxneunm1q",
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET,
+// });
+
+// // let url = cloudinary.url("gefuellte-zucchini-aus-dem-ofen_u6glux");
+// // console.log(url);
+// (async function () {
+//   try {
+//     const results = await cloudinary.uploader.upload("./images/keto.png");
+//     console.log(results);
+
+//     const url = cloudinary.url(results.public_id, {
+//       transformation: [
+//         { quality: "auto", fetch_format: "auto" },
+//         {
+//           width: 1200,
+//           height: 1200,
+//           crop: "fill",
+//           gravity: "auto",
+//         },
+//       ],
+//     });
+
+//     console.log("Generated URL:", url);
+//   } catch (error) {
+//     console.error("Error uploading or generating URL:", error);
+//   }
+// })();
+
 dotenvConfig();
 
 const storage = new Multer.memoryStorage();

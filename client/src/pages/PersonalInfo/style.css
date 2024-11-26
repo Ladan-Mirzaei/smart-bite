@@ -55,7 +55,7 @@
   outline: none;
   box-shadow: 0 0 5px rgba(74, 106, 80, 0.3);
 }
-.form-container button {
+/* .form-container button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
@@ -65,7 +65,7 @@
   color: #fff;
   cursor: pointer;
   background-color: #4a6a50;
-}
+} */
 
 .error-message {
   color: red;

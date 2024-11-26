@@ -20,7 +20,6 @@ export function ZutatenForm() {
   const [categoriesData, setCategoriesData] = useState([]);
   let API_URL = import.meta.env.VITE_API_URL;
 
-  // *** Daten für Kategorien und Zutaten laden ***
   useEffect(() => {
     async function loadFetch() {
       const categories = await fetchData(`${API_URL}/categories`);

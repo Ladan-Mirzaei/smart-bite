@@ -1,6 +1,6 @@
 
 
-CREATE TABLE  recepie_diet_type (
+CREATE TABLE  recipe_diet_type (
     id SERIAL PRIMARY KEY,
     name VARCHAR(250) NOT NULL,
     daily_calories INT,
@@ -9,7 +9,7 @@ CREATE TABLE  recepie_diet_type (
     daily_protein FLOAT
 );
 
-INSERT INTO recepie_diet_type (name, daily_calories, daily_fats, daily_carbohydrates, daily_protein) VALUES
+INSERT INTO recipe_diet_type (name, daily_calories, daily_fats, daily_carbohydrates, daily_protein) VALUES
     ('Vegan', 2000, 70, 250, 50),
     ('Vegetarisch', 2200, 80, 270, 60),
     ('Glutenfrei', 2000, 75, 230, 55),

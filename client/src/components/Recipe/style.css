@@ -3,7 +3,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid hsl(0, 0%, 80%);
   border-radius: 8px;
   background-color: #f9f9f9;
 }
@@ -82,4 +82,139 @@
 
 .ingredient-item > *:last-child {
   margin-right: 0;
+}
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ingredient-row select,
+.ingredient-row input {
+  flex: 1;
+}
+
+.ingredient-row button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.ingredient-row button:hover {
+  background-color: #0056b3;
+}
+
+.add-button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background-color: #6da2a3;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 80px;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.form-container textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.ingredients-container {
+  margin-top: 20px;
+}
+
+.ingredients-header {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ingredient-row select,
+.ingredient-row input {
+  flex: 1;
+}
+
+.ingredient-row button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.ingredient-row button:hover {
+  background-color: #0056b3;
+}
+
+.add-button:hover {
+  background-color: #218838;
+}
+
+input[type="file"] {
+  border: none;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .ingredient-row {
+    flex-wrap: wrap;
+  }
+
+  .ingredient-row button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .add-button {
+    font-size: 14px;
+  }
 }

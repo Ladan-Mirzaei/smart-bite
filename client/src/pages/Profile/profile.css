@@ -1,0 +1,111 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-privat {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+  background: #f9f9f9;
+  /* border-radius: 10px; */
+  margin: 0px 0;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.profile-info,
+.profile-userInfo {
+  text-align: center;
+}
+.profile-info img {
+  width: 250px;
+  height: 200px;
+}
+.profile-categories-container {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  height: 80px;
+  width: 100%;
+}
+
+.profile-category {
+  background: #eef2e2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 30%;
+}
+
+.profile-category:first-child {
+  width: 61%;
+}
+
+.profile-category h3 {
+  margin: 0;
+  color: #444;
+  font-size: 16px;
+}
+
+.profile-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.profile-category li {
+  margin: 5px 0;
+  color: #666;
+  text-align: left;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-header span {
+  color: #338383;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.profile-main-content {
+  display: flex;
+  gap: 20px;
+}
+
+.profile-todo-container {
+  flex: 1;
+}
+.profile-recipe-container {
+  padding: 20px;
+  background-color: rgb(212, 211, 211);
+  width: 100%;
+}
+.profile-tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profile-task {
+  flex: 1 1 calc(33.333% - 10px);
+  text-align: center;
+}
+
+.profile-task img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.profile-calendar-container {
+  flex: 1;
+  padding: 0px;
+  background: #fff;
+  border-radius: 0px;
+  margin: 0px;
+}

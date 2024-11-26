@@ -1,9 +1,9 @@
-CREATE TABLE recipe_allergies (
+CREATE TABLE recipe_allergene (
     id SERIAL PRIMARY KEY, 
     name VARCHAR(100) UNIQUE
 );
 
-INSERT INTO recipe_allergies (name)
+INSERT INTO recipe_allergene (name)
 VALUES 
     ('Nachtschattengewächse'),
     ('Milchprodukte'),

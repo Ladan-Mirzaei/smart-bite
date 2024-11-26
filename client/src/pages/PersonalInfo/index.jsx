@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
 import { auth } from "../../firebaseConfig.js";
 import "./style.css";
+
 export default function UserProfile({ goToNextStep }) {
   const [userData, setUserData] = useState("null");
   const { user } = useContext(AuthContext);
@@ -16,13 +17,13 @@ export default function UserProfile({ goToNextStep }) {
         console.error("User not logged in");
         return;
       }
-      const token = await user.getIdToken(); //server-seite
+      const token = await user.getIdToken();
       console.log("token", token);
 
       const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`, //server-seite
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -40,7 +41,6 @@ export default function UserProfile({ goToNextStep }) {
 
       const data = await response.json();
       setUserData(data);
-      console.log("3", userData);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }

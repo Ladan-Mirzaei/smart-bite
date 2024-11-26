@@ -11,7 +11,7 @@ import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
 import Logout from "./components/authentication/Logout.jsx";
 import Profile from "./pages/Profile/index.jsx";
-import RecipeForm from "./components/Recipe/recipeForm.jsx";
+import RecipeForm from "./pages/recipe/index.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
 import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/allergene",
         element: <Allergen />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/recipeForm",

@@ -11,6 +11,7 @@ export default function RandomRecipe() {
     async function loadFetch() {
       const recipe = await fetchData(`${API_URL}/recipes/random`);
       setRecipesData(recipe);
+      console.log("recipe", recipe);
     }
     loadFetch(fetchData);
   }, []);
@@ -20,6 +21,13 @@ export default function RandomRecipe() {
   }
 
   const veganData = recipesData.vegan;
+  // const recipesData = {
+  //   recipe1: "cake",
+  //   recipe2: "Pasta",
+  //   recipe3: "Salad"
+  // };
+  // const recipeKeys = Object.keys(recipesData);
+  // // Output: ['recipe1', 'recipe2', 'recipe3']
   const recipeKeys = Object.keys(recipesData);
   const recipeValue = Object.values(recipesData);
 
@@ -28,7 +36,7 @@ export default function RandomRecipe() {
   return (
     <>
       {Object.values(recipesData).map((item, index) =>
-        item && item.recipe_title ? (
+        item ? (
           <>
             <div className="card">
               <div className="card-icon">
@@ -40,10 +48,7 @@ export default function RandomRecipe() {
               </div>
               <h3> {item.category_name}</h3>
               <h4></h4>
-              <p>
-                Die Keto-Diät ist eine Ernährungsform, die sehr arm an
-                Kohlenhydraten.
-              </p>
+              <p>{item.image}</p>
               <a href="#" className="read-more">
                 Read More
               </a>

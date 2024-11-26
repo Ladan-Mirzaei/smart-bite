@@ -18,7 +18,6 @@ export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
 
   const handleFormChange = (e) => {
     const { id, value } = e.target;
-    console.log("ID:", id, "Value:", value);
 
     setFormData((prevData) => ({ ...prevData, [id]: value }));
     console.log(formData);
