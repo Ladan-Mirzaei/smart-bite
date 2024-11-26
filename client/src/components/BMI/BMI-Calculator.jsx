@@ -16,59 +16,30 @@ export default function Calculator() {
     const { name, value } = event.target;
     setInputValue({
       ...inputValue,
-      [name]: value,
+      [name]: value.slice(0, 3), //die ersre 3 Nummer
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let errors = {};
-    let hasError = false;
 
-    if (!inputValue.alter) {
-      errors.alter = "Alter muss eine Zahl mit maximal 3 Ziffern sein";
-      hasError = true;
-    }
+    const weightInkg = parseFloat(inputValue.weight);
+    const heightInMeter = parseFloat(inputValue.height) / 100;
 
-    if (!inputValue.weight) {
-      errors.weight = "Gewicht darf nicht leer sein";
-      hasError = true;
-    } else if (inputValue.weight) {
-      errors.weight = "Gewicht muss eine Zahl sein";
-      hasError = true;
-    }
+    const bmi = (weightInkg / (heightInMeter * heightInMeter)).toFixed(2);
 
-    if (!inputValue.height) {
-      errors.height = "Größe darf nicht leer sein";
-      hasError = true;
-    } else if (inputValue.height) {
-      errors.height = "Größe muss eine Zahl sein";
-      hasError = true;
-    }
-
-    if (hasError) {
-      setErrorMessage(errors);
-    } else {
-      setErrorMessage({});
-
-      const weightInkg = parseFloat(inputValue.weight);
-      const heightInMeter = parseFloat(inputValue.height) / 100;
-
-      const bmi = (weightInkg / (heightInMeter * heightInMeter)).toFixed(2);
-
-      setBmiResult(bmi);
-      console.log(inputValue.anrede, bmi);
-      if (inputValue.anrede === "m") {
-        if (bmi < 20) setBmiCategory("Untergewicht");
-        else if (bmi < 25) setBmiCategory("Normalgewicht");
-        else if (bmi < 30) setBmiCategory("Übergewicht");
-        else setBmiCategory("Adipositas");
-      } else if (inputValue.anrede === "w") {
-        if (bmi < 19) setBmiCategory("Untergewicht");
-        else if (bmi < 24) setBmiCategory("Normalgewicht");
-        else if (bmi < 29) setBmiCategory("Übergewicht");
-        else setBmiCategory("Adipositas");
-      }
+    setBmiResult(bmi);
+    console.log(inputValue.anrede, bmi);
+    if (inputValue.anrede === "m") {
+      if (bmi < 20) setBmiCategory("Untergewicht");
+      else if (bmi < 25) setBmiCategory("Normalgewicht");
+      else if (bmi < 30) setBmiCategory("Übergewicht");
+      else setBmiCategory("Adipositas");
+    } else if (inputValue.anrede === "w") {
+      if (bmi < 19) setBmiCategory("Untergewicht");
+      else if (bmi < 24) setBmiCategory("Normalgewicht");
+      else if (bmi < 29) setBmiCategory("Übergewicht");
+      else setBmiCategory("Adipositas");
     }
   };
 
@@ -81,6 +52,7 @@ export default function Calculator() {
             <div className="gender-container">
               <label htmlFor="anrede">Geschlecht: </label>
               <input
+                required
                 type="radio"
                 name="anrede"
                 value="w"
@@ -88,6 +60,7 @@ export default function Calculator() {
               />
               weiblich
               <input
+                required
                 type="radio"
                 name="anrede"
                 value="m"
@@ -98,10 +71,10 @@ export default function Calculator() {
             <div className="input-container">
               <label htmlFor="alter">Alter: </label>
               <input
-                type="text"
+                type="number"
+                required
                 name="alter"
                 value={inputValue.alter}
-                maxLength="3"
                 onChange={handleInputChange}
                 style={{
                   border: errorMessage.alter ? "1px solid red" : "",
@@ -109,14 +82,14 @@ export default function Calculator() {
               />
               {errorMessage.alter && <p>{errorMessage.alter}</p>}
             </div>
+
             <div className="input-container">
               <label htmlFor="weight">Gewicht(in kg): </label>
               <input
-                type="text"
+                type="number"
+                required
                 name="weight"
                 value={inputValue.weight}
-                min="2"
-                maxLength="3"
                 onChange={handleInputChange}
                 style={{
                   border: errorMessage.weight ? "1px solid red" : "",
@@ -128,10 +101,9 @@ export default function Calculator() {
               <label htmlFor="height">Größe(in cm): </label>
               <input
                 type="number"
+                required
                 name="height"
-                min="2"
                 value={inputValue.height}
-                maxLength="3"
                 onChange={handleInputChange}
                 style={{
                   border: errorMessage.height ? "1px solid red" : "",

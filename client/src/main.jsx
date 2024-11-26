@@ -17,6 +17,7 @@ import { AuthProvider } from "./context/AuthContext";
 import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
 import Upload from "./pages/Image/index.jsx";
 import Select from "./components/Recipe/selectIngredients.jsx";
+import BMI from "./components/BMI/BMI-Calculator.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Allergen />,
       },
       {
+        path: "/BMI",
+        element: <BMI />,
+      },
+      {
         path: "/profile",
         element: <Profile />,
       },
@@ -39,7 +44,7 @@ const router = createBrowserRouter([
         element: <RecipeForm />,
       },
       {
-        path: "/recipeDetails",
+        path: "/recipeDetails/:id",
         element: <RecipeDetails />,
       },
       {
@@ -50,26 +55,26 @@ const router = createBrowserRouter([
         path: "/Upload",
         element: <Upload />,
       },
-      {
-        path: "/recipe",
-        element: (
-          <RequireAuth>
-            <Recipe />
-          </RequireAuth>
-        ),
-      },
+      // {
+      //   path: "/recipe",
+      //   element: (
+      //     <RequireAuth>
+      //       <Recipe />
+      //     </RequireAuth>
+      //   ),
+      // },
       {
         path: "/recipeAll",
         element: <RecipeAll />,
       },
-      {
-        path: "/profile",
-        element: (
-          <RequireAuth>
-            <Profile />
-          </RequireAuth>
-        ),
-      },
+      // {
+      //   path: "/profile",
+      //   element: (
+      //     <RequireAuth>
+      //       <Profile />
+      //     </RequireAuth>
+      //   ),
+      // },
       // {
       //   path: "/recipe",
       //   element: (

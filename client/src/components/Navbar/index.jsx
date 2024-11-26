@@ -12,16 +12,16 @@ export default function Navbar() {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
+          <li>
+            <NavLink to="/recipeAll">Rezepte</NavLink>
+          </li>
+          <li>
+            <NavLink to="/BMI">BMI</NavLink>
+          </li>
           {user ? (
             <>
               <li>
-                <NavLink to="/recipe">Rezepte</NavLink>
-              </li>
-              <li>
-                <NavLink to="/recipe">BMI</NavLink>
-              </li>
-              <li>
-                <NavLink to="/recipe">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </li>
               <li>
                 <button onClick={signOut}>Logout</button>

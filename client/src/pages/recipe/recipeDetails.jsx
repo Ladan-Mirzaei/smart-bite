@@ -3,17 +3,20 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
+import { useParams } from "react-router-dom";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const RecipeDetails = () => {
+  const { id } = useParams();
   const { fetchData } = useFetch();
   const [fetchRezeptData, setFetchRezeptData] = useState({
     ingredient_details: [],
   });
   const [totalNutrients, setTotalNutrients] = useState({});
 
-  const recipeId = 1;
+  // const recipeId = 1;
+  console.log("id");
   const contentRef = useRef(null);
   // console.log(contentRef);
   const handlePrint = useReactToPrint({
@@ -21,7 +24,7 @@ const RecipeDetails = () => {
   });
   useEffect(() => {
     async function loadFetch() {
-      const data = await fetchData(`${API_URL}/recipes/${recipeId}`);
+      const data = await fetchData(`${API_URL}/recipes/${id}`);
 
       setFetchRezeptData(data);
 
