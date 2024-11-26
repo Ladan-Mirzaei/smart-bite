@@ -6,7 +6,7 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="navbar-brand">RECIPES</div>
+      <div className="navbar-brand">SMARTBITE</div>
       <nav>
         <ul className="navbar-links">
           <li>
@@ -15,7 +15,13 @@ export default function Navbar() {
           {user ? (
             <>
               <li>
-                <NavLink to="/recipe">Recipe</NavLink>
+                <NavLink to="/recipe">Rezepte</NavLink>
+              </li>
+              <li>
+                <NavLink to="/recipe">BMI</NavLink>
+              </li>
+              <li>
+                <NavLink to="/recipe">Profile</NavLink>
               </li>
               <li>
                 <button onClick={signOut}>Logout</button>

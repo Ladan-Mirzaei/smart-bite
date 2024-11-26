@@ -29,6 +29,7 @@ export async function recipeFilter(req, res) {
         "recipe.title AS title",
         "recipe.cooking_time AS cooking_time",
         "recipe.difficulty_level AS difficulty_level",
+        "recipe_ingredient.name AS ingredients",
         "recipe_categories.name AS category_name",
         db.raw("ARRAY_AGG(DISTINCT recipe_diet_type.name) AS diet_types"),
         "recipe.image AS image"
@@ -60,14 +61,15 @@ export async function recipeFilter(req, res) {
         "recipe.cooking_time",
         "recipe.difficulty_level",
         "recipe.image",
-        "recipe_categories.name"
+        "recipe_categories.name",
+        "recipe_ingredient.name"
       );
     console.log("recipes", recipes);
     if (diet_type_id.length > 0) {
       console.log("diet_type_id", diet_type_id);
       recipes = recipes.whereIn("recipe_diet.diet_type_id", diet_type_id);
     }
-    if (ingredient_id) {
+    if (ingredient_id.length > 0) {
       recipes = recipes.whereIn(
         "recipe_ingredient_details.ingredient_id",
         ingredient_id

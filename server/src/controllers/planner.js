@@ -6,7 +6,7 @@ import db from "../util/db-connect.js";
  */
 export async function creatEvents(req, res) {
   const { uid, recipe_id, recipe_title, date, link } = req.body;
-  console.log(req.body);
+  console.log("body", req.body);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();

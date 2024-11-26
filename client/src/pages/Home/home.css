@@ -16,17 +16,21 @@
   text-align: center;
   padding: 4rem 2rem;
   background-color: #f5f5f1;
+  color: #f4f4f4;
+  background-image: url("https://res.cloudinary.com/dxneunm1q/image/upload/v1731954356/cld-sample-4.jpg");
 }
 
 .hero h1 {
-  font-size: 3rem;
-  color: #333;
-  margin-bottom: 1rem;
+  color: #ffffff;
+  background-color: #3d3b3b;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
 }
 
 .hero p {
   font-size: 1.2rem;
-  color: #666;
+  color: #e2dddd;
   margin-bottom: 2rem;
 }
 
@@ -62,6 +66,7 @@
 .subscription-form {
   display: flex;
   gap: 1rem;
+  color: #333;
 }
 
 .input-name,

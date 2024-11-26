@@ -2,14 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { AuthContext } from "../../context/AuthContext";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment-timezone";
 import { Link } from "react-router-dom";
 const localizer = momentLocalizer(moment);
-
 moment.tz.setDefault("Europe/Berlin");
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 const RecipePlanner = ({ name, link, recipe_id }) => {
@@ -17,59 +14,57 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useContext(AuthContext);
 
-  const planRecipe = async () => {
-    if (selectedDate) {
-      // const newDate = moment(selectedDate).format("DD.MM.YYYY");
+  useEffect(() => {
+    const saveEventToServer = async (newEvent) => {
+      try {
+        const token = await user.getIdToken();
 
-      const newEvent = {
-        uid: user.uid,
-        recipe_title: name,
-        date: selectedDate,
-        recipe_id: recipe_id,
-        link: link,
-      };
+        await fetch(`${API_URL}/planner`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
 
-      await saveEventToServer(newEvent);
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newEvent),
+        });
+      } catch (error) {
+        console.error("Fehler beim Speichern des Events:", error);
+      }
+    };
 
-      setEvents((prevEvents) => [
-        ...prevEvents,
-        { ...newEvent, date: selectedDate },
-      ]);
-      setSelectedDate(null);
-    }
-  };
-  const saveEventToServer = async (newEvent) => {
-    try {
-      const token = await user.getIdToken();
+    const planRecipe = async () => {
+      if (selectedDate) {
+        const newEvent = {
+          uid: user.uid,
+          recipe_title: name,
+          date: moment(selectedDate).format("YYYY-MM-DD"),
+          recipe_id: recipe_id,
+          link: link,
+        };
 
-      await fetch(`${API_URL}/planner`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
+        await saveEventToServer(newEvent);
 
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newEvent),
-      });
-      console.log("Event gespeichert:", newEvent);
-    } catch (error) {
-      console.error("Fehler beim Speichern des Events:", error);
-    }
-  };
+        setEvents((prevEvents) => [
+          ...prevEvents,
+          { ...newEvent, date: selectedDate },
+        ]);
+        setSelectedDate(null);
+      }
+    };
+    planRecipe();
+  }, [selectedDate]);
 
   useEffect(() => {
     async function fetchEvents() {
       try {
         const response = await fetch(`${API_URL}/planner`);
         const savedEvents = await response.json();
-        // setEvents(savedEvents);
         const mappedEvents = savedEvents.map((event) => ({
           ...event,
-          date: new Date(event.date),
+          date: moment(event.date),
           title: event.recipe_title,
         }));
-        console.log("date22", mappedEvents);
-
         setEvents(mappedEvents);
       } catch (error) {
         console.error("Fehler beim Abrufen der Events:", error);
@@ -77,21 +72,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
     }
 
     fetchEvents();
-  }, []);
-
-  console.log("events-get", events);
-  const handleDateSelect = (slotInfo) => {
-    console.log("slotInfo", slotInfo);
-    setSelectedDate(slotInfo.start);
-  };
-  const handleEventClick = (event) => {
-    console.log("event", event);
-    if (event.link) {
-      window.open(event.link, "_blank");
-    } else {
-      alert(`Rezept: ${event.title}`);
-    }
-  };
+  }, [selectedDate]);
 
   return (
     <div className="p-4">
@@ -111,9 +92,9 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
           selectable
           views={["month"]}
           defaultView="month"
-          onSelectSlot={handleDateSelect}
-          onSelectEvent={handleEventClick}
-          eventPropGetter={(event) => ({
+          onSelectSlot={(slotInfo) => setSelectedDate(slotInfo.start)}
+          onSelectEvent={() => window.open(link, "_blank")}
+          eventPropGetter={() => ({
             style: {
               height: "20px",
               fontSize: "0.6em",
@@ -128,15 +109,14 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
         />
       </div>
 
-      {/* Button zum Speichern des Rezepts */}
       {selectedDate && recipe_id && (
         <div className="flex justify-center mt-4">
-          <button
+          {/* <button
             className="bg-blue-600 text-white px-4 py-2 rounded"
-            onClick={planRecipe}
+            onClick={}
           >
             {name} für den {moment(selectedDate).format("DD.MM.YYYY")} planen
-          </button>
+          </button> */}
         </div>
       )}
     </div>

@@ -19,7 +19,7 @@ export default function SelectMulti({ setDataArray, route }) {
     }
 
     loadData();
-  }, [fetchData]);
+  }, []);
 
   const handelAllChange = (event) => {
     const dataIds = event.map((item) => item.value);

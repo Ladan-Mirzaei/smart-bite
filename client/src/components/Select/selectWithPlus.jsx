@@ -18,8 +18,12 @@ export default function SelectWithPlus({
   useEffect(() => {
     async function loadData() {
       const data = await fetchData(`${API_URL}/${route}`, "GET");
+      console.log("data", data);
+      console.log("data", route);
+
       if (Array.isArray(data)) {
         setFetchSelectData(data);
+        console.log(setFetchSelectData);
       } else {
         console.error("Unexpected data format", data);
         setFetchSelectData([]);

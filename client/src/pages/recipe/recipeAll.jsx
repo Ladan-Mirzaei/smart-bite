@@ -1,31 +1,71 @@
 import { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import "./recipeAll.css";
+import { useLocation } from "react-router-dom";
+import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
+import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
+
 export default function Recipe() {
   const { fetchData } = useFetch();
   const [recipesData, setRecipesData] = useState({});
-
+  const location = useLocation();
   const API_URL = import.meta.env.VITE_API_URL;
+  const [ingredientsData, setIngredientsData] = useState([{ ingredient: "" }]);
+  const [allergenData, setAllergenData] = useState([{ ingredient: "" }]);
+  const [categoriesData, setCategoriesData] = useState(null);
+  const [dietData, setDietData] = useState([{ ingredient: "" }]);
+  // useEffect(() => {
+  //   async function loadFetch() {
+  //     const response = await fetchData(`${API_URL}/recipes`);
+  //     setRecipesData(response);
+  //   }
+  //   loadFetch();
+  // }, []);
 
   useEffect(() => {
-    async function loadFetch() {
-      const response = await fetchData(`${API_URL}/recipes`);
-      setRecipesData(response);
-    }
-    loadFetch();
-  }, []);
-  console.log("recipesData", recipesData);
+    const finalData = location.state || {};
 
+    // const dietData = [1];
+    // const ingredientsData = [2];
+    const handleSubmit = async () => {
+      // const finalData = {
+      //   diet_type_id: dietData || null,
+      //   ingredient_id: ingredientsData || null,
+      // };
+      console.log("finalData", finalData);
+
+      try {
+        const response = await fetch(`${API_URL}/recipes/recipeFilter`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        });
+        console.log("response", finalData);
+        if (!response.ok) {
+          console.error("Data fetching error");
+        }
+        const data = await response.json();
+        setRecipesData(data);
+        console.log(data, recipesData);
+        console.log("Server Response:", data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleSubmit();
+  }, []);
   return (
     <>
       <div className="page-layout">
         <div className="left-side">
           <h2>Filter</h2>
           <div className="filter-group">
-            <h3>Categories</h3>
+            <h3>Rezepte nach Zutat</h3>
             <ul>
               <li>
-                <input type="checkbox" id="category1" />{" "}
+                {/* <input type="checkbox" id="category1" />{" "}
                 <label htmlFor="category1">Vegan</label>
               </li>
               <li>
@@ -34,38 +74,68 @@ export default function Recipe() {
               </li>
               <li>
                 <input type="checkbox" id="category3" />{" "}
-                <label htmlFor="category3">Keto</label>
+                <label htmlFor="category3">Keto</label> */}
+
+                <SelectWithPlus
+                  dataArray={ingredientsData}
+                  setDataArray={setIngredientsData}
+                  route="ingredients"
+                  placeholder="a"
+                />
               </li>
             </ul>
           </div>
           <div className="filter-group">
-            <h3>Diet Type</h3>
+            <h3>Ernährungsform</h3>
             <ul>
-              <li>
-                <input type="checkbox" id="diet1" />{" "}
-                <label htmlFor="diet1">Low Carb</label>
-              </li>
-              <li>
-                <input type="checkbox" id="diet2" />{" "}
-                <label htmlFor="diet2">High Protein</label>
-              </li>
+              <SelectWithPlus
+                dataArray={dietData}
+                setDataArray={setDietData}
+                route="diets"
+                placeholder="a"
+              />
             </ul>
           </div>
           <div className="filter-group">
-            <h3>Difficulty</h3>
+            <h3>Regionale Rezepte</h3>
+
+            <ul>
+              <ZutatenForm
+                dataArray={categoriesData}
+                setDataArray={setCategoriesData}
+                route="categories"
+                hasIngredients={false}
+              />
+            </ul>
+          </div>
+
+          <div className="filter-group">
+            <h3>Aufwand</h3>
             <ul>
               <li>
                 <input type="radio" name="difficulty" id="easy" />{" "}
-                <label htmlFor="easy">Easy</label>
+                <label htmlFor="easy">Einfach</label>
               </li>
               <li>
                 <input type="radio" name="difficulty" id="medium" />{" "}
-                <label htmlFor="medium">Medium</label>
+                <label htmlFor="medium">Mittel</label>
               </li>
               <li>
                 <input type="radio" name="difficulty" id="hard" />{" "}
-                <label htmlFor="hard">Hard</label>
+                <label htmlFor="hard">Schwer</label>
               </li>
+            </ul>
+          </div>
+          <div className="filter-group">
+            <h3>Allergieneigung</h3>
+
+            <ul>
+              <SelectWithPlus
+                dataArray={allergenData}
+                setDataArray={setAllergenData}
+                route="allergene"
+                placeholder="Allergie auswählen"
+              />
             </ul>
           </div>
           <button className="filter-button">Apply Filters</button>
@@ -79,7 +149,16 @@ export default function Recipe() {
                     <img src={recip.image} alt={recip.title || "Rezeptbild"} />
                   </div>
                   <span className="recipe-type">
-                    {recip.diet_types?.join(" | ") || "N/A"}
+                    {/* const fruits = ["Apple", "Banana", "Cherry"];
+                  console.log(fruits.join(" | ")); // Output: "Apple | Banana | Cherry" */}
+                    {/* const urlSegments = ["https:", "", "www.example.com", "products"];
+                  console.log(urlSegments.join("/")); // Output: "https://www.example.com/products" */}
+                    {Array.isArray(recip.idiet_types)
+                      ? recip.diet_types.join(" | ") || "N/A"
+                      : null}
+                    {Array.isArray(recip.ingredients)
+                      ? recip.ingredients.join(" | ") || "N/A"
+                      : null}
                   </span>
                   <h3>{recip.title}</h3>
                   <div className="recipe-info">

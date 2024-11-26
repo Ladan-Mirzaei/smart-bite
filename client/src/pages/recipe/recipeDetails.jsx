@@ -22,16 +22,13 @@ const RecipeDetails = () => {
   useEffect(() => {
     async function loadFetch() {
       const data = await fetchData(`${API_URL}/recipes/${recipeId}`);
-      console.log("API Response:", data);
 
       setFetchRezeptData(data);
-      console.log("data:", data);
 
       const totals = calculateRecipeNutrients(
         data.ingredient_details,
         data.portions
       );
-      console.log("Nutritional Totals:", totals);
       setTotalNutrients(totals);
     }
     loadFetch();
@@ -39,7 +36,6 @@ const RecipeDetails = () => {
   if (!fetchRezeptData) {
     return <div>Lade Rezeptdaten...</div>;
   }
-  console.log("API Response2:", fetchRezeptData);
 
   function calculateRecipeNutrients(ingredients, portions) {
     const totalNutrients = {
@@ -53,7 +49,6 @@ const RecipeDetails = () => {
     }
     ingredients.forEach((ing) => {
       let factor = 0;
-      console.log("ee", portions);
 
       if (ing.unit === "kg") {
         factor = (ing.quantity * 1000) / 100;
@@ -72,7 +67,6 @@ const RecipeDetails = () => {
       totalNutrients.fats += (factor * ing.fats) / portions;
       totalNutrients.protein += (factor * ing.protein) / portions;
     });
-    console.log(totalNutrients);
     return totalNutrients;
   }
 
