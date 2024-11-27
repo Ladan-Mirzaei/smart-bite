@@ -5,6 +5,8 @@ import SelectMulti from "../../components/Select/selectMulti.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
+import QRCode from "react-qr-code";
+
 export default function Home() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [ingredientsData, setIngredientsData] = useState([]);
@@ -40,6 +42,13 @@ export default function Home() {
   };
   return (
     <div className="home-content">
+      <QRCode
+        size={256}
+        style={{ height: "auto", maxWidth: "100%" }}
+        value={"some data, a link or whatever"}
+        viewBox={`0 0 256 256`}
+      />
+
       <section className="hero">
         <h1>Gesund essen mit Genuss</h1>
         <p>
