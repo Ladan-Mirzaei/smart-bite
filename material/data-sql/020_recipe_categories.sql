@@ -1,17 +1,11 @@
--- DROP TABLE IF EXISTS recipe_diet;
--- DROP TABLE IF EXISTS recipe;
--- DROP TABLE IF EXISTS recipe_diet_type;
--- DROP TABLE IF EXISTS recipe_categories;
+
+DROP TABLE IF EXISTS recipe_categories CASCADE;
 
 
 CREATE TABLE recipe_categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(250) UNIQUE
 );
-
-
-
-
 
 INSERT INTO recipe_categories (name) VALUES
    ('Mexikanisch'),
