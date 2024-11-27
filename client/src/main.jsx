@@ -18,6 +18,8 @@ import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
 import Upload from "./pages/Image/index.jsx";
 import Select from "./components/Recipe/selectIngredients.jsx";
 import BMI from "./components/BMI/BMI-Calculator.jsx";
+import Scanner from "./pages/Scanner/index.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -95,6 +97,7 @@ const router = createBrowserRouter([
         path: "logout",
         element: <Logout />,
       },
+      { path: "scanner", element: <Scanner /> },
     ],
   },
 ]);
