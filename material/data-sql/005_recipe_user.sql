@@ -1,6 +1,5 @@
 
 
-DROP TABLE IF EXISTS recipe_user CASCADE;
 
 CREATE TABLE recipe_user (
     id SERIAL PRIMARY KEY,

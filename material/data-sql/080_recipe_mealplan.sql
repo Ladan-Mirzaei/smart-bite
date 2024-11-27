@@ -1,6 +1,5 @@
 
 
-DROP TABLE IF EXISTS recipe_mealplan CASCADE;
 
 CREATE TABLE recipe_mealplan (
     id SERIAL PRIMARY KEY,

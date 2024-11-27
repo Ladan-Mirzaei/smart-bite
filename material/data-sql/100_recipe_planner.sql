@@ -1,4 +1,3 @@
- DROP TABLE IF EXISTS recipe_planner CASCADE;
  
  CREATE TABLE recipe_planner (
     planner_id SERIAL PRIMARY KEY,       

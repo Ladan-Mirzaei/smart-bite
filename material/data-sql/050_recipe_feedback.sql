@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS recipe_feedback CASCADE;
 
 CREATE TABLE recipe_feedback (
    id SERIAL PRIMARY KEY,

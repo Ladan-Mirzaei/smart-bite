@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS recipe_diet_type CASCADE;
 
 CREATE TABLE  recipe_diet_type (
     id SERIAL PRIMARY KEY,

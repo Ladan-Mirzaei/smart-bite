@@ -1,5 +1,4 @@
 
-DROP TABLE IF EXISTS recipe_categories CASCADE;
 
 
 CREATE TABLE recipe_categories (

@@ -1,4 +1,3 @@
- DROP TABLE IF EXISTS recipe_user_categories CASCADE;
 
 CREATE TABLE recipe_user_categories (
     user_id INT REFERENCES recipe_user(id),

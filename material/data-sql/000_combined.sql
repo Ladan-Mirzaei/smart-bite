@@ -1,6 +1,21 @@
 
-
+DROP TABLE IF EXISTS recipe_planner CASCADE;
+DROP TABLE IF EXISTS recipe_mealplan CASCADE;
+DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;
+DROP TABLE IF EXISTS recipe_feedback CASCADE;
+DROP TABLE IF EXISTS recipe_diet CASCADE;
+DROP TABLE IF EXISTS recipe_categories CASCADE;
+DROP TABLE IF EXISTS recipe_allergene CASCADE; 
+DROP TABLE IF EXISTS recipe_diet_type CASCADE;
+DROP TABLE IF EXISTS recipe_ingredient CASCADE;
+DROP TABLE IF EXISTS recipe CASCADE;
+DROP TABLE IF EXISTS recipe_user_ingredient_allergene CASCADE;
+DROP TABLE IF EXISTS recipe_user_diet_type CASCADE;
+DROP TABLE IF EXISTS recipe_user_categories CASCADE;
+DROP TABLE IF EXISTS recipe_user_allergene CASCADE;
 DROP TABLE IF EXISTS recipe_user CASCADE;
+
+
 
 CREATE TABLE recipe_user (
     id SERIAL PRIMARY KEY,
@@ -16,7 +31,6 @@ INSERT INTO recipe_user (uid, date_of_birth, gender, weight, height, activity_le
     ('user1', '1990-01-01', 'männlich', 70, 180, 'mittel'),
     ('user2', '1985-05-15', 'weiblich', 60, 165, 'hoch'),
     ('user3', '1995-08-20', 'divers', 75, 175, 'niedrig');
-DROP TABLE IF EXISTS recipe_allergene CASCADE;
 
 CREATE TABLE recipe_allergene (
     id SERIAL PRIMARY KEY, 
@@ -33,7 +47,6 @@ VALUES
     ('Gluten'),
     ('Hülsenfrüchte');
 
-DROP TABLE IF EXISTS recipe_categories CASCADE;
 
 
 CREATE TABLE recipe_categories (
@@ -72,7 +85,6 @@ INSERT INTO recipe_categories (name) VALUES
     ('Schwedisch'),
     ('Malaysisch'),
     ('Ungarisch');
-DROP TABLE IF EXISTS recipe CASCADE;
 
 CREATE TABLE recipe (
     id SERIAL PRIMARY KEY,
@@ -87,7 +99,6 @@ CREATE TABLE recipe (
     instructions TEXT,
     created_at DATE
 );
-DROP TABLE IF EXISTS recipe_diet_type CASCADE;
 
 CREATE TABLE  recipe_diet_type (
     id SERIAL PRIMARY KEY,
@@ -109,14 +120,12 @@ INSERT INTO recipe_diet_type (name, daily_calories, daily_fats, daily_carbohydra
     ('dairy-free', 2000, 70, 250, 50),
     ('Fleisch', 2200, 90, 260, 70),
     ('Fisch', 2100, 85, 240, 65);
-DROP TABLE IF EXISTS recipe_diet CASCADE;
 
 CREATE TABLE recipe_diet (
     recipe_id INT REFERENCES recipe(id) ,
     diet_type_id INT REFERENCES recipe_diet_type(id) ,
     PRIMARY KEY (recipe_id, diet_type_id)
 );
-DROP TABLE IF EXISTS recipe_feedback CASCADE;
 
 CREATE TABLE recipe_feedback (
    id SERIAL PRIMARY KEY,
@@ -126,7 +135,6 @@ CREATE TABLE recipe_feedback (
    comments TEXT,
    date Date  
 );
-DROP TABLE IF EXISTS recipe_ingredient CASCADE;
 
 CREATE TABLE recipe_ingredient (
     id SERIAL PRIMARY KEY,
@@ -268,7 +276,6 @@ INSERT INTO recipe_ingredient (name, calories, protein, carbohydrates, fats, all
     ('Reismilch', 47, 0.3, 10.0, 1.0, NULL),
     ('Sesam', 573, 17.0, 23.0, 49.7, 'Nüsse'),
         ('Senf', 66, 4.4, 5.8, 3.6, 'Hülsenfrüchte');
-DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;
 
 CREATE TABLE recipe_ingredient_details (
     id SERIAL PRIMARY KEY,
@@ -278,7 +285,6 @@ CREATE TABLE recipe_ingredient_details (
     unit VARCHAR(100));
 
 
-DROP TABLE IF EXISTS recipe_mealplan CASCADE;
 
 CREATE TABLE recipe_mealplan (
     id SERIAL PRIMARY KEY,
@@ -308,7 +314,6 @@ CREATE TABLE recipe_mealplan (
 -- (2, 1800, 40, 200, 60),
 -- (3, 2200, 80, 180, 90),
 -- (4, 1900, 60, 210, 75);
- DROP TABLE IF EXISTS recipe_planner CASCADE;
  
  CREATE TABLE recipe_planner (
     planner_id SERIAL PRIMARY KEY,       
@@ -318,7 +323,6 @@ CREATE TABLE recipe_mealplan (
     date DATE NOT NULL,                  
     link TEXT                            
 );
- DROP TABLE IF EXISTS recipe_user_allergene CASCADE;
  
  CREATE TABLE recipe_user_allergene (
     
@@ -327,7 +331,6 @@ CREATE TABLE recipe_mealplan (
 ,
     PRIMARY KEY (user_id, allergene_id)
 );
- DROP TABLE IF EXISTS recipe_user_categories CASCADE;
 
 CREATE TABLE recipe_user_categories (
     user_id INT REFERENCES recipe_user(id),
@@ -345,14 +348,12 @@ CREATE TABLE recipe_user_categories (
 --     carbs_goal FLOAT,
 --     fats_goal FLOAT
 -- );
-DROP TABLE IF EXISTS recipe_user_diet_type CASCADE;
 
 CREATE TABLE recipe_user_diet_type (
     user_id INT REFERENCES recipe_user(id),
     diet_type_id INT REFERENCES recipe_diet_type(id),
     PRIMARY KEY (user_id, diet_type_id)
 );
-DROP TABLE IF EXISTS recipe_user_ingredient_allergene CASCADE;
 
 CREATE TABLE recipe_user_ingredient_allergene  (
     user_id INT REFERENCES recipe_user(id),

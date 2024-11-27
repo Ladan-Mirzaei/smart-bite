@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS recipe_allergene CASCADE;
 
 CREATE TABLE recipe_allergene (
     id SERIAL PRIMARY KEY, 

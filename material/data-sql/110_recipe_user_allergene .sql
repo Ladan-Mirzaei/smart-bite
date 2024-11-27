@@ -1,4 +1,3 @@
- DROP TABLE IF EXISTS recipe_user_allergene CASCADE;
  
  CREATE TABLE recipe_user_allergene (
     
