@@ -126,14 +126,6 @@ CREATE TABLE recipe_feedback (
    comments TEXT,
    date Date  
 );
-DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;
-
-CREATE TABLE recipe_ingredient_details (
-    id SERIAL PRIMARY KEY,
-    recipe_id INT REFERENCES recipe(id), 
-    ingredient_id INT REFERENCES recipe_ingredient(id), 
-    quantity FLOAT,
-    unit VARCHAR(100));
 DROP TABLE IF EXISTS recipe_ingredient CASCADE;
 
 CREATE TABLE recipe_ingredient (
@@ -276,6 +268,14 @@ INSERT INTO recipe_ingredient (name, calories, protein, carbohydrates, fats, all
     ('Reismilch', 47, 0.3, 10.0, 1.0, NULL),
     ('Sesam', 573, 17.0, 23.0, 49.7, 'Nüsse'),
         ('Senf', 66, 4.4, 5.8, 3.6, 'Hülsenfrüchte');
+DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;
+
+CREATE TABLE recipe_ingredient_details (
+    id SERIAL PRIMARY KEY,
+    recipe_id INT REFERENCES recipe(id), 
+    ingredient_id INT REFERENCES recipe_ingredient(id), 
+    quantity FLOAT,
+    unit VARCHAR(100));
 
 
 DROP TABLE IF EXISTS recipe_mealplan CASCADE;
