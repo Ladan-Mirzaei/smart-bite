@@ -21,9 +21,9 @@ import db from "../util/db-connect.js";
  */
 export async function recipeFilter(req, res) {
   const { diet_type_id, ingredient_id } = req.body;
-  console.log("req.body", req.body);
+
   try {
-    let recipes = db("recipe")
+    let recipesQuery = db("recipe")
       .select(
         "recipe.id AS id",
         "recipe.title AS title",
@@ -64,24 +64,30 @@ export async function recipeFilter(req, res) {
         "recipe_categories.name",
         "recipe_ingredient.name"
       );
-    console.log("recipes", recipes);
-    if (diet_type_id.length > 0) {
-      console.log("diet_type_id", diet_type_id);
-      recipes = recipes.whereIn("recipe_diet.diet_type_id", diet_type_id);
-    }
-    if (ingredient_id.length > 0) {
-      recipes = recipes.whereIn(
+
+    if (diet_type_id.length > 0 && ingredient_id.length > 0) {
+      recipesQuery = recipesQuery
+        .whereIn("recipe_diet.diet_type_id", diet_type_id)
+        .whereIn("recipe_ingredient_details.ingredient_id", ingredient_id);
+    } else if (diet_type_id.length > 0) {
+      recipesQuery = recipesQuery.whereIn(
+        "recipe_diet.diet_type_id",
+        diet_type_id
+      );
+    } else if (ingredient_id.length > 0) {
+      recipesQuery = recipesQuery.whereIn(
         "recipe_ingredient_details.ingredient_id",
         ingredient_id
       );
     }
-    recipes = await recipes;
 
-    if (!recipes) {
+    let result = await recipesQuery;
+
+    if (!result) {
       return res.status(404).json({ message: "No recipes found" });
     }
 
-    return res.status(200).json(recipes);
+    return res.status(200).json(result);
   } catch (error) {
     console.error("Error fetching Recipes:", error);
     return res.status(500).json({ message: "Internal server error" });
