@@ -40,6 +40,15 @@ export default function Recipe() {
       console.log("formDataddddd", formData);
 
       finalData = formData;
+
+      if (finalData.diet_type_id[0] == null) {
+        finalData.diet_type_id = [];
+      }
+
+      if (finalData.ingredient_id[0] == null) {
+        finalData.ingredient_id = [];
+      }
+      console.log("finalData", finalData);
     }
     console.log("FinalData:", finalData);
 
