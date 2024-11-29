@@ -1,7 +1,7 @@
 import db from "../util/db-connect.js";
 import admin from "firebase-admin";
 /**
- * @api POST /users
+ * @api POST /users/profile
  * {uid, gender, date_of_birth, weight, height, activity_level }
  *
  */
@@ -89,7 +89,11 @@ export async function userProfile(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-
+/**
+ * @api POST /users
+ * {uid, gender, date_of_birth, weight, height, activity_level }
+ *
+ */
 export async function creatUserProfile(req, res) {
   console.log(req.body);
 
@@ -120,7 +124,7 @@ export async function creatUserProfile(req, res) {
   }
 }
 /**
- * @api POST /userallergene
+ * @api POST /users/userallergene
  * {uid, category_id, diet_type_id, ingredient_id, allergene_id }
  *
  */
@@ -191,7 +195,8 @@ export async function creatUserAllergene(req, res) {
 }
 
 /**
- * @api POST /userrecipes
+ * @api POST /users/userrecipes
+ *{uid}
  */
 export async function getAllUsersRecipes(req, res) {
   const { uid } = req.body;
@@ -243,6 +248,31 @@ export async function getAllUsersRecipes(req, res) {
     }
 
     return res.status(200).json(recipes);
+  } catch (error) {
+    console.error("Error fetching Recipes:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+/**
+ * @api POST /userrecipes
+ *{uid ,id}
+ */
+
+export async function userRecipeSammlung(req, res) {
+  const { id, uid } = req.body;
+  console.log("uid,id", uid, id);
+  try {
+    const user = await db("recipe_user").select("id").where({ uid }).first();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user_id = user.id;
+    const sammlungRecipe = await db("recipe_user_sammlung").insert({
+      recipe_id: id,
+      user_id: user_id,
+    });
+    return res.status(200).json(sammlungRecipe);
   } catch (error) {
     console.error("Error fetching Recipes:", error);
     res.status(500).json({ message: "Internal server error" });

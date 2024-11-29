@@ -139,7 +139,7 @@ export default function Profile() {
       <div className="profile-main-content">
         <div className="profile-todo-container">
           <div className="profile-recipe-container">
-            Was koche ich heute! Rezepz hinzufügen ------ Meine Sammlungen
+            Meine Rezepte! All Rezepte
           </div>{" "}
           <div className="profile-gallery">
             {Array.isArray(userRecipe) &&

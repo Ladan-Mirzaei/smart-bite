@@ -123,6 +123,7 @@ export default function Recipe({ onFormSubmit }) {
         </button>
         <span>Für {formData.portions} Portionen</span>
         <button
+          type="button"
           onClick={() =>
             setFormData((prev) => ({ ...prev, portions: prev.portions + 1 }))
           }

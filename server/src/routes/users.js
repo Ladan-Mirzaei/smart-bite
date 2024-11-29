@@ -4,6 +4,7 @@ import {
   creatUserAllergene,
   userProfile,
   getAllUsersRecipes,
+  userRecipeSammlung,
 } from "../controllers/users.js";
 import firebaseAuthMiddleware from "../firebaseAuthMiddleware.js";
 
@@ -12,5 +13,6 @@ router.post("/", firebaseAuthMiddleware, creatUserProfile);
 router.post("/userallergene", firebaseAuthMiddleware, creatUserAllergene);
 router.post("/profile", userProfile);
 router.post("/recipe", getAllUsersRecipes);
+router.post("/sammlung", userRecipeSammlung);
 
 export default router;

@@ -1,9 +1,11 @@
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
   const { user, signOut } = useAuth();
-
+  const navigate = { useNavigate };
   return (
     <header className="navbar">
       <div className="navbar-brand">SMARTBITE</div>
@@ -27,6 +29,12 @@ export default function Navbar() {
                 <NavLink to="/recipeform">Neue Rezepte</NavLink>
               </li>
               <li>
+                {/* <button
+                  onClick={() => {
+                    signOut;
+                    navigate("/");
+                  }}
+                > */}
                 <button onClick={signOut}>Logout</button>
               </li>
             </>

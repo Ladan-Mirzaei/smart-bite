@@ -54,8 +54,17 @@ export default function Home() {
 
       <section className="subscription">
         <form onSubmit={handleSubmit} className="subscription-form">
-          <SelectMulti setDataArray={setIngredientsData} route="ingredients" />
-          <SelectMulti setDataArray={setDietData} route="diets" />
+          <SelectMulti
+            setDataArray={setIngredientsData}
+            route="ingredients"
+            placeholder="Zutaten auswählen"
+          />
+          <SelectMulti
+            setDataArray={setDietData}
+            route="diets"
+            placeholder="Ernährungsform
+ auswählen"
+          />
 
           <button type="submit" className="subscribe-button">
             Rezepte SUCHEN

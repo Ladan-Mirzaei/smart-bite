@@ -332,6 +332,12 @@ CREATE TABLE recipe_mealplan (
     PRIMARY KEY (user_id, allergene_id)
 );
 
+CREATE TABLE recipe_user_sammlung (
+    user_id INT REFERENCES recipe_user(id),
+    recipe_id INT REFERENCES recipe(id) ,
+   PRIMARY KEY (user_id, recipe_id)
+);
+
 CREATE TABLE recipe_user_categories (
     user_id INT REFERENCES recipe_user(id),
     category_id INT  REFERENCES recipe_categories(id) ,

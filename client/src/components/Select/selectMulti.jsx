@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 import { useFetch } from "../../hooks/fetch.jsx";
 
-export default function SelectMulti({ setDataArray, route }) {
+export default function SelectMulti({ setDataArray, route, placeholder }) {
   const [fetchSelectData, setFetchSelectData] = useState([]);
   const { fetchData } = useFetch();
 
@@ -34,7 +34,7 @@ export default function SelectMulti({ setDataArray, route }) {
   return (
     <div>
       <Select
-        placeholder="Allergie auswählen"
+        placeholder={placeholder}
         name="allergene"
         options={options}
         className="basic-single"

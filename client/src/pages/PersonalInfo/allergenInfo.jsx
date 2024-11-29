@@ -4,6 +4,7 @@ import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+
 export default function AllergyInfo() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useContext(AuthContext);
@@ -12,7 +13,7 @@ export default function AllergyInfo() {
   const [dietData, setDietData] = useState([]);
   const [ingredientsData, setIngredientsData] = useState([""]);
   const navigate = useNavigate();
-  console.log(" user.uid ", user.uid);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,7 +23,6 @@ export default function AllergyInfo() {
       ingredient_id: ingredientsData || null,
       allergene_id: allergenData || null,
     };
-    console.log("finalData,allergie", finalData);
 
     try {
       const token = await user.getIdToken();

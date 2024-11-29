@@ -19,7 +19,7 @@ import Upload from "./pages/Image/index.jsx";
 import Select from "./components/Recipe/selectIngredients.jsx";
 import BMI from "./components/BMI/BMI-Calculator.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
-
+import Sammlung from "./pages/Sammlung/inden.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/BMI",
         element: <BMI />,
+      },
+      {
+        path: "/sammlung",
+        element: <Sammlung />,
       },
       {
         path: "/profile",

@@ -1,22 +1,22 @@
 import "./RecipeDetails.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useReactToPrint } from "react-to-print";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const RecipeDetails = () => {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const { fetchData } = useFetch();
   const [fetchRezeptData, setFetchRezeptData] = useState({
     ingredient_details: [],
   });
   const [totalNutrients, setTotalNutrients] = useState({});
-
-  // const recipeId = 1;
-  console.log("id", id);
+  const [data, setData] = useState();
   const contentRef = useRef(null);
   // console.log(contentRef);
   const handlePrint = useReactToPrint({
@@ -36,6 +36,7 @@ const RecipeDetails = () => {
     }
     loadFetch();
   }, []);
+
   if (!fetchRezeptData) {
     return <div>Lade Rezeptdaten...</div>;
   }
@@ -72,7 +73,31 @@ const RecipeDetails = () => {
     });
     return totalNutrients;
   }
-
+  const handelSammlung = async (id) => {
+    if (!user || !user.uid) {
+      alert("Bitte loggen Sie sich zuerst ein!!");
+      return;
+    }
+    console.log("id", id, user.uid);
+    try {
+      const response = await fetch(`${API_URL}/users/sammlung`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, uid: user.uid }),
+      });
+      if (!response.ok) {
+        console.error("Data fetching error");
+      }
+      const data = await response.json();
+      console.log(data);
+      setData(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log("data", data);
   return (
     <>
       {" "}
@@ -85,11 +110,20 @@ const RecipeDetails = () => {
                 <button onClick={handlePrint}>
                   <i className="fa fa-print"></i>
                 </button>
-                <button>
-                  <i className="fa fa-heart"></i>
-                </button>
+                {data ? (
+                  <button style={{ backgroundColor: "green" }}>
+                    {<i className="fa fa-heart"></i>}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handelSammlung(fetchRezeptData.id)}
+                    style={{ backgroundColor: "red" }}
+                  >
+                    {<i className="fa fa-heart"></i>}
+                  </button>
+                )}
               </div>
-            </div>{" "}
+            </div>
             <div className="p-15-tags">
               {fetchRezeptData.diet_types?.map((diet, index) => (
                 <span key={index}>{diet}</span>
@@ -165,12 +199,14 @@ const RecipeDetails = () => {
           </div>
 
           <div className="P-15-text-container">
-            <RecipePlanner
-              name={fetchRezeptData.title}
-              link={`/recipedetails`}
-              recipe_id={fetchRezeptData.id}
-              uid={fetchRezeptData.uid}
-            />
+            {user && user.uid ? (
+              <RecipePlanner
+                name={fetchRezeptData.title}
+                link={`/recipedetails`}
+                recipe_id={fetchRezeptData.id}
+                uid={fetchRezeptData.uid}
+              />
+            ) : null}
 
             <div className="nutritional-info">
               <div className="nutritional-header">
