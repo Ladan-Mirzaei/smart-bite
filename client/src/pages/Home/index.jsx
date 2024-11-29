@@ -42,13 +42,6 @@ export default function Home() {
   };
   return (
     <div className="home-content">
-      <QRCode
-        size={256}
-        style={{ height: "auto", maxWidth: "100%" }}
-        value={"some data, a link or whatever"}
-        viewBox={`0 0 256 256`}
-      />
-
       <section className="hero">
         <h1>Gesund essen mit Genuss</h1>
         <p>
@@ -73,7 +66,13 @@ export default function Home() {
       <div className="card-container">
         <RandomRecipe />
       </div>
-
+      <div></div>
+      <QRCode
+        size={256}
+        style={{ height: "auto", maxWidth: "100%", padding: 30 }}
+        value={"some data, a link or whatever"}
+        viewBox={`0 0 256 256`}
+      />
       {/* <h2>Willkommen, {user.email}!</h2>
       <p>
         Dies ist die Home-Seite, die nur für angemeldete Benutzer zugänglich

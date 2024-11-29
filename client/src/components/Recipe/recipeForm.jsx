@@ -4,7 +4,9 @@ import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
 import ZutatenForm from "./selectIngredients.jsx";
 import UploadImage from "../UploadImage/index.jsx";
-export default function Recipe({ onFormSubmit }) {
+import { Link } from "react-router-dom";
+
+export default function Recipe({ onFormSubmit, recipeID }) {
   // const { fetchData } = useFetch();
   const [formData, setFormData] = useState({
     title: "",
@@ -32,6 +34,7 @@ export default function Recipe({ onFormSubmit }) {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+    console.log("ww", e.target);
 
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
@@ -68,7 +71,7 @@ export default function Recipe({ onFormSubmit }) {
       })),
       diet_types: diet ? diet : [],
       category_id: categoriesData || null,
-      image_url: imgUrl.secure_url,
+      image_url: imgUrl, //wichtig füt register form
     };
     onFormSubmit(finalData);
     console.log("finalData", finalData);
@@ -196,7 +199,9 @@ export default function Recipe({ onFormSubmit }) {
         />
         <label htmlFor="imageFile">Rezeptbild</label>
         <UploadImage imageUrl={imgUrl} setImageUrl={setImgUrl} />
+        {/* <Link to={`/recipeDetails/${recipeID}`}> */}
         <button type="submit">Rezept hinzufügen</button>
+        {/* </Link> */}
       </form>
     </div>
   );

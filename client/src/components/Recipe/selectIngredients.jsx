@@ -86,7 +86,7 @@ export function ZutatenForm({ dataArray, setDataArray, route }) {
         />
       ) : (
         <>
-          <div>{JSON.stringify(dataArray)}</div>
+          {/* <div>{JSON.stringify(dataArray)}</div> */}
           {dataArray.map((ingredient, index) => (
             <div key={index} className="ingredient-row">
               <Select

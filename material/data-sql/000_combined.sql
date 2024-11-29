@@ -95,7 +95,7 @@ CREATE TABLE recipe (
     cooking_time INT,
     portions INT,
     category_id INT REFERENCES recipe_categories(id), 
-    difficulty_level VARCHAR(100) CHECK (difficulty_level IN ('einfach', 'mittel', 'schwer')),
+    difficulty_level VARCHAR(100) ,
     created_at DATE,
     image TEXT
 );

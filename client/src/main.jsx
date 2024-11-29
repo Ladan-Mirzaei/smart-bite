@@ -4,14 +4,14 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import Recipe from "./pages/recipe/index.jsx";
+// import Recipe from "./pages/recipe/index.jsx";
 import RecipeAll from "./pages/recipe/recipeAll.jsx";
 import Allergen from "./pages/PersonalInfo/allergenInfo.jsx";
 import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
 import Logout from "./components/authentication/Logout.jsx";
 import Profile from "./pages/Profile/index.jsx";
-import RecipeForm from "./pages/recipe/index.jsx";
+import RecipeForm from "./pages/recipe/recipeForm.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
 import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
@@ -72,9 +72,9 @@ const router = createBrowserRouter([
       // {
       //   path: "/profile",
       //   element: (
-      //     <RequireAuth>
-      //       <Profile />
-      //     </RequireAuth>
+      //     // <RequireAuth>
+      //     <Profile />
+      //     // </RequireAuth>
       //   ),
       // },
       // {

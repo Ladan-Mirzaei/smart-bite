@@ -52,7 +52,6 @@ export async function createRecipe(req, res) {
       })
       .returning("id");
     const finalRecipeId = recipeId[0].id;
-
     const ingredientsData = ingredients.map((item) => ({
       recipe_id: finalRecipeId, //z.B. `3` hier
       ingredient_id: item.ingredient_id,
@@ -60,24 +59,22 @@ export async function createRecipe(req, res) {
       unit: item.unit || "",
     }));
     console.log({ ingredients });
-    console.log(recipeId);
     await db("recipe_ingredient_details").insert(ingredientsData);
 
-    // Diät-Typen speichern/erst neue Array erstellen mit recipe_id
     const dietData = diet_types.map((diet) => ({
       recipe_id: finalRecipeId,
       diet_type_id: diet,
     }));
+    console.log("ddddd", finalRecipeId);
 
     await db("recipe_diet").insert(dietData);
+    console.log(finalRecipeId);
+
     // [
     //   { recipe_id: 3, diet_type: "Vegan" },
     //   { recipe_id: 3, diet_type: "Low Carb" }
     // ]
-    res.status(200).json({
-      message: "Recipe created successfully",
-      recipeId,
-    });
+    res.status(200).json(finalRecipeId);
   } catch (error) {
     console.error("Error fetching userprofile:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -171,52 +168,52 @@ export async function getRandomRecipes(req, res) {
   }
 }
 
-/**
- * @api GET /recipes
- */
-export async function getAllRecipes(req, res) {
-  try {
-    const recipes = await db("recipe")
-      .select(
-        "recipe.id AS id",
-        "recipe.user_id AS user_id",
-        "recipe.title AS title",
-        "recipe.cooking_time AS cooking_time",
-        "recipe.difficulty_level AS difficulty_level",
-        "recipe_categories.name AS category_name",
-        db.raw("ARRAY_AGG(DISTINCT recipe_diet_type.name) AS diet_types"),
-        "recipe.image AS image"
-      )
-      .leftJoin("recipe_diet", "recipe.id", "recipe_diet.recipe_id")
-      .leftJoin(
-        "recipe_diet_type",
-        "recipe_diet.diet_type_id",
-        "recipe_diet_type.id"
-      )
-      .leftJoin(
-        "recipe_categories",
-        "recipe.category_id",
-        "recipe_categories.id"
-      )
-      .groupBy(
-        "recipe.id",
-        "recipe.user_id",
-        "recipe.title",
-        "recipe.cooking_time",
-        "recipe.difficulty_level",
-        "recipe.image",
-        "recipe_categories.name"
-      );
-    if (!recipes) {
-      return res.status(404).json({ message: "No recipes found" });
-    }
+// /**
+//  * @api GET /recipes
+//  */
+// export async function getAllRecipes(req, res) {
+//   try {
+//     const recipes = await db("recipe")
+//       .select(
+//         "recipe.id AS id",
+//         "recipe.user_id AS user_id",
+//         "recipe.title AS title",
+//         "recipe.cooking_time AS cooking_time",
+//         "recipe.difficulty_level AS difficulty_level",
+//         "recipe_categories.name AS category_name",
+//         db.raw("ARRAY_AGG(DISTINCT recipe_diet_type.name) AS diet_types"),
+//         "recipe.image AS image"
+//       )
+//       .leftJoin("recipe_diet", "recipe.id", "recipe_diet.recipe_id")
+//       .leftJoin(
+//         "recipe_diet_type",
+//         "recipe_diet.diet_type_id",
+//         "recipe_diet_type.id"
+//       )
+//       .leftJoin(
+//         "recipe_categories",
+//         "recipe.category_id",
+//         "recipe_categories.id"
+//       )
+//       .groupBy(
+//         "recipe.id",
+//         "recipe.user_id",
+//         "recipe.title",
+//         "recipe.cooking_time",
+//         "recipe.difficulty_level",
+//         "recipe.image",
+//         "recipe_categories.name"
+//       );
+//     if (!recipes) {
+//       return res.status(404).json({ message: "No recipes found" });
+//     }
 
-    return res.status(200).json(recipes);
-  } catch (error) {
-    console.error("Error fetching Recipes:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-}
+//     return res.status(200).json(recipes);
+//   } catch (error) {
+//     console.error("Error fetching Recipes:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// }
 
 /**
  * @api GET /recipes/:recipeId

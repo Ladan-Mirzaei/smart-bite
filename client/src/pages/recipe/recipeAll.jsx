@@ -11,12 +11,12 @@ export default function Recipe() {
   const [recipesData, setRecipesData] = useState({});
   const location = useLocation();
   const API_URL = import.meta.env.VITE_API_URL;
-  const [ingredientsData, setIngredientsData] = useState([null]);
-  const [allergenData, setAllergenData] = useState([""]);
-  const [categoriesData, setCategoriesData] = useState(null);
-  const [dietData, setDietData] = useState([null]);
+  const [ingredientsData, setIngredientsData] = useState([]);
+  const [allergenData, setAllergenData] = useState([]);
+  const [categoriesData, setCategoriesData] = useState("");
+  const [dietData, setDietData] = useState([]);
   const [formData, setFormData] = useState();
-
+  console.log("ff", formData);
   // useEffect(() => {
   //   async function loadFetch() {
   //     const response = await fetchData(`${API_URL}/recipes`);
@@ -24,24 +24,22 @@ export default function Recipe() {
   //   }
   //   loadFetch();
   // }, []);
-
+  // console.log("start.formData", formData);
   useEffect(() => {
     let finalData = {
       diet_type_id: [],
       ingredient_id: [],
     };
     if (location.state) {
-      console.log("location.state", location.state);
+      // console.log("location.state", location.state);
 
       finalData = location.state;
     }
 
     if (formData) {
-      console.log("formDataddddd", formData);
-
       finalData = formData;
     }
-    console.log("FinalData:", finalData);
+    console.log("FinalData3:", finalData);
 
     const onSubmit = async () => {
       try {
@@ -57,6 +55,7 @@ export default function Recipe() {
         }
         const data = await response.json();
         setRecipesData(data);
+        console.log("data4", data);
         finalData = {
           diet_type_id: [],
           ingredient_id: [],
@@ -76,9 +75,18 @@ export default function Recipe() {
     const updatedFinalData = {
       diet_type_id: dietData || [],
       ingredient_id: ingredientsData || [],
-      // allergenData,categoriesData
     };
-    setFormData(updatedFinalData);
+
+    if (ingredientsData[0] === "" && dietData[0] === "") {
+      setFormData("");
+    } else if (ingredientsData[0] === "") {
+      setFormData({ diet_type_id: dietData, ingredient_id: [] });
+    } else if (dietData[0] === "") {
+      setFormData({ ingredient_id: ingredientsData, diet_type_id: [] });
+    } else {
+      setFormData(updatedFinalData);
+      console.log(updatedFinalData);
+    }
   };
 
   return (

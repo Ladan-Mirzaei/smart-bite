@@ -109,3 +109,43 @@
   border-radius: 0px;
   margin: 0px;
 }
+.profile-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.profile-gallery-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-gallery-item img {
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  padding: 0px;
+}
+
+.gprofile-allery-item h4 {
+  margin: opx;
+  font-size: 10px;
+  color: #333;
+  padding: 0px;
+}
+
+.profile-gallery-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+.profile-gallery-item .des {
+  font-size: 12px;
+  color: #777;
+}

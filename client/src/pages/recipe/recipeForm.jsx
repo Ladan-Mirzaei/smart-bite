@@ -1,11 +1,12 @@
 import RecipeForm from "../../components/Recipe/recipeForm.jsx";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
-
+import { AuthContext } from "../../context/AuthContext.jsx";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Recipe() {
   const { user } = useContext(AuthContext);
   const API_URL = import.meta.env.VITE_API_URL;
-
+  const [recipeID, setRecipeID] = useState();
+  const navigate = useNavigate();
   const onFormSubmit = async (finalData) => {
     if (!user) {
       console.error("User not logged in");
@@ -25,6 +26,9 @@ export default function Recipe() {
         console.error("Data fetching error");
       }
       const data = await response.json();
+      setRecipeID(data);
+      console.log("data", data);
+      navigate(`/recipeDetails/${data}`);
     } catch (err) {
       console.log(err);
     }
@@ -32,12 +36,13 @@ export default function Recipe() {
   // if (userData) {
   //   return <Navigate to="/home" />;
   // }
+  console.log("data in Form", recipeID);
 
   return (
     <>
       <h2>Neues Rezept erstellen</h2>
       <div>
-        <RecipeForm onFormSubmit={onFormSubmit} />{" "}
+        <RecipeForm onFormSubmit={onFormSubmit} recipeID={recipeID} />
       </div>
     </>
   );

@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 
 export default function SelectWithPlus({
-  dataArray = [],
+  // dataArray = [],
+  dataArray,
   setDataArray,
   route,
   placeholder,
@@ -14,7 +15,11 @@ export default function SelectWithPlus({
   const [fetchSelectData, setFetchSelectData] = useState([]);
   const { fetchData } = useFetch();
   const API_URL = import.meta.env.VITE_API_URL;
-
+  useEffect(() => {
+    if (dataArray.length === 0) {
+      setDataArray([""]);
+    }
+  }, [dataArray]);
   useEffect(() => {
     async function loadData() {
       const data = await fetchData(`${API_URL}/${route}`, "GET");
@@ -28,18 +33,24 @@ export default function SelectWithPlus({
     }
 
     loadData();
+    if (dataArray.length === 0) {
+      setDataArray([]);
+    }
   }, []);
 
-  const addSelect = () => {
+  const addSelect = (event) => {
+    event.preventDefault();
     setDataArray([...dataArray, []]);
   };
 
-  const removeSelect = (index) => {
+  const removeSelect = (event, index) => {
+    event.preventDefault();
     const updatedSelect = dataArray.filter((_, idx) => idx !== index);
     setDataArray(updatedSelect);
   };
 
   const handleOnSelect = (value, index) => {
+    console.log("e.value", value);
     const updatedSelect = [...dataArray];
     updatedSelect[index] = value;
     setDataArray(updatedSelect);
@@ -66,10 +77,10 @@ export default function SelectWithPlus({
             options={options}
             onChange={(e) => handleOnSelect(e.value, index)}
           />
-          <button onClick={() => removeSelect(index)}> - </button>
+          <button onClick={(e) => removeSelect(e, index)}> - </button>
         </div>
       ))}
-      <button onClick={addSelect}>+</button>
+      <button onClick={(e) => addSelect(e)}>+</button>
     </div>
   );
 }

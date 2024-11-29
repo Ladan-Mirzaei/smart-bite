@@ -64,7 +64,7 @@ export function ZutatenForm() {
     console.log(ingredients);
     alert("Rezept gespeichert");
   };
-  console.log("iiiiiiiiiiii", ingredients);
+  console.log("itge", ingredients);
 
   return (
     <form onSubmit={handleSubmit}>

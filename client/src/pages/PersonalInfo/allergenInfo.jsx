@@ -1,20 +1,18 @@
-import Profile from "../Profile/index.jsx";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
-import { Link } from "react-router-dom";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import "./style.css";
-
+import { useNavigate } from "react-router-dom";
 export default function AllergyInfo() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useContext(AuthContext);
-
-  const [allergenData, setAllergenData] = useState([]);
+  const [allergenData, setAllergenData] = useState([""]);
   const [categoriesData, setCategoriesData] = useState(null);
   const [dietData, setDietData] = useState([]);
-  const [ingredientsData, setIngredientsData] = useState([]);
-
+  const [ingredientsData, setIngredientsData] = useState([""]);
+  const navigate = useNavigate();
+  console.log(" user.uid ", user.uid);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,6 +39,7 @@ export default function AllergyInfo() {
       }
       const data = await response.json();
       console.log("Server Response:", data);
+      navigate("/profile");
     } catch (err) {
       console.log(err);
     }
@@ -78,8 +77,8 @@ export default function AllergyInfo() {
   //   : [];
   return (
     <div className="form-container">
-      <h2>Allergiezuordnung</h2>
-
+      <h2>Benutzerinformationen zu Ernährung und Allergien</h2>
+      <h2>Persönliche Ernährungseinstellungen</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <ZutatenForm
@@ -134,9 +133,7 @@ export default function AllergyInfo() {
           isMulti
           onChange={handelAllChange}
         /> */}
-        {/* <Link to="/profile"> */}
         <button type="submit">Speichern</button>
-        {/* </Link> */}
       </form>
     </div>
   );

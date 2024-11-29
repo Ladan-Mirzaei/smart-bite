@@ -16,20 +16,19 @@ import db from "../util/db-connect.js";
 // ARRAY_AGG	PostgreSQL-Array ["value1",...]	Einfacher, effizienter, aber keine Schlüssel-Wert-Struktur.
 // JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
 
-/**
- * @api POST /recipes/recipeFilter
- */
 export async function recipeFilter(req, res) {
-  const { diet_type_id, ingredient_id } = req.body;
-  console.log("req.body", req.body);
   try {
-    let recipes = db("recipe")
+    const { diet_type_id, ingredient_id } = req.body;
+    console.log(req.body);
+    let recipes;
+
+    recipes = await db("recipe")
       .select(
         "recipe.id AS id",
         "recipe.title AS title",
         "recipe.cooking_time AS cooking_time",
         "recipe.difficulty_level AS difficulty_level",
-        "recipe_ingredient.name AS ingredients",
+        db.raw("ARRAY_AGG(DISTINCT recipe_ingredient.name) AS ingredients"),
         "recipe_categories.name AS category_name",
         db.raw("ARRAY_AGG(DISTINCT recipe_diet_type.name) AS diet_types"),
         "recipe.image AS image"
@@ -61,29 +60,29 @@ export async function recipeFilter(req, res) {
         "recipe.cooking_time",
         "recipe.difficulty_level",
         "recipe.image",
-        "recipe_categories.name",
-        "recipe_ingredient.name"
-      );
-    console.log("recipes", recipes);
-    if (diet_type_id.length > 0) {
-      console.log("diet_type_id", diet_type_id);
-      recipes = recipes.whereIn("recipe_diet.diet_type_id", diet_type_id);
-    }
-    if (ingredient_id.length > 0) {
-      recipes = recipes.whereIn(
-        "recipe_ingredient_details.ingredient_id",
-        ingredient_id
-      );
-    }
-    recipes = await recipes;
+        "recipe_categories.name"
+      )
+      .where((builder) => {
+        if (diet_type_id.length > 0) {
+          builder.whereIn("recipe_diet.diet_type_id", diet_type_id);
+        }
 
-    if (!recipes) {
+        if (ingredient_id.length > 0) {
+          builder.whereIn(
+            "recipe_ingredient_details.ingredient_id",
+            ingredient_id
+          );
+        }
+      });
+
+    console.log("recipe", recipes);
+    if (!recipes || recipes.length === 0) {
       return res.status(404).json({ message: "No recipes found" });
     }
 
     return res.status(200).json(recipes);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching recipes:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

@@ -16,7 +16,7 @@ const RecipeDetails = () => {
   const [totalNutrients, setTotalNutrients] = useState({});
 
   // const recipeId = 1;
-  console.log("id");
+  console.log("id", id);
   const contentRef = useRef(null);
   // console.log(contentRef);
   const handlePrint = useReactToPrint({

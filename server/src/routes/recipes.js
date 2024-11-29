@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   createRecipe,
   getRandomRecipes,
-  getAllRecipes,
   recipeDetails,
 } from "../controllers/recipes.js";
 import { recipeFilter } from "../controllers/recipesFilter.js";
@@ -11,7 +10,7 @@ import firebaseAuthMiddleware from "../firebaseAuthMiddleware.js";
 const router = Router();
 router.post("/", firebaseAuthMiddleware, createRecipe);
 router.get("/random", getRandomRecipes);
-router.get("/", getAllRecipes);
+// router.get("/", getAllRecipes);
 router.get("/:recipeId", recipeDetails);
 router.post("/recipeFilter", recipeFilter);
 
