@@ -23,7 +23,7 @@ function Login() {
     <div className="login">
       <div className="login-container">
         <div className="login-columns">
-          <div className="login-section">
+          <form className="login-section">
             <h2>Ich habe ein Konto:</h2>
             <div className="login-form">
               <input
@@ -47,7 +47,7 @@ function Login() {
               Anmelden
             </button>
             {error && <p className="error-message">{error}</p>}
-          </div>
+          </form>
           <div className="login-section-right">
             <h2>Neukunden:</h2>
             <button
