@@ -109,6 +109,7 @@ export function ZutatenForm({ dataArray, setDataArray, route }) {
                 }
                 placeholder="Menge"
                 required
+                min="0"
               />
               <select
                 placeholder="Einheit"

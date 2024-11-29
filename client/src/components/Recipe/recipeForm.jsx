@@ -4,9 +4,8 @@ import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
 import ZutatenForm from "./selectIngredients.jsx";
 import UploadImage from "../UploadImage/index.jsx";
-import { Link } from "react-router-dom";
 
-export default function Recipe({ onFormSubmit, recipeID }) {
+export default function Recipe({ onFormSubmit }) {
   // const { fetchData } = useFetch();
   const [formData, setFormData] = useState({
     title: "",
@@ -154,7 +153,10 @@ export default function Recipe({ onFormSubmit, recipeID }) {
           placeholder="Stunden"
           value={formData.preparation_time_hours}
           onChange={handleFormChange}
+          min="0"
+          max="24"
           style={{ width: "80px" }}
+          onKeyDown={(e) => e.preventDefault()}
         />
         <span>Stunden</span>
         <input
@@ -163,17 +165,23 @@ export default function Recipe({ onFormSubmit, recipeID }) {
           placeholder="Minuten"
           value={formData.preparation_time_minutes}
           onChange={handleFormChange}
+          min="0"
+          max="59"
           style={{ width: "80px" }}
+          onKeyDown={(e) => e.preventDefault()}
         />{" "}
         <span>Minuten</span>
         <label htmlFor="preparationTime">Koch-/Backzeit </label>
         <input
           type="number"
+          min="0"
+          max="24"
           name="cooking_time_hours"
           placeholder="Stunden"
           value={formData.cooking_time_hours}
           onChange={handleFormChange}
           style={{ width: "80px" }}
+          onKeyDown={(e) => e.preventDefault()}
         />
         <span>Stunden</span>
         <input
@@ -183,6 +191,9 @@ export default function Recipe({ onFormSubmit, recipeID }) {
           value={formData.cooking_time_minutes}
           onChange={handleFormChange}
           style={{ width: "80px" }}
+          min="0"
+          max="59"
+          onKeyDown={(e) => e.preventDefault()}
         />
         <span>Minuten</span>
         <ZutatenForm

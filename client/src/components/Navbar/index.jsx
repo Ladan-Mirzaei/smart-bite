@@ -24,6 +24,9 @@ export default function Navbar() {
                 <NavLink to="/profile">Profile</NavLink>
               </li>
               <li>
+                <NavLink to="/recipeform">Neue Rezepte</NavLink>
+              </li>
+              <li>
                 <button onClick={signOut}>Logout</button>
               </li>
             </>

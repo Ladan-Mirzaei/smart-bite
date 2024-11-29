@@ -58,7 +58,7 @@ export default function Home() {
           <SelectMulti setDataArray={setDietData} route="diets" />
 
           <button type="submit" className="subscribe-button">
-            SUCHE
+            Rezepte SUCHEN
           </button>
         </form>
       </section>

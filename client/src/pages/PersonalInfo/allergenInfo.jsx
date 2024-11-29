@@ -116,7 +116,7 @@ export default function AllergyInfo() {
             placeholder="Zutaten Allergie auswählen"
           />
         </div>
-        oedr{" "}
+        oedr
         <SelectWithPlus
           dataArray={allergenData}
           setDataArray={setAllergenData}
