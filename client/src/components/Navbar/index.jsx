@@ -35,7 +35,13 @@ export default function Navbar() {
                     navigate("/");
                   }}
                 > */}
-                <button onClick={signOut}>Logout</button>
+                <button
+                  onClick={() => {
+                    signOut(), navigate("/");
+                  }}
+                >
+                  Logout
+                </button>
               </li>
             </>
           ) : (

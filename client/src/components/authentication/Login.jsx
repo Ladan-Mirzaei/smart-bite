@@ -9,7 +9,8 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const user = await loginUser(email, password);
       console.log("Erfolgreich eingeloggt:", user.email);
@@ -23,7 +24,7 @@ function Login() {
     <div className="login">
       <div className="login-container">
         <div className="login-columns">
-          <form className="login-section">
+          <form onSubmit={handleLogin} className="login-section">
             <h2>Ich habe ein Konto:</h2>
             <div className="login-form">
               <input
