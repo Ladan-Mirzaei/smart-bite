@@ -11,6 +11,7 @@ import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
 import Logout from "./components/authentication/Logout.jsx";
 import Profile from "./pages/Profile/index.jsx";
+import EditForm from "./pages/Profile/edit.jsx";
 import RecipeForm from "./pages/recipe/recipeform.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
@@ -19,7 +20,8 @@ import Upload from "./pages/Image/index.jsx";
 import Select from "./components/Recipe/selectIngredients.jsx";
 import BMI from "./components/BMI/BMI-Calculator.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
-import Sammlung from "./pages/Sammlung/inden.jsx";
+import Sammlung from "./pages/Sammlung/index.jsx";
+import ShoppingList from "./components/Calendar/shoppingList.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,11 +36,19 @@ const router = createBrowserRouter([
         element: <Allergen />,
       },
       {
+        path: "/editForm",
+        element: <EditForm />,
+      },
+      {
+        path: "/shoppinglist",
+        element: <ShoppingList />,
+      },
+      {
         path: "/BMI",
         element: <BMI />,
       },
       {
-        path: "/sammlung",
+        path: "/meine-favoriten",
         element: <Sammlung />,
       },
       {

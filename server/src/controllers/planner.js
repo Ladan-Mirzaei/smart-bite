@@ -1,6 +1,6 @@
 import db from "../util/db-connect.js";
 /**
- * @api POST /planner
+ * @api POST /planner für Month /komplate kalender
  * {uid,recipe_id, recipe_title,date,link}
  *
  */
@@ -32,16 +32,52 @@ export async function creatEvents(req, res) {
 }
 
 /**
- * @api GET /planner
- * All Planner
- *
+ * @api POST /planner/events
+ * All Planner für Week
+ *{uid}
  */
 export async function getEvents(req, res) {
+  const { uid } = req.body;
+
   try {
-    const events = await db("recipe_planner").select();
+    const user = await db("recipe_user").select("id").where({ uid }).first();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user_id = user.id;
+
+    const events = await db("recipe_planner")
+      .where("recipe_planner.user_id", user_id)
+      .select(
+        db.raw(
+          "JSON_BUILD_OBJECT(" +
+            "'ingredient_names', ARRAY_AGG(DISTINCT recipe_ingredient.name), " +
+            "'ingredient_units', ARRAY_AGG(DISTINCT recipe_ingredient_details.unit), " +
+            "'ingredient_quantities', ARRAY_AGG(DISTINCT recipe_ingredient_details.quantity) " +
+            ") AS ingredients"
+        ),
+        "recipe_planner.planner_id as event_id",
+        "recipe.title as event_name",
+        "recipe_planner.date"
+      )
+      .leftJoin(
+        "recipe_ingredient_details",
+        "recipe_planner.recipe_id",
+        "recipe_ingredient_details.recipe_id"
+      )
+      .leftJoin(
+        "recipe_ingredient",
+        "recipe_ingredient.id",
+        "recipe_ingredient_details.ingredient_id"
+      )
+      .leftJoin("recipe", "recipe.id", "recipe_planner.recipe_id")
+      .groupBy("recipe_planner.planner_id", "recipe.title");
+
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No Events found" });
     }
+
     res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching Events:", error);

@@ -1,4 +1,5 @@
 
+DROP TABLE IF EXISTS recipe_user_sammlung CASCADE;
 DROP TABLE IF EXISTS recipe_planner CASCADE;
 DROP TABLE IF EXISTS recipe_mealplan CASCADE;
 DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;

@@ -1,4 +1,5 @@
 
+DROP TABLE IF EXISTS recipe_user_sammlung CASCADE;
 DROP TABLE IF EXISTS recipe_planner CASCADE;
 DROP TABLE IF EXISTS recipe_mealplan CASCADE;
 DROP TABLE IF EXISTS recipe_ingredient_details CASCADE;
@@ -314,11 +315,11 @@ CREATE TABLE recipe_mealplan (
 -- (2, 1800, 40, 200, 60),
 -- (3, 2200, 80, 180, 90),
 -- (4, 1900, 60, 210, 75);
- 
- CREATE TABLE recipe_planner (
+
+CREATE TABLE recipe_planner (
     planner_id SERIAL PRIMARY KEY,       
     user_id INT REFERENCES recipe_user(id),
-    recipe_id INT REFERENCES recipe(id), 
+    recipe_id INT REFERENCES recipe(id),
     recipe_title VARCHAR(255) NOT NULL,  
     date DATE NOT NULL,                  
     link TEXT                            
@@ -331,11 +332,10 @@ CREATE TABLE recipe_mealplan (
 ,
     PRIMARY KEY (user_id, allergene_id)
 );
-
 CREATE TABLE recipe_user_sammlung (
     user_id INT REFERENCES recipe_user(id),
-    recipe_id INT REFERENCES recipe(id) ,
-   PRIMARY KEY (user_id, recipe_id)
+    recipe_id INT REFERENCES recipe(id),
+    PRIMARY KEY (user_id, recipe_id)
 );
 
 CREATE TABLE recipe_user_categories (

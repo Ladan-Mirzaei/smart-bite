@@ -255,7 +255,7 @@ export async function getAllUsersRecipes(req, res) {
 }
 
 /**
- * @api POST /userrecipes
+ * @api POST /sers/sammlung
  *{uid ,id}
  */
 
@@ -272,6 +272,35 @@ export async function userRecipeSammlung(req, res) {
       recipe_id: id,
       user_id: user_id,
     });
+    return res.status(200).json(sammlungRecipe);
+  } catch (error) {
+    console.error("Error fetching Recipes:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+/**
+ * @api POST /users/sammlungrecipe
+ *{uid ,id}
+ */
+
+export async function recipeSammlung(req, res) {
+  const { id, uid } = req.body;
+  console.log("uid,id", uid, id);
+  try {
+    const user = await db("recipe_user").select("id").where({ uid }).first();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user_id = user.id;
+    const sammlungRecipe = await db("recipe_user_sammlung")
+      .select({
+        recipe_id: id,
+        user_id: user_id,
+      })
+      .where({ recipe_id: id, user_id: user_id })
+      .first();
+
     return res.status(200).json(sammlungRecipe);
   } catch (error) {
     console.error("Error fetching Recipes:", error);

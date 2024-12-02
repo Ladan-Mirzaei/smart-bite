@@ -18,6 +18,8 @@ const RecipeDetails = () => {
   const [totalNutrients, setTotalNutrients] = useState({});
   const [data, setData] = useState();
   const contentRef = useRef(null);
+  const [isFavorited, setIsFavorited] = useState(false);
+
   // console.log(contentRef);
   const handlePrint = useReactToPrint({
     contentRef,
@@ -34,6 +36,27 @@ const RecipeDetails = () => {
       );
       setTotalNutrients(totals);
     }
+    console.log("data44", isFavorited);
+
+    const favorited = async () => {
+      try {
+        const response = await fetch(`${API_URL}/users/sammlung`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, uid: user.uid }),
+        });
+        if (!response.ok) {
+          console.error("Data fetching error");
+        }
+        const data = await response.json();
+        setIsFavorited(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    favorited();
     loadFetch();
   }, []);
 
@@ -93,6 +116,7 @@ const RecipeDetails = () => {
       const data = await response.json();
       console.log(data);
       setData(data);
+      setIsFavorited(true);
     } catch (err) {
       console.log(err);
     }
@@ -110,7 +134,7 @@ const RecipeDetails = () => {
                 <button onClick={handlePrint}>
                   <i className="fa fa-print"></i>
                 </button>
-                {data ? (
+                {isFavorited ? (
                   <button style={{ backgroundColor: "green" }}>
                     {<i className="fa fa-heart"></i>}
                   </button>
@@ -202,7 +226,7 @@ const RecipeDetails = () => {
             {user && user.uid ? (
               <RecipePlanner
                 name={fetchRezeptData.title}
-                link={`/recipedetails`}
+                // link={`/recipedetails`}
                 recipe_id={fetchRezeptData.id}
                 uid={fetchRezeptData.uid}
               />

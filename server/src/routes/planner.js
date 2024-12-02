@@ -3,6 +3,6 @@ import { creatEvents, getEvents } from "../controllers/planner.js";
 
 const router = Router();
 router.post("/", creatEvents);
-router.get("/", getEvents);
+router.post("/events", getEvents);
 
 export default router;

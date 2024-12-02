@@ -116,7 +116,11 @@ export default function Recipe({ onFormSubmit }) {
         <button
           type="button"
           onClick={() =>
-            setFormData((prev) => ({ ...prev, portions: prev.portions - 1 }))
+            formData.portions > 0 &&
+            setFormData((prev) => ({
+              ...prev,
+              portions: prev.portions - 1,
+            }))
           }
         >
           -

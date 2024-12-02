@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./sammlung.css";
 import { useLocation } from "react-router-dom";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
@@ -149,6 +148,7 @@ export default function Sammlung() {
           </form>
         </div>{" "}
         <div className="right-side">
+          <h2>Meine Favoriten Rezepte‚</h2>
           <main className="recipe-container">
             {Array.isArray(recipesData) &&
               recipesData.map((recip, index) => (

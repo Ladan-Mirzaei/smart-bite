@@ -16,7 +16,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useContext(AuthContext);
   const [showWeek, setShowWeek] = useState(false);
-  const shoppingListUrl = "https://192.168.2.124:5173/shoppinglist";
+  const shoppingListUrl = "https://rewe.de";
 
   useEffect(() => {
     const saveEventToServer = async (newEvent) => {
@@ -184,7 +184,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
           </ul>
 
           {/* QR-Code für die Einkaufsliste */}
-          <div>
+          {/* <div>
             <h2>Scanne diesen QR-Code, um deine Einkaufsliste zu sehen</h2>
             <QRCode
               // value={"some data, a link or whatever"}
@@ -196,8 +196,8 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
               Scanne den QR-Code mit deinem Handy, um deine Einkaufsliste zu
               erhalten!
             </p>
-            <a href="/scanner">Scanner</a>
-          </div>
+            DEVELOPMENT: <a href="/scanner">Scanner</a>
+          </div> */}
         </div>
       )}
     </div>

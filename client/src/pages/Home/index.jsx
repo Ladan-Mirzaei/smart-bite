@@ -1,10 +1,8 @@
 import "./home.css";
 import RandomRecipe from "../../components/Home/randomRecipe.jsx";
 import SelectMulti from "../../components/Select/selectMulti.jsx";
-
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
 import QRCode from "react-qr-code";
 
 export default function Home() {
@@ -76,12 +74,7 @@ export default function Home() {
         <RandomRecipe />
       </div>
       <div></div>
-      <QRCode
-        size={256}
-        style={{ height: "auto", maxWidth: "100%", padding: 30 }}
-        value={"some data, a link or whatever"}
-        viewBox={`0 0 256 256`}
-      />
+
       {/* <h2>Willkommen, {user.email}!</h2>
       <p>
         Dies ist die Home-Seite, die nur für angemeldete Benutzer zugänglich

@@ -2,19 +2,17 @@ import "./Profile.css";
 import { useAuth } from "../../context/AuthContext";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 export default function Profile() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user, userData } = useAuth();
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
 
-  console.log("userdata", user, userData);
-
   useEffect(() => {
     async function loadUserData() {
       try {
-        console.log("uidggg", user.uid);
+        console.log("uid", user.uid);
 
         const token = await user.getIdToken();
         const response = await fetch(`${API_URL}/users/profile`, {
@@ -92,7 +90,8 @@ export default function Profile() {
           <p>
             Welcome,
             {userData?.firstName || "Gast"} {userData?.lastName || ""}!
-            <p>{user?.email} </p>
+            <p>{user?.email} </p>{" "}
+            <Link to="/meine-favoriten">Meine Favoriten Rezepte</Link>
           </p>
         </div>
       </div>

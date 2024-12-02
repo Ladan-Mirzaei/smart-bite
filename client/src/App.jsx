@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <div>
-        DEVELOPMENT: <a href="/scanner">Scanner</a>
         <Navbar />
         <Outlet />
       </div>
