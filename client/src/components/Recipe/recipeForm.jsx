@@ -1,8 +1,8 @@
 import "../../pages/PersonalInfo/style.css";
-import "./style.css";
+import "./recipeForm.css";
 import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
-import ZutatenForm from "../../components/Select/selectWithPlus.jsx";
+import ZutatenForm from "./selectIngredients.jsx";
 import UploadImage from "../UploadImage/index.jsx";
 
 export default function Recipe({ onFormSubmit }) {
@@ -33,7 +33,6 @@ export default function Recipe({ onFormSubmit }) {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    console.log("ww", e.target);
 
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
@@ -76,43 +75,44 @@ export default function Recipe({ onFormSubmit }) {
     console.log("finalData", finalData);
   };
   return (
-    <div className="form-container">
-      <h1>Neues Rezept erstellen</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Rezepttitel</label>
+    <div className="recipeform-container">
+      <form id="recipeForm" onSubmit={handleSubmit}>
+        <label>Rezeptname</label>
         <input
-          placeholder="Wie heißt dein Rezept"
+          placeholder="Wie heißt dein Rezept? "
           type="text"
           name="title"
           value={formData.title}
           onChange={handleFormChange}
         />
-        <label>Aufwand</label>
-        <input
-          type="radio"
-          name="difficulty_level"
-          value="einfach"
-          onChange={handleFormChange}
-          id="einfach"
-        />
-        <label htmlFor="einfach">Einfach</label>
-        <input
-          type="radio"
-          name="difficulty_level"
-          value="mittel"
-          onChange={handleFormChange}
-          id="mittel"
-        />
-        <label htmlFor="mittel">Mittel</label>
-        <input
-          type="radio"
-          name="difficulty_level"
-          value="schwer"
-          onChange={handleFormChange}
-          id="schwer"
-        />
-        <label htmlFor="schwer">Schwer</label>
-        <label htmlFor="portions">Portionsgröße:</label>
+        <label>Schwierigkeitsgrad</label>
+        <div className="recipeform-radio-group">
+          <input
+            type="radio"
+            name="difficulty_level"
+            value="einfach"
+            onChange={handleFormChange}
+            id="einfach"
+          />
+          <label htmlFor="einfach">Einfach</label>
+          <input
+            type="radio"
+            name="difficulty_level"
+            value="mittel"
+            onChange={handleFormChange}
+            id="mittel"
+          />
+          <label htmlFor="mittel">Mittel</label>
+          <input
+            type="radio"
+            name="difficulty_level"
+            value="schwer"
+            onChange={handleFormChange}
+            id="schwer"
+          />
+          <label htmlFor="schwer">Schwer</label>
+        </div>
+        <label htmlFor="portions">Das Rezept ist ausgelegt für:</label>
         <button
           type="button"
           onClick={() =>
@@ -125,7 +125,7 @@ export default function Recipe({ onFormSubmit }) {
         >
           -
         </button>
-        <span>Für {formData.portions} Portionen</span>
+        <span> {formData.portions} Personen / Portionen.</span>
         <button
           type="button"
           onClick={() =>
@@ -135,7 +135,7 @@ export default function Recipe({ onFormSubmit }) {
           +
         </button>
         <div className="ingredients-container">
-          <h3 className="ingredients-header">Zutaten</h3>
+          <h3 className="ingredients-header">Zutaten und Mengenangaben</h3>
           <ZutatenForm
             dataArray={ingredientsArr}
             setDataArray={setIngredientsArr}
@@ -143,10 +143,14 @@ export default function Recipe({ onFormSubmit }) {
             hasIngredients={true}
           />{" "}
         </div>
-        <label htmlFor="description">Zubereitung</label>
+        <label htmlFor="description">Rezeptzubereitung</label>
         <textarea
-          placeholder="- schritt 1
-                      -schritt2"
+          placeholder="Hier kannst du die Schritte für die Zubereitung deines Rezepts eintragen.
+Beispiele für mögliche Schritte:
+- Vorbereitung: Zutaten waschen, schälen oder schneiden, wie es im Rezept angegeben ist.
+- Würzen und Mischen: Gewürze hinzufügen und alles gut vermengen, um einen intensiven Geschmack zu erzielen.
+- Kochen oder Backen: Temperatur und Garzeit angeben, damit die Speisen perfekt zubereitet werden.
+- Anrichten: Zum Schluss das Gericht servieren und nach Wunsch dekorieren."
           name="description"
           value={formData.description}
           onChange={handleFormChange}
@@ -201,19 +205,31 @@ export default function Recipe({ onFormSubmit }) {
           onKeyDown={(e) => e.preventDefault()}
         />
         <span>Minuten</span>
+        <br />
+        <span>
+          {" "}
+          Bitte wähle aus, welche Ernährungsweise deinem Rezept zugeordnet
+          werden sollen.
+        </span>
         <ZutatenForm
           dataArray={diet}
           setDataArray={setDiet}
           route="diets"
           hasIngredients={true}
         />
+        <span>
+          Bitte wähle aus, welche Kategorien deinem Rezept zugeordnet werden
+          sollen.
+        </span>
         <ZutatenForm
           dataArray={categoriesData}
           setDataArray={setCategoriesData}
           route="categories"
           hasIngredients={false}
         />
-        <label htmlFor="imageFile">Rezeptbild</label>
+        <label htmlFor="imageFile">
+          Wähle die passende Datei auf deiner Festplatte aus.
+        </label>
         <UploadImage imageUrl={imgUrl} setImageUrl={setImgUrl} />
         {/* <Link to={`/recipeDetails/${recipeID}`}> */}
         <button type="submit">Rezept hinzufügen</button>

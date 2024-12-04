@@ -45,7 +45,6 @@ export async function getDiet(req, res) {
 export async function updateUserDiet(req, res) {
   const { updateFields } = req.body;
   const uid = req.user.uid;
-  console.log("req.body", uid, req.body);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();

@@ -15,13 +15,13 @@ export async function getCategory(req, res) {
 }
 
 /**
- * @api Update /updatecategory
+ * @api Update categories/updatecategory
  * {uid,updateFields}
  *
  */
 export async function updateUserCategory(req, res) {
-  const { uid, updateFields } = req.body;
-  console.log("req.body", req.body);
+  const { updateFields } = req.body;
+  const uid = req.user.uid;
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();

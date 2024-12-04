@@ -1,0 +1,104 @@
+/* Allgemeine Container-Styling für das Rezeptformular */
+.recipeform-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Input- und Textarea-Felder */
+.recipeform-input-field,
+.recipeform-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+/* Placeholder-Styling */
+.recipeform-input-field::placeholder,
+.recipeform-textarea::placeholder {
+  color: #999;
+}
+
+/* Button-Styling */
+.recipeform-btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #f05923;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.recipeform-btn-submit:hover {
+  background-color: #d9481c;
+}
+
+/* Zutaten- und Kategorienheader */
+.recipeform-header {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #4a6a50;
+}
+
+/* Zutatenliste-Styling */
+.recipeform-ingredients-container {
+  margin-bottom: 20px;
+}
+
+/* Radio-Button-Styling */
+.recipeform-radio-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.recipeform-radio-label {
+  margin-right: 10px;
+  font-size: 0.9em;
+}
+
+/* Flexbox für Zeiteingaben */
+.recipeform-time-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.recipeform-time-inputs span {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Mobile-Responsive */
+@media (max-width: 768px) {
+  .recipeform-container {
+    padding: 15px;
+  }
+
+  .recipeform-btn-submit {
+    padding: 10px;
+  }
+
+  .recipeform-time-inputs {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .recipeform-time-inputs input {
+    width: 48%;
+  }
+}

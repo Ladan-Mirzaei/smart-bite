@@ -15,13 +15,13 @@ export const getAllergen = async (req, res) => {
 };
 
 /**
- * @api Update /updateallergene
+ * @api Update allergene/updateallergene
  * {uid,diet_type_id,updateFields}
  *
  */
 export async function updateUserAllergene(req, res) {
-  const { uid, allergene_id, updateFields } = req.body;
-  console.log("req.body", req.body);
+  const { updateFields } = req.body;
+  const uid = req.user.uid;
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();

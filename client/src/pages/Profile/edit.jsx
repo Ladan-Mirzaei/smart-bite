@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import { useAuth } from "../../context/AuthContext";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
+import { updateUserInfo } from "../../functions/updateUserInfo.js";
 
-export default function EditForm({ setShowPopup }) {
+export default function EditForm({ setShowPopup, route }) {
   const { fetchData } = useFetch();
   const [fetchSelectData, setFetchSelectData] = useState([]);
+  const [resultData, setResultData] = useState([]);
   const { user } = useAuth();
-  const [dietsData, setDietsData] = useState([]);
   const [userUpdateData, SetUserUpdateData] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
-  const route = "diets";
-  // Fetch data for select options
+
   useEffect(() => {
     async function loadData() {
+      console.log("EditForm - useEffect: ", { API_URL, fetchData, route });
       try {
         const data = await fetchData(`${API_URL}/${route}`, "GET");
         setFetchSelectData(data);
@@ -24,52 +25,31 @@ export default function EditForm({ setShowPopup }) {
     loadData();
   }, []);
 
-  // const handleSelectChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setSelectedValues((prevValues) => ({
-  //     ...prevValues,
-  //     [name]: value,
-  //   }));
-  //   console.log("Updated Selected Values:", selectedValues);
-  // };
-
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const token = await user.getIdToken();
-      const response = await fetch(`${API_URL}/${route}/update${route}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ updateFields: `${route}Data` }),
-      });
-      if (!response.ok) {
-        throw new Error("Data fetching error");
-      }
-      const data = await response.json();
-      SetUserUpdateData(data);
-
-      console.log("Server Response:", data);
-      setShowPopup(false);
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
+    const token = await user.getIdToken();
+    const result = await updateUserInfo(token, route, fetchSelectData);
+    SetUserUpdateData(result);
+    setShowPopup(false);
   }
+
   // const handleClosePopup = () => {
   //   setShowPopup(false);
   // };
+  // console.log("category", categoriesData);
+  // console.log("diet", dietsData);
+  // console.log("allergene", allergeneData);
+  console.log("route", route);
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <SelectWithPlus
-          dataArray={dietsData}
-          setDataArray={setDietsData}
-          route="diets"
-          placeholder="Diet-type"
+          dataArray={fetchSelectData || []}
+          setDataArray={setResultData}
+          route={route}
+          placeholder="todo"
         />
-        {/* <button type="submit">Submit</button> */}
         <button type="submit">speichern</button>
       </form>
     </div>

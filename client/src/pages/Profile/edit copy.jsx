@@ -87,7 +87,7 @@ export default function EditForm() {
   }
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         {Array.isArray(profileData) &&
           profileData.map((user, userIndex) => (
             <div key={user.uid}>
@@ -124,4 +124,4 @@ export default function EditForm() {
       </form>
     </div>
   );
-}
+} */}

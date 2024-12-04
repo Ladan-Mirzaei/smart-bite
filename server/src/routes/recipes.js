@@ -13,7 +13,7 @@ router.post("/", firebaseRequireAuth, createRecipe);
 router.get("/random", getRandomRecipes);
 // router.get("/", getAllRecipes);
 router.get("/:recipeId", recipeDetails);
-router.post("/recipeFilter", firebaseGetAuth, recipeFilter);
+router.post("/recipeFilter", firebaseRequireAuth, recipeFilter);
 
 // router.post("/", firebaseAuthMiddleware, createRecipe);
 export default router;

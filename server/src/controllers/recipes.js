@@ -18,7 +18,6 @@ import admin from "firebase-admin";
 
 export async function createRecipe(req, res) {
   const {
-    uid,
     ingredients,
     diet_types,
     category_id,
@@ -30,7 +29,7 @@ export async function createRecipe(req, res) {
     difficulty_level,
     image_url,
   } = req.body;
-
+  const uid = req.user.uid;
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {

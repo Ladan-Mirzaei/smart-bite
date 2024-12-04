@@ -65,9 +65,9 @@ export default function Profile() {
   const handleOpenPopup = () => {
     setShowPopup(true);
   };
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
+  // const handleClosePopup = () => {
+  //   setShowPopup(false);
+  // };
   return (
     <div className="profile-container">
       <div className="profile-privat">
@@ -125,8 +125,9 @@ export default function Profile() {
                   zIndex: 1000,
                 }}
               >
-                <h2>Hello!</h2>
-                <button onClick={handleClosePopup}>speichern</button>
+                <h2>Diets!</h2>
+                {/* <button onClick={handleClosePopup}>speichern</button>  */}
+                <EditForm setShowPopup={setShowPopup} route="diets" />
               </div>
             )}
           </div>
@@ -155,8 +156,10 @@ export default function Profile() {
                   zIndex: 1000,
                 }}
               >
-                <h2>hello!</h2>
-                <button onClick={handleClosePopup}>speichern</button>
+                {" "}
+                <h2>Categories!</h2>
+                <EditForm setShowPopup={setShowPopup} route="categories" />
+                {/* <button onClick={handleClosePopup}>speichern</button> */}
               </div>
             )}{" "}
           </div>
@@ -173,6 +176,7 @@ export default function Profile() {
             <span>
               <button onClick={handleOpenPopup}>✏️ Edit</button>
             </span>
+            all
             {showPopup && (
               <div
                 style={{
@@ -185,8 +189,8 @@ export default function Profile() {
                   zIndex: 1000,
                 }}
               >
-                {/* <h2>Hello!</h2> */}
-                <EditForm setShowPopup={setShowPopup} />
+                <h2>Allergien!</h2>
+                <EditForm setShowPopup={setShowPopup} route="allergene" />
               </div>
             )}{" "}
           </div>
