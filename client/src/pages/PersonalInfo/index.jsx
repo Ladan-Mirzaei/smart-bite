@@ -18,6 +18,8 @@ export default function UserProfile({ goToNextStep }) {
         return;
       }
       const token = await user.getIdToken();
+      console.log("tocken", user);
+
       console.log("token", token);
 
       const response = await fetch(`${API_URL}/users`, {

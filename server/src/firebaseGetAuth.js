@@ -1,11 +1,11 @@
 //https://medium.com/@asatpathy314/implementing-authentication-middleware-with-firebase-and-express-f811754e815b
 import admin from "./firebaseAdmin.js";
 
-const FirebaseAuthMiddleware = async (req, res, next) => {
+const firebaseGetAuth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized" });
+    next();
   }
 
   const idToken = authHeader.split("Bearer ")[1];
@@ -15,9 +15,8 @@ const FirebaseAuthMiddleware = async (req, res, next) => {
     req.user = decodedToken; // Füge den Benutzer zum Request-Objekt hinzu
     next();
   } catch (error) {
-    console.error("Error verifying token:", error);
-    return res.status(401).json({ message: "Unauthorized" });
+    next();
   }
 };
 
-export default FirebaseAuthMiddleware;
+export default firebaseGetAuth;

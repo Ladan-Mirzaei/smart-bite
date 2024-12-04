@@ -227,7 +227,7 @@ export async function productDetails(req, res) {
         "recipe_ingredient.protein AS protein",
         "recipe_ingredient.carbohydrates AS carbohydrates",
         "recipe_ingredient.fats AS fats",
-        "recipe_ingredient.allergen_category AS allergen_category"
+        "recipe_ingredient.allergene_id AS allergene_id"
       )
       .leftJoin("recipe_diet", "recipe.id", "recipe_diet.recipe_id")
       .leftJoin(

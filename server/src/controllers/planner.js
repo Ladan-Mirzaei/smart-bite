@@ -38,9 +38,11 @@ export async function creatEvents(req, res) {
  */
 export async function getEvents(req, res) {
   const { uid } = req.body;
+  console.log(uid);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
+    console.debug({ user });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -73,6 +75,8 @@ export async function getEvents(req, res) {
       )
       .leftJoin("recipe", "recipe.id", "recipe_planner.recipe_id")
       .groupBy("recipe_planner.planner_id", "recipe.title");
+
+    console.debug({ events });
 
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No Events found" });

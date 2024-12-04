@@ -28,7 +28,6 @@ export async function editDiet(req, res) {
       });
     }
 
-    // Überprüfen - neue Diät-Typ für diesen Benutzer gibt es
     const existingDietType = await db("recipe_user_diet_type")
       .where({ user_id, diet_type_id })
       .first();

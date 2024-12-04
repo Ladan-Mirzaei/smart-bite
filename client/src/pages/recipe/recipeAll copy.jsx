@@ -16,9 +16,6 @@ export default function Recipe() {
   const [categoriesData, setCategoriesData] = useState("");
   const [dietData, setDietData] = useState([]);
   const [formData, setFormData] = useState();
-
-  const [difficultyData, setDifficultyData] = useState("");
-
   console.log("ff", formData);
   // useEffect(() => {
   //   async function loadFetch() {
@@ -32,9 +29,7 @@ export default function Recipe() {
     let finalData = {
       diet_type_id: [],
       ingredient_id: [],
-      allergene_id: [],
-      difficulty_level: "",
-      category_id: "",
+      allergen_category: [],
     };
     if (location.state) {
       // console.log("location.state", location.state);
@@ -65,9 +60,7 @@ export default function Recipe() {
         finalData = {
           diet_type_id: [],
           ingredient_id: [],
-          allergene_id: [],
-          difficulty_level: null,
-          category_id: null,
+          allergen_category: [],
         };
       } catch (err) {
         console.log(err);
@@ -78,30 +71,25 @@ export default function Recipe() {
   // useEffect(() => {
   //   onSubmit();
   // }, []);
-
-  const handleDifficultyChange = (e) => {
-    setDifficultyData(e.target.value);
-    console.log(difficultyData);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const updatedFinalData = {
-    //   diet_type_id: dietData || [],
-    //   ingredient_id: ingredientsData || [],
-    //   allergene_id: allergenData || [],
-    // };
     const updatedFinalData = {
-      diet_type_id: dietData ? dietData : [],
-      ingredient_id: ingredientsData ? ingredientsData : [],
-      allergene_id: allergenData ? allergenData : [],
-      category_id: categoriesData ? categoriesData : null,
-      difficulty_level: difficultyData ? difficultyData : null,
+      diet_type_id: dietData || [],
+      ingredient_id: ingredientsData || [],
+      allergen_category: allergenData || [],
     };
 
-    setFormData(updatedFinalData);
-
-    console.log("Final Form Data:difficultydifficulty", updatedFinalData);
+    if (ingredientsData[0] === "" && dietData[0] === "") {
+      setFormData("");
+    } else if (ingredientsData[0] === "") {
+      setFormData({ diet_type_id: dietData, ingredient_id: [] });
+    } else if (dietData[0] === "") {
+      setFormData({ ingredient_id: ingredientsData, diet_type_id: [] });
+    } else {
+      setFormData(updatedFinalData);
+      console.log(updatedFinalData);
+    }
   };
 
   return (
@@ -130,7 +118,7 @@ export default function Recipe() {
                   dataArray={dietData}
                   setDataArray={setDietData}
                   route="diets"
-                  placeholder="Diet-type"
+                  placeholder="a"
                 />
               </ul>
             </div>
@@ -151,36 +139,15 @@ export default function Recipe() {
               <h3>Aufwand</h3>
               <ul>
                 <li>
-                  <input
-                    type="radio"
-                    name="difficulty"
-                    value="einfach"
-                    id="einfach"
-                    checked={difficultyData === "einfach"}
-                    onChange={handleDifficultyChange}
-                  />
+                  <input type="radio" name="difficulty" id="easy" />{" "}
                   <label htmlFor="easy">Einfach</label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    name="difficulty"
-                    value="mittel"
-                    id="mittel"
-                    checked={difficultyData === "mittel"}
-                    onChange={handleDifficultyChange}
-                  />
+                  <input type="radio" name="difficulty" id="medium" />{" "}
                   <label htmlFor="medium">Mittel</label>
                 </li>
                 <li>
-                  <input
-                    type="radio"
-                    name="difficulty"
-                    value="schwer"
-                    id="schwer"
-                    checked={difficultyData === "schwer"}
-                    onChange={handleDifficultyChange}
-                  />
+                  <input type="radio" name="difficulty" id="hard" />{" "}
                   <label htmlFor="hard">Schwer</label>
                 </li>
               </ul>

@@ -12,4 +12,5 @@ VALUES
     ('Meeresfrüchte'),
     ('Eier'),
     ('Gluten'),
-    ('Hülsenfrüchte');
+    ('Hülsenfrüchte'),
+     ('Honig');

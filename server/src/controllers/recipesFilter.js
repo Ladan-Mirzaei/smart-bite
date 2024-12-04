@@ -15,12 +15,35 @@ import db from "../util/db-connect.js";
 // ]
 // ARRAY_AGG	PostgreSQL-Array ["value1",...]	Einfacher, effizienter, aber keine Schlüssel-Wert-Struktur.
 // JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
-
+/**
+ * @api POST /users/sammlungrecipe
+ *{uid ,id}
+ @api POSTallrecipe und filter
+ */
 export async function recipeFilter(req, res) {
+  const {
+    diet_type_id,
+    ingredient_id,
+    allergene_id,
+    category_id,
+    difficulty_level,
+  } = req.body;
+  const uid = req.user.uid;
+
   try {
-    const { diet_type_id, ingredient_id } = req.body;
-    console.log(req.body);
+    console.log("uid", uid);
+
+    const user = await db("recipe_user").select("id").where({ uid }).first();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user_id = user.id;
+    console.log("req.boynew", req.body);
     let recipes;
+    const validDietTypeIds = diet_type_id.filter((id) => id !== "");
+    const validIngredientIds = ingredient_id.filter((id) => id !== "");
+    const validAllergenIds = allergene_id.filter((id) => id !== "");
 
     recipes = await db("recipe")
       .select(
@@ -63,19 +86,27 @@ export async function recipeFilter(req, res) {
         "recipe_categories.name"
       )
       .where((builder) => {
-        if (diet_type_id.length > 0) {
+        if (validDietTypeIds.length > 0) {
           builder.whereIn("recipe_diet.diet_type_id", diet_type_id);
         }
 
-        if (ingredient_id.length > 0) {
+        if (validIngredientIds.length > 0) {
           builder.whereIn(
             "recipe_ingredient_details.ingredient_id",
             ingredient_id
           );
         }
+        if (validAllergenIds.length > 0) {
+          builder.whereNotIn("recipe_ingredient.allergene_id", allergene_id);
+        }
+        if (category_id) {
+          builder.where("recipe.category_id", category_id);
+        }
+        if (difficulty_level) {
+          builder.where("recipe.difficulty_level", difficulty_level);
+        }
       });
 
-    console.log("recipe", recipes);
     if (!recipes || recipes.length === 0) {
       return res.status(404).json({ message: "No recipes found" });
     }

@@ -156,7 +156,7 @@
 
 .form-container textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 150px;
 }
 
 .ingredients-container {
@@ -218,3 +218,159 @@ input[type="file"] {
     font-size: 14px;
   }
 }
+/* <div class="recipeform-container">
+  <form id="recipeForm">
+    <!-- Rezeptname -->
+    <label for="recipeName">Rezeptname</label>
+    <input
+      type="text"
+      id="recipeName"
+      name="title"
+      class="recipeform-input-field"
+      placeholder="Wie heißt dein Rezept?"
+      required
+    />
+
+    <!-- Schwierigkeitsgrad -->
+    <label>Schwierigkeitsgrad</label>
+    <div class="recipeform-radio-group">
+      <input type="radio" id="easy" name="difficulty_level" value="einfach" />
+      <label for="easy" class="recipeform-radio-label">Einfach</label>
+
+      <input type="radio" id="medium" name="difficulty_level" value="mittel" />
+      <label for="medium" class="recipeform-radio-label">Mittel</label>
+
+      <input type="radio" id="hard" name="difficulty_level" value="schwer" />
+      <label for="hard" class="recipeform-radio-label">Schwer</label>
+    </div>
+
+    <!-- Portionen -->
+    <label for="portions">Portionen</label>
+    <div>
+      <button
+        type="button"
+        class="recipeform-btn-minus"
+        onclick="decreasePortions()"
+      >
+        -
+      </button>
+      <span id="portionsCount">1</span>
+      <button
+        type="button"
+        class="recipeform-btn-plus"
+        onclick="increasePortions()"
+      >
+        +
+      </button>
+    </div>
+
+    <!-- Zutaten -->
+    <div class="recipeform-ingredients-container">
+      <h3 class="recipeform-header">Zutaten und Mengenangaben</h3>
+      <div id="ingredientsList">
+        <div class="ingredient-item">
+          <input
+            type="text"
+            name="ingredient"
+            placeholder="Zutat"
+            class="recipeform-input-field"
+          />
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Menge"
+            class="recipeform-input-field"
+          />
+          <input
+            type="text"
+            name="unit"
+            placeholder="Einheit (z. B. g, ml)"
+            class="recipeform-input-field"
+          />
+        </div>
+      </div>
+      <button type="button" onclick="addIngredient()">+ Zutat hinzufügen</button>
+    </div>
+
+    <!-- Zubereitung -->
+    <label for="instructions">Rezeptzubereitung</label>
+    <textarea
+      id="instructions"
+      name="instructions"
+      class="recipeform-textarea"
+      placeholder="Hier kannst du die Schritte für die Zubereitung deines Rezepts eintragen."
+    ></textarea>
+
+    <!-- Zeiten -->
+    <label for="preparationTime">Vorbereitungszeit</label>
+    <div class="recipeform-time-inputs">
+      <input
+        type="number"
+        name="preparation_time_hours"
+        placeholder="Stunden"
+        class="recipeform-input-field"
+      />
+      <span>Stunden</span>
+      <input
+        type="number"
+        name="preparation_time_minutes"
+        placeholder="Minuten"
+        class="recipeform-input-field"
+      />
+      <span>Minuten</span>
+    </div>
+
+    <label for="cookingTime">Koch-/Backzeit</label>
+    <div class="recipeform-time-inputs">
+      <input
+        type="number"
+        name="cooking_time_hours"
+        placeholder="Stunden"
+        class="recipeform-input-field"
+      />
+      <span>Stunden</span>
+      <input
+        type="number"
+        name="cooking_time_minutes"
+        placeholder="Minuten"
+        class="recipeform-input-field"
+      />
+      <span>Minuten</span>
+    </div>
+
+    <!-- Bild hochladen -->
+    <label for="imageFile">Rezeptbild hochladen</label>
+    <input type="file" id="imageFile" name="image" class="recipeform-input-field" />
+
+    <!-- Rezept einreichen -->
+    <button type="submit" class="recipeform-btn-submit">Rezept hinzufügen</button>
+  </form>
+</div>
+
+<script>
+  let portions = 1;
+
+  function increasePortions() {
+    portions += 1;
+    document.getElementById("portionsCount").textContent = portions;
+  }
+
+  function decreasePortions() {
+    if (portions > 1) {
+      portions -= 1;
+      document.getElementById("portionsCount").textContent = portions;
+    }
+  }
+
+  function addIngredient() {
+    const ingredientsList = document.getElementById("ingredientsList");
+    const newIngredient = document.createElement("div");
+    newIngredient.classList.add("ingredient-item");
+    newIngredient.innerHTML = `
+      <input type="text" name="ingredient" placeholder="Zutat" class="recipeform-input-field" />
+      <input type="number" name="quantity" placeholder="Menge" class="recipeform-input-field" />
+      <input type="text" name="unit" placeholder="Einheit (z. B. g, ml)" class="recipeform-input-field" />
+    `;
+    ingredientsList.appendChild(newIngredient);
+  }
+</script> */

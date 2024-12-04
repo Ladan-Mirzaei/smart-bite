@@ -3,11 +3,15 @@ import { useAuth } from "../../context/AuthContext";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import EditForm from "./edit.jsx";
 export default function Profile() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user, userData } = useAuth();
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
+  const [showPopupDiet, setShowPopupDiet] = useState(false);
+  const [showPopupCategory, setShowPopupCategory] = useState(false);
+  const [showPopupAllergene, setShowPopupAllergene] = useState(false);
 
   useEffect(() => {
     async function loadUserData() {
@@ -28,10 +32,12 @@ export default function Profile() {
         }
         const userDataFetch = await response.json();
         setProfileData(userDataFetch);
+        localStorage.setItem("profileData", profileData);
       } catch (err) {
         console.log(err);
       }
     }
+
     async function loadUserRecipes() {
       try {
         const token = await user.getIdToken();
@@ -58,6 +64,18 @@ export default function Profile() {
     loadUserData();
   }, []);
   console.log(profileData);
+  const handleOpenPopup = (showData) => {
+    if (showData === "categories") {
+      setShowPopupCategory(true);
+    } else if (showData === "allergene") {
+      setShowPopupAllergene(true);
+    } else if (showData === "diets") {
+      setShowPopupDiet(true);
+    }
+  };
+  // const handleClosePopup = () => {
+  //   setShowPopup(false);
+  // };
   return (
     <div className="profile-container">
       <div className="profile-privat">
@@ -90,7 +108,7 @@ export default function Profile() {
           <p>
             Welcome,
             {userData?.firstName || "Gast"} {userData?.lastName || ""}!
-            <p>{user?.email} </p>{" "}
+            <p>{user?.email} </p>
             <Link to="/meine-favoriten">Meine Favoriten Rezepte</Link>
           </p>
         </div>
@@ -100,7 +118,30 @@ export default function Profile() {
           {" "}
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={() => handleOpenPopup("diets")}>✏️ Edit</button>
+            </span>
+            {showPopupDiet && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "30%",
+                  left: "50%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                <h2>Diets!</h2>
+                {/* <button onClick={handleClosePopup}>speichern</button>  */}
+                <EditForm
+                  setShowPopupDiet={showPopupDiet}
+                  route="diets"
+                  placeholder="Diets"
+                />
+              </div>
+            )}
           </div>
           <ul>
             {Array.isArray(profileData) &&
@@ -112,7 +153,33 @@ export default function Profile() {
         <div className="profile-category">
           <div className="profile-header">
             <h3>Lieblingsküchen</h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={() => handleOpenPopup("categories")}>
+                ✏️ Edit
+              </button>
+            </span>
+            {showPopupCategory && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                {" "}
+                <h2>Categories!</h2>
+                <EditForm
+                  setShowPopupCategory={showPopupCategory}
+                  route="categories"
+                  placeholder="categories"
+                />
+                {/* <button onClick={handleClosePopup}>speichern</button> */}
+              </div>
+            )}{" "}
           </div>
           <ul>
             {Array.isArray(profileData) &&
@@ -124,7 +191,32 @@ export default function Profile() {
         <div className="profile-category">
           <div className="profile-header">
             <h3>Allergien</h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={() => handleOpenPopup("allergene")}>
+                ✏️ Edit
+              </button>
+            </span>
+            all
+            {showPopupAllergene && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "70%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                <h2>Allergien!</h2>
+                <EditForm
+                  setShowPopupAllergene={showPopupAllergene}
+                  route="allergene"
+                  placeholder="Allergene"
+                />
+              </div>
+            )}{" "}
           </div>
           <ul>
             {Array.isArray(profileData) &&

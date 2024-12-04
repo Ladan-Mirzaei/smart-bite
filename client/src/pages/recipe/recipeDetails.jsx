@@ -11,12 +11,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 const RecipeDetails = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const recipeId = id;
   const { fetchData } = useFetch();
   const [fetchRezeptData, setFetchRezeptData] = useState({
     ingredient_details: [],
   });
   const [totalNutrients, setTotalNutrients] = useState({});
   const [data, setData] = useState();
+  const [dataRecipeSammlung, setDataRecipeSammlung] = useState();
+
   const contentRef = useRef(null);
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -24,7 +27,11 @@ const RecipeDetails = () => {
   const handlePrint = useReactToPrint({
     contentRef,
   });
+
   useEffect(() => {
+    console.log("ID from useParams:", id);
+    console.log("Stored in recipeId:", recipeId);
+
     async function loadFetch() {
       const data = await fetchData(`${API_URL}/recipes/${id}`);
 
@@ -36,21 +43,23 @@ const RecipeDetails = () => {
       );
       setTotalNutrients(totals);
     }
-    console.log("data44", isFavorited);
 
     const favorited = async () => {
+      console.log("body", id, user.uid);
       try {
-        const response = await fetch(`${API_URL}/users/sammlung`, {
+        const response = await fetch(`${API_URL}/users/sammlungrecipe`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id, uid: user.uid }),
+          body: JSON.stringify({ uid: user.uid, id: recipeId }),
         });
+
         if (!response.ok) {
           console.error("Data fetching error");
         }
-        const data = await response.json();
+        const dataSammlung = await response.json();
+        setDataRecipeSammlung(dataSammlung);
         setIsFavorited(true);
       } catch (err) {
         console.log(err);
@@ -59,6 +68,8 @@ const RecipeDetails = () => {
     favorited();
     loadFetch();
   }, []);
+  console.log("dataRecipeSammlung", dataRecipeSammlung);
+  // dataRecipeSammlung ? setIsFavorited(true) : setIsFavorited(false);
 
   if (!fetchRezeptData) {
     return <div>Lade Rezeptdaten...</div>;
@@ -101,7 +112,6 @@ const RecipeDetails = () => {
       alert("Bitte loggen Sie sich zuerst ein!!");
       return;
     }
-    console.log("id", id, user.uid);
     try {
       const response = await fetch(`${API_URL}/users/sammlung`, {
         method: "POST",
@@ -114,14 +124,12 @@ const RecipeDetails = () => {
         console.error("Data fetching error");
       }
       const data = await response.json();
-      console.log(data);
       setData(data);
       setIsFavorited(true);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log("data", data);
   return (
     <>
       {" "}
@@ -206,7 +214,7 @@ const RecipeDetails = () => {
                       fontSize: "12px",
                     }}
                   >
-                    Allergene: {ing.allergen_category}
+                    Allergene: {ing.allergen_name}
                   </span>
                 </li>
               ))}
@@ -250,7 +258,7 @@ const RecipeDetails = () => {
                     {" "}
                     {totalNutrients.calories
                       ? totalNutrients.calories.toFixed(2)
-                      : "0.00"}{" "}
+                      : "0.00"}
                     kcal
                   </p>
                 </div>
@@ -260,10 +268,9 @@ const RecipeDetails = () => {
                 >
                   <h3>Kohlenhydrate</h3>
                   <p>
-                    {" "}
                     {totalNutrients.carbohydrates
                       ? totalNutrients.carbohydrates.toFixed(2)
-                      : "0.00"}{" "}
+                      : "0.00"}
                   </p>
                 </div>
                 <div
