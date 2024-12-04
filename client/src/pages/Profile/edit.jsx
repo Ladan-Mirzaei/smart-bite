@@ -1,65 +1,77 @@
 import { useState, useEffect } from "react";
-export default function EditForm() {
-  const [showForm, setShowForm] = useState(false);
-  const [data, setData] = useState([
-    { id: 1, name: "Item 1" },
-    { id: 2, name: "Item 2" },
-    { id: 3, name: "Item 3" },
-  ]);
-  const [selectedValues, setSelectedValues] = useState({});
-  const API_URL = import.meta.env.VITE.API_URL;
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("Form submitted with values:", selectedValues);
-  }
+import { useFetch } from "../../hooks/fetch.jsx";
+import { useAuth } from "../../context/AuthContext";
+import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 
-  function handleSelectChange(e, itemId) {
-    setSelectedValues((prevValues) => ({
-      ...prevValues,
-      [itemId]: e.target.value,
-    }));
-  }
+export default function EditForm({ setShowPopup }) {
+  const { fetchData } = useFetch();
+  const [fetchSelectData, setFetchSelectData] = useState([]);
+  const { user } = useAuth();
+  const [dietsData, setDietsData] = useState([]);
+  const [userUpdateData, SetUserUpdateData] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
+  const route = "diets";
+  // Fetch data for select options
   useEffect(() => {
     async function loadData() {
-      const data = await fetchData(`${API_URL}/${route}`, "GET");
-
-      if (Array.isArray(data)) {
+      try {
+        const data = await fetchData(`${API_URL}/${route}`, "GET");
         setFetchSelectData(data);
-      } else {
-        console.error("Unexpected data format", data);
-        setFetchSelectData([]);
+      } catch (err) {
+        console.error("Error fetching diet data:", err);
       }
     }
-
     loadData();
-    if (dataArray.length === 0) {
-      setDataArray([]);
-    }
   }, []);
+
+  // const handleSelectChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSelectedValues((prevValues) => ({
+  //     ...prevValues,
+  //     [name]: value,
+  //   }));
+  //   console.log("Updated Selected Values:", selectedValues);
+  // };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const token = await user.getIdToken();
+      const response = await fetch(`${API_URL}/${route}/update${route}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ updateFields: `${route}Data` }),
+      });
+      if (!response.ok) {
+        throw new Error("Data fetching error");
+      }
+      const data = await response.json();
+      SetUserUpdateData(data);
+
+      console.log("Server Response:", data);
+      setShowPopup(false);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  }
+  // const handleClosePopup = () => {
+  //   setShowPopup(false);
+  // };
   return (
     <div>
-      <button onClick={() => setShowForm(true)}>Edit</button>
-      {showForm && (
-        <form onSubmit={handleSubmit}>
-          {data.map((item) => (
-            <div key={item.id}>
-              <label htmlFor={`diet-type-${item.id}`}>{item.name}</label>
-              <select
-                id={`diet-type-${item.id}`}
-                name={`Diet-Type-${item.id}`}
-                value={selectedValues[item.id] || ""}
-                onChange={(e) => handleSelectChange(e, item.id)}
-              >
-                <option value="">Select an option</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
-            </div>
-          ))}
-          <button type="submit">Submit</button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit}>
+        <SelectWithPlus
+          dataArray={dietsData}
+          setDataArray={setDietsData}
+          route="diets"
+          placeholder="Diet-type"
+        />
+        {/* <button type="submit">Submit</button> */}
+        <button type="submit">speichern</button>
+      </form>
     </div>
   );
 }

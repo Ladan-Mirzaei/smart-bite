@@ -16,7 +16,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useContext(AuthContext);
   const [showWeek, setShowWeek] = useState(false);
-  const shoppingListUrl = "https://192.168.2.124:5173/shoppinglist";
+  const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
 
   useEffect(() => {
     const saveEventToServer = async (newEvent) => {

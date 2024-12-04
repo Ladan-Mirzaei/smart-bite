@@ -3,11 +3,13 @@ import { useAuth } from "../../context/AuthContext";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import EditForm from "./edit.jsx";
 export default function Profile() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user, userData } = useAuth();
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     async function loadUserData() {
@@ -28,10 +30,12 @@ export default function Profile() {
         }
         const userDataFetch = await response.json();
         setProfileData(userDataFetch);
+        localStorage.setItem("profileData", profileData);
       } catch (err) {
         console.log(err);
       }
     }
+
     async function loadUserRecipes() {
       try {
         const token = await user.getIdToken();
@@ -58,6 +62,12 @@ export default function Profile() {
     loadUserData();
   }, []);
   console.log(profileData);
+  const handleOpenPopup = () => {
+    setShowPopup(true);
+  };
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
   return (
     <div className="profile-container">
       <div className="profile-privat">
@@ -90,7 +100,7 @@ export default function Profile() {
           <p>
             Welcome,
             {userData?.firstName || "Gast"} {userData?.lastName || ""}!
-            <p>{user?.email} </p>{" "}
+            <p>{user?.email} </p>
             <Link to="/meine-favoriten">Meine Favoriten Rezepte</Link>
           </p>
         </div>
@@ -100,7 +110,25 @@ export default function Profile() {
           {" "}
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={handleOpenPopup}>✏️ Edit</button>
+            </span>
+            {showPopup && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                <h2>Hello!</h2>
+                <button onClick={handleClosePopup}>speichern</button>
+              </div>
+            )}
           </div>
           <ul>
             {Array.isArray(profileData) &&
@@ -112,7 +140,25 @@ export default function Profile() {
         <div className="profile-category">
           <div className="profile-header">
             <h3>Lieblingsküchen</h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={handleOpenPopup}>✏️ Edit</button>
+            </span>
+            {showPopup && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                <h2>hello!</h2>
+                <button onClick={handleClosePopup}>speichern</button>
+              </div>
+            )}{" "}
           </div>
           <ul>
             {Array.isArray(profileData) &&
@@ -124,7 +170,25 @@ export default function Profile() {
         <div className="profile-category">
           <div className="profile-header">
             <h3>Allergien</h3>
-            <span>✏️ Edit</span>
+            <span>
+              <button onClick={handleOpenPopup}>✏️ Edit</button>
+            </span>
+            {showPopup && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  background: "white",
+                  padding: "20px",
+                  border: "1px solid black",
+                  zIndex: 1000,
+                }}
+              >
+                {/* <h2>Hello!</h2> */}
+                <EditForm setShowPopup={setShowPopup} />
+              </div>
+            )}{" "}
           </div>
           <ul>
             {Array.isArray(profileData) &&

@@ -243,7 +243,7 @@ JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
  */
 export async function recipeDetails(req, res) {
   const { recipeId } = req.params;
-
+  console.log("test", recipeId);
   try {
     const ingredients = await db("recipe_ingredient_details")
       .select(
@@ -257,7 +257,7 @@ export async function recipeDetails(req, res) {
           'protein', recipe_ingredient.protein,
           'carbohydrates', recipe_ingredient.carbohydrates,
           'fats', recipe_ingredient.fats,
-          'allergen_category',recipe_ingredient.allergen_category
+          'allergen_name', recipe_allergene.name
 
         )
       ) AS ingredient_details
@@ -268,8 +268,14 @@ export async function recipeDetails(req, res) {
         "recipe_ingredient.id",
         "recipe_ingredient_details.ingredient_id"
       )
+      .leftJoin(
+        "recipe_allergene",
+        "recipe_ingredient.allergene_id",
+        "recipe_allergene.id"
+      )
       .where("recipe_ingredient_details.recipe_id", recipeId)
       .first();
+    console.log("test", ingredients);
 
     const recipeDetails = await db("recipe")
       .select(
@@ -321,6 +327,8 @@ export async function recipeDetails(req, res) {
       ...recipeDetails,
       ingredient_details: ingredients.ingredient_details, //// Zutaten aus ingredients ....AS  ingredient_details
     };
+    console.log("test", combinedResult);
+
     return res.status(200).json(combinedResult);
   } catch (error) {
     console.error("Error fetching Recipes:", error);

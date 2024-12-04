@@ -14,7 +14,6 @@ export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
     // activity_level: "",
   });
   const { user } = useContext(AuthContext);
-  console.log("user", user.email);
 
   const handleFormChange = (e) => {
     const { id, value } = e.target;

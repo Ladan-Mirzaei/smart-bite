@@ -2,7 +2,7 @@ import "../../pages/PersonalInfo/style.css";
 import "./style.css";
 import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
-import ZutatenForm from "./selectIngredients.jsx";
+import ZutatenForm from "../../components/Select/selectWithPlus.jsx";
 import UploadImage from "../UploadImage/index.jsx";
 
 export default function Recipe({ onFormSubmit }) {

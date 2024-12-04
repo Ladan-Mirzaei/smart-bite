@@ -3,10 +3,8 @@ import RandomRecipe from "../../components/Home/randomRecipe.jsx";
 import SelectMulti from "../../components/Select/selectMulti.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import QRCode from "react-qr-code";
 
 export default function Home() {
-  const API_URL = import.meta.env.VITE_API_URL;
   const [ingredientsData, setIngredientsData] = useState([]);
   const [dietData, setDietData] = useState([]);
   let navigate = useNavigate();
@@ -39,53 +37,84 @@ export default function Home() {
     // }
   };
   return (
-    <div className="home-content">
-      <section className="hero">
-        <h1>Gesund essen mit Genuss</h1>
-        <p>
-          Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
-          möchtest, versorgst du ihn am besten mit allem, was er braucht, um
-          dich gesund und glücklich durch dein Leben zu tragen.
-        </p>
-        <button className="cta-button">Mein Kalender</button>
-      </section>
+    <>
+      <div className="home-content">
+        <section className="hero">
+          <h1>Gesund essen mit Genuss</h1>
+          <p>
+            Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
+            möchtest, versorgst du ihn am besten mit allem, was er braucht, um
+            dich gesund und glücklich durch dein Leben zu tragen.
+          </p>
+          <button className="cta-button">Mein Kalender</button>
+        </section>
 
-      <section className="subscription">
-        <form onSubmit={handleSubmit} className="subscription-form">
-          <SelectMulti
-            setDataArray={setIngredientsData}
-            route="ingredients"
-            placeholder="Zutaten auswählen"
-          />
-          <SelectMulti
-            setDataArray={setDietData}
-            route="diets"
-            placeholder="Ernährungsform
+        <section className="subscription">
+          <form onSubmit={handleSubmit} className="subscription-form">
+            <SelectMulti
+              setDataArray={setIngredientsData}
+              route="ingredients"
+              placeholder="Zutaten auswählen"
+            />
+            <SelectMulti
+              setDataArray={setDietData}
+              route="diets"
+              placeholder="Ernährungsform
  auswählen"
-          />
+            />
 
-          <button type="submit" className="subscribe-button">
-            Rezepte SUCHEN
-          </button>
-        </form>
-      </section>
-      {/* -------------------------- */}
-      <div className="card-container">
-        <RandomRecipe />
+            <button type="submit" className="subscribe-button">
+              Rezepte SUCHEN
+            </button>
+          </form>
+        </section>
+        {/* -------------------------- */}
+        <div className="card-container">
+          <RandomRecipe />
+        </div>
+        <div></div>
       </div>
-      <div></div>
 
-      {/* <h2>Willkommen, {user.email}!</h2>
-      <p>
-        Dies ist die Home-Seite, die nur für angemeldete Benutzer zugänglich
-        ist.
-      </p>
-      Button zeigt sich je nach Login-Status
-      {user ? (
-        <button onClick={handleLogout}>Logout</button> 
-      ) : (
-        <button onClick={() => navigate("/login")}>Login</button> 
-      )} */}
-    </div>
+      <div className="layout-container">
+        <div className="layout-card">
+          <div className="image-wrapper">
+            <img
+              src="https://res.cloudinary.com/dxneunm1q/image/upload/v1732794719/jo7qz6pny6xh0vzmtovt.avif"
+              alt="Person enjoying salad"
+              className="card-image"
+            />
+          </div>
+          <div className="info-wrapper">
+            <h2 className="title"> Gesund essen, besser leben</h2>
+            <p className="description">
+              Gesund essen, besser leben. Bei SmartBite glauben wir daran, dass
+              Ernährung nicht kompliziert sein muss. Eine ausgewogene Ernährung
+              ist der Schlüssel zu einem aktiven, glücklichen Leben. Egal, ob du
+              deine Leistungsfähigkeit steigern, deinen Stoffwechsel ankurbeln
+              oder einfach nur neue, köstliche Mahlzeiten ausprobieren möchtest
+              – wir haben alles, was du brauchst. Unser Ansatz ist individuell
+              und flexibel: Passe deine Ernährung an deinen Alltag und deine
+              Ziele an. Es geht nicht nur darum, Kalorien zu zählen, sondern
+              darum, deinem Körper die Nährstoffe zu geben, die er wirklich
+              braucht.
+            </p>
+            <div className="statistics">
+              <div className="stat-block">
+                <h3 className="stat-value">Kalender</h3>
+                <p className="stat-label">Ernährungsplänen</p>
+              </div>
+              <div className="stat-block">
+                <h3 className="stat-value">Rezepte </h3>
+                <p className="stat-label"> individuell und flexibel</p>
+              </div>
+              <div className="stat-block">
+                <h3 className="stat-value">BMI</h3>
+                <p className="stat-label">Abschätzung des Körperfettanteils</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

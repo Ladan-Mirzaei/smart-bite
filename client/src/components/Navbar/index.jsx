@@ -2,10 +2,10 @@ import "./navbar.css";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { logoutUser } from "../authentication/authService.js";
 export default function Navbar() {
   const { user, signOut } = useAuth();
-  const navigate = { useNavigate };
+  const navigate = useNavigate();
   return (
     <header className="navbar">
       <div className="navbar-brand">SMARTBITE</div>
@@ -36,8 +36,9 @@ export default function Navbar() {
                   }}
                 > */}
                 <button
-                  onClick={() => {
-                    signOut(), navigate("/");
+                  onClick={async () => {
+                    await logoutUser();
+                    navigate("/");
                   }}
                 >
                   Logout

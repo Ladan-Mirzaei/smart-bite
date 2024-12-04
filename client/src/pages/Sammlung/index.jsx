@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Sammlung() {
   const [recipesData, setRecipesData] = useState({});
@@ -13,22 +14,30 @@ export default function Sammlung() {
   const [categoriesData, setCategoriesData] = useState("");
   const [dietData, setDietData] = useState([]);
   const [formData, setFormData] = useState();
+  const { user } = useContext(AuthContext);
+  const [difficultyData, setDifficultyData] = useState("");
 
   useEffect(() => {
     let finalData = {
       diet_type_id: [],
       ingredient_id: [],
+      allergene_id: [],
+      difficulty_level: "",
+      category_id: "",
     };
 
     if (formData) {
       finalData = formData;
     }
+    console.log("body", user.uid);
 
     const onSubmit = async () => {
       try {
+        const token = await user.getIdToken();
         const response = await fetch(`${API_URL}/recipes/recipeFilter`, {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(finalData),
@@ -41,6 +50,9 @@ export default function Sammlung() {
         finalData = {
           diet_type_id: [],
           ingredient_id: [],
+          allergene_id: [],
+          difficulty_level: null,
+          category_id: null,
         };
       } catch (err) {
         console.log(err);
@@ -51,25 +63,30 @@ export default function Sammlung() {
   // useEffect(() => {
   //   onSubmit();
   // }, []);
+  const handleDifficultyChange = (e) => {
+    setDifficultyData(e.target.value);
+    console.log(difficultyData);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // const updatedFinalData = {
+    //   diet_type_id: dietData || [],
+    //   ingredient_id: ingredientsData || [],
+    //   allergene_id: allergenData || [],
+    // };
     const updatedFinalData = {
-      diet_type_id: dietData || [],
-      ingredient_id: ingredientsData || [],
+      diet_type_id: dietData ? dietData : [],
+      ingredient_id: ingredientsData ? ingredientsData : [],
+      allergene_id: allergenData ? allergenData : [],
+      category_id: categoriesData ? categoriesData : null,
+      difficulty_level: difficultyData ? difficultyData : null,
     };
 
-    if (ingredientsData[0] === "" && dietData[0] === "") {
-      setFormData("");
-    } else if (ingredientsData[0] === "") {
-      setFormData({ diet_type_id: dietData, ingredient_id: [] });
-    } else if (dietData[0] === "") {
-      setFormData({ ingredient_id: ingredientsData, diet_type_id: [] });
-    } else {
-      setFormData(updatedFinalData);
-    }
-  };
+    setFormData(updatedFinalData);
 
+    console.log("Final Form Data:difficultydifficulty", updatedFinalData);
+  };
   return (
     <>
       <div className="page-layout">
@@ -117,15 +134,36 @@ export default function Sammlung() {
               <h3>Aufwand</h3>
               <ul>
                 <li>
-                  <input type="radio" name="difficulty" id="easy" />{" "}
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="einfach"
+                    id="einfach"
+                    checked={difficultyData === "einfach"}
+                    onChange={handleDifficultyChange}
+                  />
                   <label htmlFor="easy">Einfach</label>
                 </li>
                 <li>
-                  <input type="radio" name="difficulty" id="medium" />{" "}
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="mittel"
+                    id="mittel"
+                    checked={difficultyData === "mittel"}
+                    onChange={handleDifficultyChange}
+                  />
                   <label htmlFor="medium">Mittel</label>
                 </li>
                 <li>
-                  <input type="radio" name="difficulty" id="hard" />{" "}
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="schwer"
+                    id="schwer"
+                    checked={difficultyData === "schwer"}
+                    onChange={handleDifficultyChange}
+                  />
                   <label htmlFor="hard">Schwer</label>
                 </li>
               </ul>

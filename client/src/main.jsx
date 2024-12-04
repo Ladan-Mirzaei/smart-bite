@@ -39,10 +39,10 @@ const router = createBrowserRouter([
         path: "/editForm",
         element: <EditForm />,
       },
-      {
-        path: "/shoppinglist",
-        element: <ShoppingList />,
-      },
+      // {
+      //   path: "/shoppinglist",
+      //   element: <ShoppingList />,
+      // },
       {
         path: "/BMI",
         element: <BMI />,
@@ -114,6 +114,7 @@ const router = createBrowserRouter([
       { path: "scanner", element: <Scanner /> },
     ],
   },
+  { path: "/ShoppingList", element: <ShoppingList /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
