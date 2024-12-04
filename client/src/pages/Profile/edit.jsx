@@ -4,14 +4,19 @@ import { useAuth } from "../../context/AuthContext";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import { updateUserInfo } from "../../functions/updateUserInfo.js";
 
-export default function EditForm({ setShowPopup, route }) {
+export default function EditForm({
+  setShowPopupDiet,
+  setShowPopupcategory,
+  setShowPopupAllergene,
+  route,
+  placeholder,
+}) {
   const { fetchData } = useFetch();
   const [fetchSelectData, setFetchSelectData] = useState([]);
-  const [resultData, setResultData] = useState([]);
+  const [resultData, setResultData] = useState();
   const { user } = useAuth();
   const [userUpdateData, SetUserUpdateData] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
     async function loadData() {
       console.log("EditForm - useEffect: ", { API_URL, fetchData, route });
@@ -23,16 +28,18 @@ export default function EditForm({ setShowPopup, route }) {
       }
     }
     loadData();
-  }, []);
+  }, [API_URL, route]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const token = await user.getIdToken();
     const result = await updateUserInfo(token, route, fetchSelectData);
     SetUserUpdateData(result);
-    setShowPopup(false);
+    setShowPopupDiet(false),
+      setShowPopupcategory(false),
+      setShowPopupAllergene(false);
   }
-
+  console.log("setResultData", setResultData);
   // const handleClosePopup = () => {
   //   setShowPopup(false);
   // };
@@ -43,12 +50,12 @@ export default function EditForm({ setShowPopup, route }) {
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <SelectWithPlus
-          dataArray={fetchSelectData || []}
+          dataArray={fetchSelectData}
           setDataArray={setResultData}
           route={route}
-          placeholder="todo"
+          placeholder={placeholder}
         />
         <button type="submit">speichern</button>
       </form>

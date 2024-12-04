@@ -9,7 +9,9 @@ export default function Profile() {
   const { user, userData } = useAuth();
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopupDiet, setShowPopupDiet] = useState(false);
+  const [showPopupCategory, setShowPopupCategory] = useState(false);
+  const [showPopupAllergene, setShowPopupAllergene] = useState(false);
 
   useEffect(() => {
     async function loadUserData() {
@@ -62,8 +64,14 @@ export default function Profile() {
     loadUserData();
   }, []);
   console.log(profileData);
-  const handleOpenPopup = () => {
-    setShowPopup(true);
+  const handleOpenPopup = (showData) => {
+    if (showData === "categories") {
+      setShowPopupCategory(true);
+    } else if (showData === "allergene") {
+      setShowPopupAllergene(true);
+    } else if (showData === "diets") {
+      setShowPopupDiet(true);
+    }
   };
   // const handleClosePopup = () => {
   //   setShowPopup(false);
@@ -111,13 +119,13 @@ export default function Profile() {
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
             <span>
-              <button onClick={handleOpenPopup}>✏️ Edit</button>
+              <button onClick={() => handleOpenPopup("diets")}>✏️ Edit</button>
             </span>
-            {showPopup && (
+            {showPopupDiet && (
               <div
                 style={{
                   position: "fixed",
-                  top: "50%",
+                  top: "30%",
                   left: "50%",
                   background: "white",
                   padding: "20px",
@@ -127,7 +135,11 @@ export default function Profile() {
               >
                 <h2>Diets!</h2>
                 {/* <button onClick={handleClosePopup}>speichern</button>  */}
-                <EditForm setShowPopup={setShowPopup} route="diets" />
+                <EditForm
+                  setShowPopupDiet={showPopupDiet}
+                  route="diets"
+                  placeholder="Diets"
+                />
               </div>
             )}
           </div>
@@ -142,9 +154,11 @@ export default function Profile() {
           <div className="profile-header">
             <h3>Lieblingsküchen</h3>
             <span>
-              <button onClick={handleOpenPopup}>✏️ Edit</button>
+              <button onClick={() => handleOpenPopup("categories")}>
+                ✏️ Edit
+              </button>
             </span>
-            {showPopup && (
+            {showPopupCategory && (
               <div
                 style={{
                   position: "fixed",
@@ -158,7 +172,11 @@ export default function Profile() {
               >
                 {" "}
                 <h2>Categories!</h2>
-                <EditForm setShowPopup={setShowPopup} route="categories" />
+                <EditForm
+                  setShowPopupCategory={showPopupCategory}
+                  route="categories"
+                  placeholder="categories"
+                />
                 {/* <button onClick={handleClosePopup}>speichern</button> */}
               </div>
             )}{" "}
@@ -174,15 +192,17 @@ export default function Profile() {
           <div className="profile-header">
             <h3>Allergien</h3>
             <span>
-              <button onClick={handleOpenPopup}>✏️ Edit</button>
+              <button onClick={() => handleOpenPopup("allergene")}>
+                ✏️ Edit
+              </button>
             </span>
             all
-            {showPopup && (
+            {showPopupAllergene && (
               <div
                 style={{
                   position: "fixed",
                   top: "50%",
-                  left: "50%",
+                  left: "70%",
                   background: "white",
                   padding: "20px",
                   border: "1px solid black",
@@ -190,7 +210,11 @@ export default function Profile() {
                 }}
               >
                 <h2>Allergien!</h2>
-                <EditForm setShowPopup={setShowPopup} route="allergene" />
+                <EditForm
+                  setShowPopupAllergene={showPopupAllergene}
+                  route="allergene"
+                  placeholder="Allergene"
+                />
               </div>
             )}{" "}
           </div>
