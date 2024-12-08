@@ -1,0 +1,8 @@
+.upload-input:hover {
+  background-color: #97a999;
+  border: 0px solid;
+  padding: 5px;
+}
+.upload-input {
+  padding: 5px;
+}

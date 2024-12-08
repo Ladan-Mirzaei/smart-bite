@@ -12,52 +12,37 @@ export default function EditForm({
   placeholder,
 }) {
   const { fetchData } = useFetch();
-  const [fetchSelectData, setFetchSelectData] = useState([]);
-  const [resultData, setResultData] = useState();
+  const [resultData, setResultData] = useState([]);
   const { user } = useAuth();
+
   const [userUpdateData, SetUserUpdateData] = useState([]);
-  const API_URL = import.meta.env.VITE_API_URL;
-  useEffect(() => {
-    async function loadData() {
-      console.log("EditForm - useEffect: ", { API_URL, fetchData, route });
-      try {
-        const data = await fetchData(`${API_URL}/${route}`, "GET");
-        setFetchSelectData(data);
-      } catch (err) {
-        console.error("Error fetching diet data:", err);
-      }
-    }
-    loadData();
-  }, [API_URL, route]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const token = await user.getIdToken();
-    const result = await updateUserInfo(token, route, fetchSelectData);
+    const result = await updateUserInfo(token, route, resultData);
     SetUserUpdateData(result);
-    setShowPopupDiet(false),
-      setShowPopupcategory(false),
-      setShowPopupAllergene(false);
+    setShowPopupDiet && setShowPopupDiet(false);
+
+    setShowPopupcategory && setShowPopupcategory(false);
+
+    setShowPopupAllergene && setShowPopupAllergene(false);
   }
-  console.log("setResultData", setResultData);
   // const handleClosePopup = () => {
   //   setShowPopup(false);
   // };
-  // console.log("category", categoriesData);
-  // console.log("diet", dietsData);
-  // console.log("allergene", allergeneData);
-  console.log("route", route);
-
   return (
-    <div>
+    <div className="popup-update-container">
       <form onSubmit={handleSubmit}>
         <SelectWithPlus
-          dataArray={fetchSelectData}
+          dataArray={resultData}
           setDataArray={setResultData}
           route={route}
           placeholder={placeholder}
         />
-        <button type="submit">speichern</button>
+        <button className="popup-update-container-button " type="submit">
+          speichern
+        </button>
       </form>
     </div>
   );

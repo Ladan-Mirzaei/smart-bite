@@ -4,20 +4,20 @@ import RecipePlanner from "../../components/Calendar/index.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditForm from "./edit.jsx";
+import QRCode from "react-qr-code";
+
 export default function Profile() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user, userData } = useAuth();
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
   const [showPopupDiet, setShowPopupDiet] = useState(false);
-  const [showPopupCategory, setShowPopupCategory] = useState(false);
+  const [showPopupCategory, setShowPopupcategory] = useState(false);
   const [showPopupAllergene, setShowPopupAllergene] = useState(false);
-
+  const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
   useEffect(() => {
     async function loadUserData() {
       try {
-        console.log("uid", user.uid);
-
         const token = await user.getIdToken();
         const response = await fetch(`${API_URL}/users/profile`, {
           method: "POST",
@@ -63,10 +63,10 @@ export default function Profile() {
     loadUserRecipes();
     loadUserData();
   }, []);
-  console.log(profileData);
+
   const handleOpenPopup = (showData) => {
     if (showData === "categories") {
-      setShowPopupCategory(true);
+      setShowPopupcategory(true);
     } else if (showData === "allergene") {
       setShowPopupAllergene(true);
     } else if (showData === "diets") {
@@ -86,31 +86,36 @@ export default function Profile() {
                 <img
                   key={user.uid}
                   src={
-                    user.photoURL ||
-                    "https://res.cloudinary.com/dxneunm1q/image/upload/v1732794719/matyiqf0yrfrdyxtcwyj.avif"
+                    user.photoURL
+                      ? user.photoURL
+                      : "../../../public/avatar-677865778.jpeg"
                   }
                   alt="Profile"
                 />
               ) : (
                 <img
                   key={user.uid}
-                  src={
-                    user.photoURL ||
-                    "https://res.cloudinary.com/dxneunm1q/image/upload/v1732794719/qnqftwuedzuc5opwztlc.avif"
-                  }
+                  src={user.photoURL || "../../../public/avatar-17214950.jpg"}
                   alt="Profile"
                 />
               )
             )}
         </div>
         <div className="profile-userInfo">
-          <h3>Über mich</h3>
+          {/* <h3>Über mich</h3> */}
           <p>
-            Welcome,
-            {userData?.firstName || "Gast"} {userData?.lastName || ""}!
-            <p>{user?.email} </p>
-            <Link to="/meine-favoriten">Meine Favoriten Rezepte</Link>
-          </p>
+            <h3>
+              {" "}
+              Willkommen,
+              {userData?.firstName || "Gast"} {userData?.lastName || ""}!
+            </h3>
+          </p>{" "}
+          <p>{user?.email} </p>
+        </div>
+        {/* QR-Code für die Einkaufsliste */}
+        <div className="week-list">
+          <p>Deine Einkaufsliste für diese Woche</p>
+          <QRCode value={shoppingListUrl} size={80} viewBox={`0 0 256 256`} />
         </div>
       </div>
       <div className="profile-categories-container">
@@ -119,16 +124,21 @@ export default function Profile() {
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
             <span>
-              <button onClick={() => handleOpenPopup("diets")}>✏️ Edit</button>
+              <button
+                className="profile-edit-btn"
+                onClick={() => handleOpenPopup("diets")}
+              >
+                ✏️
+              </button>
             </span>
             {showPopupDiet && (
               <div
                 style={{
                   position: "fixed",
-                  top: "30%",
-                  left: "50%",
+                  top: "48%",
+                  left: "25%",
                   background: "white",
-                  padding: "20px",
+                  padding: "10px 30px",
                   border: "1px solid black",
                   zIndex: 1000,
                 }}
@@ -136,7 +146,7 @@ export default function Profile() {
                 <h2>Diets!</h2>
                 {/* <button onClick={handleClosePopup}>speichern</button>  */}
                 <EditForm
-                  setShowPopupDiet={showPopupDiet}
+                  setShowPopupDiet={setShowPopupDiet}
                   route="diets"
                   placeholder="Diets"
                 />
@@ -144,28 +154,36 @@ export default function Profile() {
             )}
           </div>
           <ul>
-            {Array.isArray(profileData) &&
-              profileData.map((user) => (
-                <li key={user.uid}>{user.diet_type_name}</li>
-              ))}
+            {profileData.map((user) => (
+              <li key={user.uid}>
+                <ul className="profile-horizontal-list">
+                  {user.diet_type_name.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="profile-category">
           <div className="profile-header">
             <h3>Lieblingsküchen</h3>
             <span>
-              <button onClick={() => handleOpenPopup("categories")}>
-                ✏️ Edit
+              <button
+                className="profile-edit-btn"
+                onClick={() => handleOpenPopup("categories")}
+              >
+                ✏️
               </button>
             </span>
             {showPopupCategory && (
               <div
                 style={{
                   position: "fixed",
-                  top: "50%",
+                  top: "48%",
                   left: "50%",
                   background: "white",
-                  padding: "20px",
+                  padding: "10px 30px",
                   border: "1px solid black",
                   zIndex: 1000,
                 }}
@@ -173,7 +191,7 @@ export default function Profile() {
                 {" "}
                 <h2>Categories!</h2>
                 <EditForm
-                  setShowPopupCategory={showPopupCategory}
+                  setShowPopupcategory={setShowPopupcategory}
                   route="categories"
                   placeholder="categories"
                 />
@@ -192,54 +210,59 @@ export default function Profile() {
           <div className="profile-header">
             <h3>Allergien</h3>
             <span>
-              <button onClick={() => handleOpenPopup("allergene")}>
-                ✏️ Edit
+              <button
+                className="profile-edit-btn"
+                onClick={() => handleOpenPopup("allergene")}
+              >
+                ✏️
               </button>
             </span>
-            all
             {showPopupAllergene && (
               <div
                 style={{
                   position: "fixed",
-                  top: "50%",
-                  left: "70%",
+                  top: "48%",
+                  left: "75%",
                   background: "white",
-                  padding: "20px",
+                  padding: "10px 30px",
                   border: "1px solid black",
                   zIndex: 1000,
                 }}
               >
                 <h2>Allergien!</h2>
                 <EditForm
-                  setShowPopupAllergene={showPopupAllergene}
+                  setShowPopupAllergene={setShowPopupAllergene}
                   route="allergene"
                   placeholder="Allergene"
                 />
               </div>
-            )}{" "}
+            )}
           </div>
+
           <ul>
-            {Array.isArray(profileData) &&
-              profileData.map((user) => (
-                <li key={user.uid}>{user.allergene_name}</li>
-              ))}
+            {profileData.map((user) => (
+              <li key={user.uid}>
+                <ul className="profile-horizontal-list">
+                  {user.allergene_name.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
       <div className="profile-main-content">
         <div className="profile-todo-container">
-          <div className="profile-recipe-container">
-            Meine Rezepte! All Rezepte
-          </div>{" "}
+          <div className="profile-recipe-container">Meine Rezepte!</div>
           <div className="profile-gallery">
             {Array.isArray(userRecipe) &&
               userRecipe.map((user) => (
                 <div key={user.uid} className="profile-gallery-item">
                   <img src={user.image} alt={`Bild ${user.id}`} />
                   <h4>{user.title}</h4>
-                  <p>Hello World</p>
-                  <span className="profile-gallery-des">
+                  <span className="profile-gallery-cat">
                     {user.category_name}
                   </span>
                 </div>
@@ -249,48 +272,9 @@ export default function Profile() {
 
         <div className="profile-calendar-container">
           <RecipePlanner />
+          <Link to="/userDietInfo"> Diet</Link>
         </div>
       </div>
     </div>
   );
 }
-
-// // Parent component
-// function App() {
-//   const name = "John";
-//   return (
-//     <ChildComponent name={name} />
-//   );
-// }
-
-// // Child component
-// function ChildComponent(props) {
-//   return (
-//     <h1>Hello, {props.name}!</h1>
-//   );
-// }
-
-// --------------------
-
-// 2. In the parent component, define a state variable and a function to update that variable. Pass the function as a prop to the child component:
-// ```jsx
-// // Parent component
-// import React, { useState } from 'react';
-// import ChildComponent from './ChildComponent';
-
-// const ParentComponent = () => {
-//   const [parentState, setParentState] = useState('');
-
-//   const handleStateChange = (value) => {
-//     setParentState(value);
-//   };
-
-//   return (
-//     <div>
-//       <p>Parent state: {parentState}</p>
-//       <ChildComponent onStateChange={handleStateChange} />
-//     </div>
-//   );
-// }
-
-// export default ParentComponent;

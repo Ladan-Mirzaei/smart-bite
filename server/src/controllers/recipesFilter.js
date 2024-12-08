@@ -22,30 +22,28 @@ import db from "../util/db-connect.js";
  */
 export async function recipeFilter(req, res) {
   const {
-    diet_type_id,
-    ingredient_id,
-    allergene_id,
+    diet_type_id: diet_type_ids = [],
+    ingredient_id: ingredient_ids = [],
+    allergene_id: allergene_ids = [],
     category_id,
     difficulty_level,
   } = req.body;
-  const uid = req.user.uid;
-
   try {
-    console.log("uid", uid);
+    let user_id;
+    if (req.user) {
+      const uid = req.user.uid;
 
-    const user = await db("recipe_user").select("id").where({ uid }).first();
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      const user = await db("recipe_user").select("id").where({ uid }).first();
+
+      user_id = user.id;
     }
 
-    const user_id = user.id;
-    console.log("req.boynew", req.body);
-    let recipes;
-    const validDietTypeIds = diet_type_id.filter((id) => id !== "");
-    const validIngredientIds = ingredient_id.filter((id) => id !== "");
-    const validAllergenIds = allergene_id.filter((id) => id !== "");
+    let recipesPromise;
+    const validDietTypeIds = diet_type_ids.filter((id) => id !== "");
+    const validIngredientIds = ingredient_ids.filter((id) => id !== "");
+    const validAllergenIds = allergene_ids.filter((id) => id !== "");
 
-    recipes = await db("recipe")
+    recipesPromise = db("recipe")
       .select(
         "recipe.id AS id",
         "recipe.title AS title",
@@ -76,28 +74,40 @@ export async function recipeFilter(req, res) {
         "recipe_ingredient",
         "recipe_ingredient.id",
         "recipe_ingredient_details.ingredient_id"
-      )
+      );
+
+    if (user_id) {
+      recipesPromise.leftJoin(
+        "recipe_user_sammlung",
+        "recipe.id",
+        "recipe_user_sammlung.recipe_id"
+      );
+    }
+
+    recipesPromise
       .groupBy(
         "recipe.id",
         "recipe.title",
         "recipe.cooking_time",
         "recipe.difficulty_level",
-        "recipe.image",
-        "recipe_categories.name"
+        "recipe_categories.name",
+        "recipe.image"
       )
       .where((builder) => {
         if (validDietTypeIds.length > 0) {
-          builder.whereIn("recipe_diet.diet_type_id", diet_type_id);
+          builder.whereIn("recipe_diet.diet_type_id", diet_type_ids);
         }
 
         if (validIngredientIds.length > 0) {
           builder.whereIn(
             "recipe_ingredient_details.ingredient_id",
-            ingredient_id
+            ingredient_ids
           );
         }
         if (validAllergenIds.length > 0) {
-          builder.whereNotIn("recipe_ingredient.allergene_id", allergene_id);
+          builder
+            .whereNotIn("recipe_ingredient.allergene_id", allergene_ids)
+            .orWhereNull("recipe_ingredient.allergene_id");
         }
         if (category_id) {
           builder.where("recipe.category_id", category_id);
@@ -105,13 +115,17 @@ export async function recipeFilter(req, res) {
         if (difficulty_level) {
           builder.where("recipe.difficulty_level", difficulty_level);
         }
+        if (user_id) {
+          builder.where("recipe_user_sammlung.user_id", user_id);
+        }
       });
 
-    if (!recipes || recipes.length === 0) {
+    let result = await recipesPromise;
+
+    if (!result || result.length === 0) {
       return res.status(404).json({ message: "No recipes found" });
     }
-
-    return res.status(200).json(recipes);
+    return res.status(200).json(result);
   } catch (error) {
     console.error("Error fetching recipes:", error);
     return res.status(500).json({ message: "Internal server error" });

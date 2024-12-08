@@ -22,17 +22,12 @@ CREATE TABLE recipe_user (
     id SERIAL PRIMARY KEY,
     uid VARCHAR(250) NOT NULL,
     date_of_birth DATE,
-    gender VARCHAR(10) CHECK (gender IN ('männlich', 'weiblich', 'divers')),
+    gender VARCHAR(10),
     weight FLOAT,
     height FLOAT,
-    activity_level VARCHAR(10) CHECK (activity_level IN ('niedrig', 'mittel', 'hoch')) NOT NULL
-);
+    activity_level VARCHAR(100));
 
-INSERT INTO recipe_user (uid, date_of_birth, gender, weight, height, activity_level) VALUES
-    ('user1', '1990-01-01', 'männlich', 70, 180, 'mittel'),
-    ('user2', '1985-05-15', 'weiblich', 60, 165, 'hoch'),
-    ('user3', '1995-08-20', 'divers', 75, 175, 'niedrig');
-
+    
 CREATE TABLE recipe_allergene (
     id SERIAL PRIMARY KEY, 
     name VARCHAR(100) UNIQUE
@@ -128,14 +123,12 @@ CREATE TABLE recipe_diet (
     diet_type_id INT REFERENCES recipe_diet_type(id) ,
     PRIMARY KEY (recipe_id, diet_type_id)
 );
-
 CREATE TABLE recipe_feedback (
    id SERIAL PRIMARY KEY,
-   user_id INT REFERENCES recipe_user(id),
-   recipe_id INT REFERENCES recipe(id),
-   rating INT ,  -- Star rating from 1 to 5
-   comments TEXT,
-   date Date  
+   user_id INT REFERENCES recipe_user(id) ,
+   recipe_id INT REFERENCES recipe(id) ,
+   rating FLOAT ,  
+   comments TEXT
 );
 
 CREATE TABLE recipe_ingredient (
@@ -146,9 +139,11 @@ CREATE TABLE recipe_ingredient (
     carbohydrates FLOAT,
     fats FLOAT,
     allergene_id INT REFERENCES recipe_allergene(id)
+
 );
 
-INSERT INTO recipe_ingredient (name, calories, protein, carbohydrates, fats, allergene_id) VALUES
+INSERT INTO recipe_ingredient (name, calories, protein, carbohydrates, fats, allergene_id
+) VALUES
     ('Tomate', 18, 0.9, 3.9, 0.2, 1),
     ('Gurke', 16, 0.7, 3.6, 0.1, NULL),
     ('Kartoffel', 77, 2.0, 17.0, 0.1, 1),
@@ -299,7 +294,7 @@ CREATE TABLE recipe_mealplan (
     carbohydrates FLOAT,
     fats FLOAT,
     date DATE,
-    meal_type VARCHAR(100) CHECK (meal_type IN ('Frühstück', 'Mittagsessen', 'Abendessen', 'Snack'))
+    meal_type VARCHAR(100) 
 );
 -- DROP TABLE IF EXISTS recipe_nutrition_goal CASCADE;
 -- CREATE TABLE recipe_nutrition_goal (
@@ -367,3 +362,5 @@ CREATE TABLE recipe_user_ingredient_allergene  (
     ingredient_id INT  REFERENCES recipe_ingredient(id) ,
     PRIMARY KEY (user_id, ingredient_id)
 );
+DELETE FROM recipe_diet;
+DELETE FROM recipe;

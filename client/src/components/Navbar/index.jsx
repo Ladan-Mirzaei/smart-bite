@@ -29,6 +29,16 @@ export default function Navbar() {
                 <NavLink to="/recipeform">Neue Rezepte</NavLink>
               </li>
               <li>
+                <NavLink to="/meine-favoriten">
+                  <img
+                    className="navbar-herz"
+                    src="../../../public/icons8-herz-48.png"
+                    alt="Herz-Icon"
+                  />{" "}
+                  Rezepte
+                </NavLink>
+              </li>
+              <li>
                 {/* <button
                   onClick={() => {
                     signOut;

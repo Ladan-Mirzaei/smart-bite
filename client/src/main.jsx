@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 // import Recipe from "./pages/recipe/index.jsx";
 import RecipeAll from "./pages/recipe/recipeAll.jsx";
 import Allergen from "./pages/PersonalInfo/allergenInfo.jsx";
+import Info from "./pages/PersonalInfo/index.jsx";
+
 import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
 import Logout from "./components/authentication/Logout.jsx";
@@ -17,11 +19,12 @@ import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
 import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
 import Upload from "./pages/Image/index.jsx";
-import Select from "./components/Recipe/selectIngredients.jsx";
-import BMI from "./components/BMI/BMI-Calculator.jsx";
+import Select from "./components/Select/selectIngredients.jsx";
+import BMI from "./pages/BMI/index.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
-import Sammlung from "./pages/Sammlung/index.jsx";
+import RecipeFavoriten from "./pages/Sammlung/index.jsx";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
+import UserDietInfo from "./components/DietInfo/DietInfo.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/allergene",
         element: <Allergen />,
+      },
+      {
+        path: "/info",
+        element: <Info />,
       },
       {
         path: "/editForm",
@@ -49,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/meine-favoriten",
-        element: <Sammlung />,
+        element: <RecipeFavoriten />,
       },
       {
         path: "/profile",
@@ -62,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/recipeDetails/:id",
         element: <RecipeDetails />,
+      },
+      {
+        path: "/userDietInfo",
+        element: <UserDietInfo />,
       },
       {
         path: "/select",

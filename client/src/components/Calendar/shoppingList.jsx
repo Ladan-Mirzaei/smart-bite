@@ -78,7 +78,7 @@ const RecipePlanner = () => {
                 <div className="ingredients">
                   {event.ingredients.ingredient_names.map(
                     (ingredient, index) => (
-                      <div key={index} className="ingredient-item">
+                      <div key={index} className="ingredient-item-shoplist">
                         <p>{ingredient}</p>
                         <p>{event.ingredients.ingredient_units[index]}</p>
                         <p>{event.ingredients.ingredient_quantities[index]}</p>

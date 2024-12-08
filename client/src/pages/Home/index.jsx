@@ -14,48 +14,35 @@ export default function Home() {
     const finalData = {
       diet_type_id: dietData || null,
       ingredient_id: ingredientsData || null,
+      allergene_id: [],
+      category_id: "",
+      difficulty_level: "",
     };
     navigate("/recipeAll", { state: finalData });
-    // console.log("finalData", finalData);
-
-    // try {
-    //   const response = await fetch(`${API_URL}/recipes/recipeFilter`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(finalData),
-    //   });
-    //   console.log("response", finalData);
-    //   if (!response.ok) {
-    //     console.error("Data fetching error");
-    //   }
-    //   const data = await response.json();
-    //   console.log("Server Response:", data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
   return (
     <>
       <div className="home-content">
         <section className="hero">
-          <h1>Gesund essen mit Genuss</h1>
           <p>
+            <h1>Gesund essen mit Genuss</h1>
             Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
             möchtest, versorgst du ihn am besten mit allem, was er braucht, um
             dich gesund und glücklich durch dein Leben zu tragen.
+            <button className="cta-button">Mein Kalender</button>
           </p>
-          <button className="cta-button">Mein Kalender</button>
         </section>
 
         <section className="subscription">
           <form onSubmit={handleSubmit} className="subscription-form">
-            <SelectMulti
-              setDataArray={setIngredientsData}
-              route="ingredients"
-              placeholder="Zutaten auswählen"
-            />
+            <div>
+              <SelectMulti
+                setDataArray={setIngredientsData}
+                route="ingredients"
+                placeholder="Zutaten auswählen"
+                style={{ width: "500px" }}
+              />
+            </div>
             <SelectMulti
               setDataArray={setDietData}
               route="diets"
@@ -64,7 +51,7 @@ export default function Home() {
             />
 
             <button type="submit" className="subscribe-button">
-              Rezepte SUCHEN
+              Rezepte suchen
             </button>
           </form>
         </section>
@@ -88,7 +75,7 @@ export default function Home() {
             <h2 className="title"> Gesund essen, besser leben</h2>
             <p className="description">
               Gesund essen, besser leben. Bei SmartBite glauben wir daran, dass
-              Ernährung nicht kompliziert sein muss. Eine ausgewogene Ernährung
+              Ernährung nicht kompliziert sein muss.s Eine ausgewogene Ernährung
               ist der Schlüssel zu einem aktiven, glücklichen Leben. Egal, ob du
               deine Leistungsfähigkeit steigern, deinen Stoffwechsel ankurbeln
               oder einfach nur neue, köstliche Mahlzeiten ausprobieren möchtest

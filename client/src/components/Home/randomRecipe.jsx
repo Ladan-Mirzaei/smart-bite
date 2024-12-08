@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
-
+import { Link } from "react-router-dom";
 export default function RandomRecipe() {
   const { fetchData } = useFetch();
   const [recipesData, setRecipesData] = useState();
@@ -19,8 +19,7 @@ export default function RandomRecipe() {
   if (!recipesData) {
     return <div>Loading...</div>;
   }
-
-  const veganData = recipesData.vegan;
+  // const veganData = recipesData.vegan;
   // const recipesData = {
   //   recipe1: "cake",
   //   recipe2: "Pasta",
@@ -28,70 +27,48 @@ export default function RandomRecipe() {
   // };
   // const recipeKeys = Object.keys(recipesData);
   // // Output: ['recipe1', 'recipe2', 'recipe3']
-  const recipeKeys = Object.keys(recipesData);
-  const recipeValue = Object.values(recipesData);
+  // const recipeKeys = Object.keys(recipesData);
+  // const recipeValue = Object.values(recipesData);
+  // console.log("recipesData-recipe-id", recipesData);
+  const images = {
+    vegan: "../../../public/vegan.png",
+    keto: "../../../public/keto.png",
+    vegetarisch: "../../../public/vegetarian.png",
+    glutenfrei: "../../../public/glutenfrei.png",
+  };
 
-  console.log("recipeKeys", recipeKeys);
-  console.log("recipeValue", recipeValue);
   return (
     <>
-      {Object.values(recipesData).map((item, index) =>
-        item ? (
-          <>
-            <div className="card">
-              <div className="card-icon">
-                <img src="../../../public/vegetarian.png" alt="vegetarian" />
-              </div>
-
-              <div className="card-titel" key={index}>
-                {item.recipe_title}
-              </div>
-              <h3> {item.category_name}</h3>
-              <h4></h4>
-              <p>{item.image}</p>
-              <a href="#" className="read-more">
-                Read More
-              </a>
+      {Object.entries(recipesData).map(([key, value]) =>
+        value ? (
+          <div className="randomcard" key={key}>
+            <div className="randomcard-icon">
+              <img src={images[key]} alt={key} />
             </div>
-          </>
+            <div className="randomcard-icon-titel"> {value.diet_type}</div>
+
+            <div className="randomcard-title">{value.recipe_title}</div>
+            <div className="randomcard-subtitel">
+              <h4>{value.category_name}</h4>
+            </div>
+            <div className="randomcard-icon2">
+              {" "}
+              <img
+                src={
+                  value.image
+                    ? value.image
+                    : "https://res.cloudinary.com/dxneunm1q/image/upload/v1733394868/b8pb1rxbydxlrqnmg4fg.avif"
+                }
+                alt={key}
+              />
+            </div>
+
+            <div className="read-more">
+              <Link to={`/recipeDetails/${value.recipeID}`}>Read More</Link>
+            </div>
+          </div>
         ) : null
       )}
     </>
   );
 }
-
-//const person = {
-//   name: 'John Doe',
-//   age: 30,
-//   job: 'Developer'
-//  };
-
-//  const property = 'name';
-//  console.log(person[property]); // Output: 'John Doe'
-//  JavaScript
-
-// const obj = { foo: "bar", baz: 42 };
-// const map = new Map(Object.entries(obj));
-// console.log(map); // Map(2) {"foo" => "bar", "baz" => 42}
-
-// Using for...of loop
-// const obj = { a: 5, b: 7, c: 9 };
-// for (const [key, value] of Object.entries(obj)) {
-//   console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-// }
-
-// // Using array methods
-// Object.entries(obj).forEach(([key, value]) => {
-//   console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-// });
-
-// a = {
-//   a: 1,
-//   b: 2,
-//   c: 3
-// }
-
-// Object.entries(a).map(([key, value]) => {
-//     // Pretty straightforward - use key for the key and value for the value.
-//     // Just to clarify: unlike object destructuring, the parameter names don't matter here.
-// })

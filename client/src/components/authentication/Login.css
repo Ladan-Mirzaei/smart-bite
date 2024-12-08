@@ -36,7 +36,19 @@
 .login-form {
   margin-bottom: 10px;
 }
-
+.uploadfile-label {
+  font-size: 0.8em;
+  float: left;
+  display: flex;
+  margin-left: 0px;
+}
+.register-uploadImage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
 .login-input-field {
   width: 100%;
   padding: 10px;

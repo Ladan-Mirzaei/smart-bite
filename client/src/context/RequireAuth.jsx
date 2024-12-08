@@ -8,5 +8,5 @@ export const RequireAuth = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children; // Render children if authenticated
+  return children;
 };

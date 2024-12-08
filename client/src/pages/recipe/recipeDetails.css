@@ -1,6 +1,6 @@
 .p-15 {
   background: #fff;
-  padding: 5px;
+  padding: 0px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -93,7 +93,22 @@
   background-color: #f6f6f6;
   height: 400px;
 }
-
+.P-15-text-container-setion {
+  width: 48%;
+  padding: 16px;
+  margin-top: 0px;
+  padding: 0px;
+  padding-top: 20px;
+  /* width: 45%;
+  padding: 40px; */
+}
+.P-15-text-container-setion h2 {
+  text-align: left;
+  padding-left: 70px;
+}
+.P-15-text-container-setion p {
+  padding-left: 70px;
+}
 .P-15-text-container,
 .P-15-image-container {
   width: 48%;
@@ -261,44 +276,37 @@
 }
 
 @media print {
-  /* Generelle Druckeinstellungen */
-  body {
-    font-family: Arial, sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 10px;
-  }
+  /*  unwichtige elements */
 
-  /* Elemente ausblenden, die für den Druck unnötig sind */
-  .p-15-icons,
-  .p-15-tags,
-  .p-15-rating,
-  button {
+  button,
+  .P-15-text-container-setion,
+  .nutritional-info,
+  .RecipePlanner,
+  .profile-feedback-btn,
+  .feedback-form,
+  .popup-feedback-recipeD {
     display: none;
   }
 
-  /* Zentrierter und optimierter Druckbereich */
   .p-15 {
     width: 100%;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
   }
-
-  .P-15-row,
-  .P-15-row-h {
-    display: block;
-    margin-bottom: 20px;
-  }
-
+  /* .P-15-image-container {
+    width: 48%;
+    padding: 16px;
+    margin-top: 0px;
+    padding: 0px;
+  } */
   .P-15-image-container img {
-    max-width: 100%;
+    width: 300px;
     height: auto;
-    display: block;
     margin: 10px auto;
   }
-
-  .nutritional-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  .P-15-text-container {
+    width: 1800px;
   }
 }

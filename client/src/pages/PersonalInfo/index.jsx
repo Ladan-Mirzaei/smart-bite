@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
-import { Navigate } from "react-router-dom";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
 import { auth } from "../../firebaseConfig.js";
-import "./style.css";
+import "./personalInfo.css";
 
 export default function UserProfile({ goToNextStep }) {
   const [userData, setUserData] = useState("null");
@@ -11,16 +10,12 @@ export default function UserProfile({ goToNextStep }) {
   const API_URL = import.meta.env.VITE_API_URL;
 
   async function onFormSubmit(formData) {
-    console.log("1", formData);
     try {
       if (!user) {
         console.error("User not logged in");
         return;
       }
       const token = await user.getIdToken();
-      console.log("tocken", user);
-
-      console.log("token", token);
 
       const response = await fetch(`${API_URL}/users`, {
         method: "POST",
@@ -35,7 +30,6 @@ export default function UserProfile({ goToNextStep }) {
           // height: formData.height,
           // activity_level: formData.activity_level,
           ...formData,
-          uid: user.uid,
         }),
       });
 
@@ -52,8 +46,9 @@ export default function UserProfile({ goToNextStep }) {
   // }
   return (
     <>
-      <h2>Hello!</h2>
-      <div>
+      {" "}
+      <div className="personal-container">
+        <h2>Persönliche Angaben!</h2>
         <UserProfileForm
           onFormSubmit={onFormSubmit}
           goToNextStep={goToNextStep}

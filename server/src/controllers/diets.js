@@ -38,6 +38,45 @@ export async function getDiet(req, res) {
 }
 
 /**
+ * @api GET /diets/getuserdiets
+ * All Diets
+ *
+ */
+export async function userDietsInfo(req, res) {
+  const uid = "HxEy7HktZvcz7fPtEPAEM1ILnry1";
+  console.log("gggggg");
+
+  try {
+    const user = await db("recipe_user").select("id").where({ uid }).first();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user_id = user.id;
+
+    const dietsInfos = await db("recipe_user_diet_type")
+      .select(
+        "recipe_diet_type.name AS diet_name",
+        "recipe_diet_type.daily_calories",
+        "recipe_diet_type.daily_fats",
+        "recipe_diet_type.daily_carbohydrates",
+        "recipe_diet_type.daily_protein"
+      )
+      .leftJoin(
+        "recipe_diet_type",
+        "recipe_user_diet_type.diet_type_id",
+        "=",
+        "recipe_diet_type.id"
+      )
+      .where("recipe_user_diet_type.user_id", user_id);
+    console.log("gggggg", dietsInfos);
+    res.status(200).json(dietsInfos);
+  } catch (error) {
+    console.error("Error fetching Diet:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+/**
  * @api Update diets/updatediets
  * {uid,updateFields}
  *

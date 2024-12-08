@@ -7,7 +7,6 @@ import admin from "firebase-admin";
 
 export async function userRecipeSammlung(req, res) {
   const { id, uid } = req.body;
-  console.log("uid,id", uid, id);
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {
@@ -49,7 +48,6 @@ export async function userRecipeSammlung(req, res) {
 
 export async function recipeSammlung(req, res) {
   const { id, uid } = req.body;
-  console.log("req-body", req.body);
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {
@@ -60,7 +58,6 @@ export async function recipeSammlung(req, res) {
       .select("recipe_id", "user_id")
       .where({ recipe_id: id, user_id: user_id })
       .first();
-    console.log("sammlungRecipe", sammlungRecipe);
     return res.status(200).json(sammlungRecipe);
   } catch (error) {
     console.error("Error fetching Recipes:", error);
@@ -76,7 +73,6 @@ export async function recipeSammlung(req, res) {
 export async function allSammlung(req, res) {
   const { diet_type_id, ingredient_id } = req.body;
   const uid = req.user.uid;
-  console.log("uid", uid);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
@@ -85,7 +81,6 @@ export async function allSammlung(req, res) {
     }
 
     const user_id = user.id;
-    console.log("fffffccccccc", user_id);
     const recipes = await db("recipe")
       .select(
         "recipe.id AS id",

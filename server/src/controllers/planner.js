@@ -6,11 +6,9 @@ import db from "../util/db-connect.js";
  */
 export async function creatEvents(req, res) {
   const { uid, recipe_id, recipe_title, date, link } = req.body;
-  console.log("body", req.body);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
-    console.log("user", user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -38,11 +36,9 @@ export async function creatEvents(req, res) {
  */
 export async function getEvents(req, res) {
   const { uid } = req.body;
-  console.log(uid);
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
-    console.debug({ user });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -61,7 +57,8 @@ export async function getEvents(req, res) {
         ),
         "recipe_planner.planner_id as event_id",
         "recipe.title as event_name",
-        "recipe_planner.date"
+        "recipe_planner.date",
+        "recipe_planner.recipe_id AS recipe_id"
       )
       .leftJoin(
         "recipe_ingredient_details",
@@ -75,8 +72,6 @@ export async function getEvents(req, res) {
       )
       .leftJoin("recipe", "recipe.id", "recipe_planner.recipe_id")
       .groupBy("recipe_planner.planner_id", "recipe.title");
-
-    console.debug({ events });
 
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No Events found" });

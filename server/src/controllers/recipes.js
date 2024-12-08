@@ -57,17 +57,14 @@ export async function createRecipe(req, res) {
       quantity: item.quantity || 0,
       unit: item.unit || "",
     }));
-    console.log({ ingredients });
     await db("recipe_ingredient_details").insert(ingredientsData);
 
     const dietData = diet_types.map((diet) => ({
       recipe_id: finalRecipeId,
       diet_type_id: diet,
     }));
-    console.log("ddddd", finalRecipeId);
 
     await db("recipe_diet").insert(dietData);
-    console.log(finalRecipeId);
 
     // [
     //   { recipe_id: 3, diet_type: "Vegan" },
@@ -106,9 +103,11 @@ export async function getRandomRecipes(req, res) {
   try {
     const getRandomRecipe = db("recipe")
       .select(
+        "recipe.id AS recipeID",
         "recipe.title AS recipe_title",
         "recipe_categories.name AS category_name",
-        "recipe_diet_type.name AS diet_type"
+        "recipe_diet_type.name AS diet_type",
+        "recipe.image AS image"
       )
       .leftJoin(
         "recipe_categories",
@@ -123,7 +122,6 @@ export async function getRandomRecipes(req, res) {
       )
       .orderByRaw("RANDOM()")
       .limit(1);
-    console.log("getRandomRecipe", getRandomRecipe);
     const veganRecipe = await getRandomRecipe
       .clone()
       .where("recipe_diet_type.name", "Vegan")
@@ -140,10 +138,6 @@ export async function getRandomRecipes(req, res) {
       .clone()
       .where("recipe_diet_type.name", "Glutenfrei")
       .first();
-    console.log("Vegan Recipe:", veganRecipe);
-    console.log("Keto Recipe:", ketoRecipe);
-    console.log("Vegetarisch Recipe:", vegetarischRecipe);
-    console.log("Glutenfrei Recipe:", glutenfreiRecipe);
     const randomRecipes = {
       vegan: veganRecipe || null,
       keto: ketoRecipe || null,
@@ -242,7 +236,6 @@ JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
  */
 export async function recipeDetails(req, res) {
   const { recipeId } = req.params;
-  console.log("test", recipeId);
   try {
     const ingredients = await db("recipe_ingredient_details")
       .select(
@@ -274,7 +267,6 @@ export async function recipeDetails(req, res) {
       )
       .where("recipe_ingredient_details.recipe_id", recipeId)
       .first();
-    console.log("test", ingredients);
 
     const recipeDetails = await db("recipe")
       .select(
@@ -326,7 +318,6 @@ export async function recipeDetails(req, res) {
       ...recipeDetails,
       ingredient_details: ingredients.ingredient_details, //// Zutaten aus ingredients ....AS  ingredient_details
     };
-    console.log("test", combinedResult);
 
     return res.status(200).json(combinedResult);
   } catch (error) {

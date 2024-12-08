@@ -15,7 +15,7 @@ import { v2 as cloudinary } from "cloudinary";
 import Multer from "multer";
 import bodyParser from "body-parser";
 import { config as dotenvConfig } from "dotenv";
-
+import feedbackRoutes from "./routes/feedback.js";
 import admin from "firebase-admin";
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -41,6 +41,8 @@ app.use("/diets", dietsRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/allergene", allergeneRoutes);
 app.use("/planner", plannerRoutes);
+app.use("/feedback", feedbackRoutes);
+
 dotenvConfig();
 
 const storage = new Multer.memoryStorage();

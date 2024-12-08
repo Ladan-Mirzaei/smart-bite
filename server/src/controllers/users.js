@@ -6,13 +6,11 @@ import admin from "firebase-admin";
  *
  */
 export async function userProfile(req, res) {
-  // console.log("user.req", req.user);
   // return res.json({});
   const { uid } = req.body;
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -83,7 +81,6 @@ export async function userProfile(req, res) {
         "recipe_user.activity_level",
         "recipe_categories.name"
       );
-    console.log("User Data:", userData);
 
     res.status(200).json(userData);
   } catch (error) {
@@ -97,10 +94,8 @@ export async function userProfile(req, res) {
  *
  */
 export async function creatUserProfile(req, res) {
-  console.log(req.body);
-
-  const { uid, gender, date_of_birth, weight, height, activity_level } =
-    req.body;
+  const { gender, date_of_birth, weight, height, activity_level } = req.body;
+  const uid = req.user.uid;
 
   try {
     const users = await db("recipe_user").where({ uid: uid });
@@ -109,11 +104,11 @@ export async function creatUserProfile(req, res) {
     } else {
       const newUser = await db("recipe_user").insert({
         uid,
-        gender,
-        date_of_birth,
-        weight,
-        height,
-        activity_level,
+        gender: gender || null,
+        date_of_birth: date_of_birth || null,
+        weight: weight || null,
+        height: height || null,
+        activity_level: activity_level || null,
       });
 
       res
@@ -131,10 +126,8 @@ export async function creatUserProfile(req, res) {
  *
  */
 export async function creatUserAllergene(req, res) {
-  const { uid, category_id, diet_type_id, ingredient_id, allergene_id } =
-    req.body;
-  console.log("Request data:", req.body);
-
+  const { category_id, diet_type_id, ingredient_id, allergene_id } = req.body;
+  const uid = req.user.uid;
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {
@@ -202,10 +195,8 @@ export async function creatUserAllergene(req, res) {
  */
 export async function getAllUsersRecipes(req, res) {
   const { uid } = req.body;
-  console.log(uid);
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
