@@ -8,7 +8,12 @@ import { useState, useEffect } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 import { useFetch } from "../../hooks/fetch.jsx";
 
-export default function SelectMulti({ setDataArray, route, placeholder }) {
+export default function SelectMulti({
+  setDataArray,
+  route,
+  placeholder,
+  style = {},
+}) {
   const [fetchSelectData, setFetchSelectData] = useState([]);
   const { fetchData } = useFetch();
 
@@ -32,12 +37,13 @@ export default function SelectMulti({ setDataArray, route, placeholder }) {
       }))
     : [];
   return (
-    <div>
+    <div style={{ ...style, textAlign: "left" }}>
       <Select
+        className="recipeform-select-field"
         placeholder={placeholder}
         name="allergene"
         options={options}
-        className="basic-single"
+        // className="basic-single"
         classNamePrefix="select"
         isSearchable={true}
         isMulti

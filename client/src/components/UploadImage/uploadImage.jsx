@@ -13,7 +13,7 @@ function Upload({ setImageUrl }) {
 
   const handleUpload = async () => {
     if (!file) {
-      setResponseMessage("Bitte Rezeptname und Bild hochladen!");
+      setResponseMessage("Bitte Bild hochladen!");
       return;
     }
 
@@ -39,7 +39,7 @@ function Upload({ setImageUrl }) {
     <div>
       <div>
         <input type="file" name="image" onChange={handleInputChange} required />
-        <button onClick={handleUpload}>Bild hochladen</button>
+        <button onClick={handleUpload}>Rezeptbild auswählen</button>
       </div>
       {responseMessage && <p>{responseMessage}</p>}
     </div>

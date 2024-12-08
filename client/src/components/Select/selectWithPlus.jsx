@@ -4,7 +4,7 @@
 import Select from "react-select";
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
-
+import "./select.css";
 export default function SelectWithPlus({
   // dataArray = [],
   dataArray,
@@ -66,9 +66,9 @@ export default function SelectWithPlus({
   return (
     <div>
       {dataArray.map((_, index) => (
-        <div key={index}>
+        <div key={index} className="select-container">
           <Select
-            className="basic-single"
+            className="recipe-select-field"
             classNamePrefix="select"
             isClearable={true}
             isSearchable={true}
@@ -77,10 +77,21 @@ export default function SelectWithPlus({
             options={options}
             onChange={(e) => handleOnSelect(e.value, index)}
           />
-          <button onClick={(e) => removeSelect(e, index)}> - </button>
+          <button
+            className="recipe-select-button-filter "
+            onClick={(e) => removeSelect(e, index)}
+          >
+            {" "}
+            -{" "}
+          </button>
         </div>
       ))}
-      <button onClick={(e) => addSelect(e)}>+</button>
+      <button
+        className="recipe-select-button-filter "
+        onClick={(e) => addSelect(e)}
+      >
+        +
+      </button>
     </div>
   );
 }

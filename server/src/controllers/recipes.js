@@ -18,7 +18,6 @@ import admin from "firebase-admin";
 
 export async function createRecipe(req, res) {
   const {
-    uid,
     ingredients,
     diet_types,
     category_id,
@@ -30,7 +29,7 @@ export async function createRecipe(req, res) {
     difficulty_level,
     image_url,
   } = req.body;
-
+  const uid = req.user.uid;
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {
@@ -58,17 +57,14 @@ export async function createRecipe(req, res) {
       quantity: item.quantity || 0,
       unit: item.unit || "",
     }));
-    console.log({ ingredients });
     await db("recipe_ingredient_details").insert(ingredientsData);
 
     const dietData = diet_types.map((diet) => ({
       recipe_id: finalRecipeId,
       diet_type_id: diet,
     }));
-    console.log("ddddd", finalRecipeId);
 
     await db("recipe_diet").insert(dietData);
-    console.log(finalRecipeId);
 
     // [
     //   { recipe_id: 3, diet_type: "Vegan" },
@@ -107,9 +103,11 @@ export async function getRandomRecipes(req, res) {
   try {
     const getRandomRecipe = db("recipe")
       .select(
+        "recipe.id AS recipeID",
         "recipe.title AS recipe_title",
         "recipe_categories.name AS category_name",
-        "recipe_diet_type.name AS diet_type"
+        "recipe_diet_type.name AS diet_type",
+        "recipe.image AS image"
       )
       .leftJoin(
         "recipe_categories",
@@ -124,7 +122,6 @@ export async function getRandomRecipes(req, res) {
       )
       .orderByRaw("RANDOM()")
       .limit(1);
-    console.log("getRandomRecipe", getRandomRecipe);
     const veganRecipe = await getRandomRecipe
       .clone()
       .where("recipe_diet_type.name", "Vegan")
@@ -141,10 +138,6 @@ export async function getRandomRecipes(req, res) {
       .clone()
       .where("recipe_diet_type.name", "Glutenfrei")
       .first();
-    console.log("Vegan Recipe:", veganRecipe);
-    console.log("Keto Recipe:", ketoRecipe);
-    console.log("Vegetarisch Recipe:", vegetarischRecipe);
-    console.log("Glutenfrei Recipe:", glutenfreiRecipe);
     const randomRecipes = {
       vegan: veganRecipe || null,
       keto: ketoRecipe || null,
@@ -243,7 +236,6 @@ JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
  */
 export async function recipeDetails(req, res) {
   const { recipeId } = req.params;
-
   try {
     const ingredients = await db("recipe_ingredient_details")
       .select(
@@ -257,7 +249,7 @@ export async function recipeDetails(req, res) {
           'protein', recipe_ingredient.protein,
           'carbohydrates', recipe_ingredient.carbohydrates,
           'fats', recipe_ingredient.fats,
-          'allergen_category',recipe_ingredient.allergen_category
+          'allergen_name', recipe_allergene.name
 
         )
       ) AS ingredient_details
@@ -267,6 +259,11 @@ export async function recipeDetails(req, res) {
         "recipe_ingredient",
         "recipe_ingredient.id",
         "recipe_ingredient_details.ingredient_id"
+      )
+      .leftJoin(
+        "recipe_allergene",
+        "recipe_ingredient.allergene_id",
+        "recipe_allergene.id"
       )
       .where("recipe_ingredient_details.recipe_id", recipeId)
       .first();
@@ -321,6 +318,7 @@ export async function recipeDetails(req, res) {
       ...recipeDetails,
       ingredient_details: ingredients.ingredient_details, //// Zutaten aus ingredients ....AS  ingredient_details
     };
+
     return res.status(200).json(combinedResult);
   } catch (error) {
     console.error("Error fetching Recipes:", error);

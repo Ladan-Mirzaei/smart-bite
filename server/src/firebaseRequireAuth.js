@@ -1,7 +1,7 @@
 //https://medium.com/@asatpathy314/implementing-authentication-middleware-with-firebase-and-express-f811754e815b
 import admin from "./firebaseAdmin.js";
 
-const FirebaseAuthMiddleware = async (req, res, next) => {
+const firebaseRequireAuth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -20,4 +20,4 @@ const FirebaseAuthMiddleware = async (req, res, next) => {
   }
 };
 
-export default FirebaseAuthMiddleware;
+export default firebaseRequireAuth;

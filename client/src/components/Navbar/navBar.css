@@ -24,13 +24,25 @@
   font-weight: bold;
   color: #fcfefc;
 }
-
+.navbar-herz {
+  max-width: 20px;
+}
 .navbar-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
 }
-
+.navbar-links button {
+  background-color: black;
+  border: 2px solid #4a6a50;
+  color: #f2efef;
+  font-weight: 500;
+}
+.navbar-links button:hover {
+  background-color: rgb(95, 94, 94);
+  border: 2px solid #4a6a50;
+  color: #f2efef;
+}
 .navbar-links a {
   text-decoration: none;
   color: #f2efef;

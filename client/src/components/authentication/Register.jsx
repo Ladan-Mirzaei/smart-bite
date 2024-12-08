@@ -34,6 +34,7 @@ function Register() {
     }
 
     try {
+      console.log(photoURL.secure_url);
       const registeredUser = await registerUser(
         email,
         password,
@@ -49,36 +50,36 @@ function Register() {
         lastName: lastName,
       });
       console.log("firstname", firstName);
-      alert(
-        "Willkommen",
-        { firstName },
-        "Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail, bevor Sie fortfahren."
-      );
-      const checkEmailVerification = async () => {
-        await auth.currentUser.reload(); // Benutzerstatus aktualisieren
-        if (auth.currentUser.emailVerified) {
-          console.log("E-Mail ist verifiziert.");
-          goToNextStep(); // Weiter zu Schritt 2
-        } else {
-          alert(
-            "E-Mail ist nicht verifiziert. Bitte überprüfen Sie Ihre E-Mails."
-          );
-        }
-      };
+      // alert(
+      //   "Willkommen",
+      //   { firstName },
+      //   "Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail, bevor Sie fortfahren."
+      // );
+      // const checkEmailVerification = async () => {
+      //   await auth.currentUser.reload(); // Benutzerstatus aktualisieren
+      //   if (auth.currentUser.emailVerified) {
+      //     console.log("E-Mail ist verifiziert.");
+      //     goToNextStep(); // Weiter zu Schritt 2
+      //   } else {
+      //     alert(
+      //       "E-Mail ist nicht verifiziert. Bitte überprüfen Sie Ihre E-Mails."
+      //     );
+      //   }
+      // };
 
       // Verifizierungsprüfung starten
-      const interval = setInterval(async () => {
-        await checkEmailVerification();
-        if (auth.currentUser && auth.currentUser.emailVerified) {
-          clearInterval(interval); // Intervall stoppen, wenn verifiziert
-        }
-      }, 5000); // Alle 5 Sekunden prüfen
+      // const interval = setInterval(async () => {
+      //   await checkEmailVerification();
+      //   if (auth.currentUser && auth.currentUser.emailVerified) {
+      //     clearInterval(interval); // Intervall stoppen, wenn verifiziert
+      //   }
+      // }, 5000); // Alle 5 Sekunden prüfen
+      goToNextStep();
     } catch (error) {
       setError(error.message);
     }
   };
-
-  console.log(firstName);
+  console.log("photoURL");
   return (
     <div>
       <div className="progress-bar">
@@ -101,7 +102,7 @@ function Register() {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                placeholder="Vorname"
+                placeholder="Vorname*"
                 className="login-input-field"
               />
             </div>
@@ -121,7 +122,7 @@ function Register() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="E-Mail"
+                placeholder="E-Mail*"
                 className="login-input-field"
               />
             </div>
@@ -131,14 +132,13 @@ function Register() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Passwort"
+                placeholder="Passwort*"
                 className="login-input-field"
               />
             </div>
 
-            <div className="login-form">
-              <label htmlFor="url">Photo URL</label>
-              {/* <input
+            {/* <label htmlFor="url">Photo URL</label> */}
+            {/* <input
                 id="url"
                 type="url"
                 value={photoURL}
@@ -146,10 +146,13 @@ function Register() {
                 placeholder="Photo"
                 className="login-input-field"
               /> */}
-              <UploadImage setImageUrl={setPhotoURL} />
-              {photoURL.secure_url && (
+
+            <br />
+            <div className="register-uploadImage">
+              <UploadImage imageUrl={photoURL} setImageUrl={setPhotoURL} />
+              {/* {photoURL.secure_url && (
                 <p>Bild hochgeladen: {photoURL.secure_url}</p>
-              )}
+              )} */}
             </div>
 
             <button onClick={handleRegister} className="btn-login">

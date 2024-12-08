@@ -1,13 +1,10 @@
 import { Router } from "express";
-import { getCategory } from "../controllers/categories.js";
-// import firebaseAuthMiddleware from "../firebaseAuthMiddleware.js";
-
+import { getCategory, updateUserCategory } from "../controllers/categories.js";
+import firebaseRequireAuth from "../firebaseRequireAuth.js";
+import firebaseGetAuth from "../firebaseGetAuth.js";
 const router = Router();
 // router.get("/", firebaseAuthMiddleware, getCategory);
 router.get("/", getCategory);
-
-// router.get("/", filterProducts);
-// router.get("/materials", getAvailableMaterials);
-// router.get("/:productId", productDetails);
+router.post("/updatecategories", firebaseGetAuth, updateUserCategory);
 
 export default router;

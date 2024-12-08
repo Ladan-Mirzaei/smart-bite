@@ -15,7 +15,7 @@ import { v2 as cloudinary } from "cloudinary";
 import Multer from "multer";
 import bodyParser from "body-parser";
 import { config as dotenvConfig } from "dotenv";
-
+import feedbackRoutes from "./routes/feedback.js";
 import admin from "firebase-admin";
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -27,7 +27,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(json());
 app.use(express.json());
-
+// app.use((req, _, next) => {
+//   console.log("incoming request ----------------------->", req.path);
+//   next();
+// });
 app.get("/", (req, res) => {
   res.json({ success: true });
 });
@@ -38,6 +41,8 @@ app.use("/diets", dietsRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/allergene", allergeneRoutes);
 app.use("/planner", plannerRoutes);
+app.use("/feedback", feedbackRoutes);
+
 dotenvConfig();
 
 const storage = new Multer.memoryStorage();

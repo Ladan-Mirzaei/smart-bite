@@ -20,14 +20,13 @@ export default function Recipe() {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...finalData, uid: user.uid }),
+        body: JSON.stringify({ ...finalData }),
       });
       if (!response.ok) {
         console.error("Data fetching error");
       }
       const data = await response.json();
       setRecipeID(data);
-      console.log("data", data);
       navigate(`/recipeDetails/${data}`);
     } catch (err) {
       console.log(err);
@@ -40,25 +39,10 @@ export default function Recipe() {
 
   return (
     <>
-      <h2>Neues Rezept erstellen</h2>
-      <div>
+      <div className="       personal-container">
+        <h2>Neues Rezept erstellen</h2>
         <RecipeForm onFormSubmit={onFormSubmit} recipeID={recipeID} />
       </div>
     </>
   );
 }
-//
-// useEffect(() => {
-//   async function fetchRecipes() {
-//     const recipeData = await triggerFetch(`${API_URL}/recipes`, "GET");
-//     setRecipes(recipeData || []);
-//   }
-
-//   fetchRecipes();
-// }, []);
-//
-//   const updatedRecipes = await triggerFetch(`${API_URL}/recipes`, "GET");
-//   setRecipes(updatedRecipes || []);
-// } catch (error) {
-//   console.error("Fehler beim Erstellen des Rezepts:", error);
-//   setResponseMessage("Fehler beim Hinzufügen des Rezepts.");

@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   updateProfile,
-  sendEmailVerification,
+  // sendEmailVerification,
 } from "firebase/auth";
 
 // Function to register a new user
@@ -24,7 +24,7 @@ export const registerUser = async (email, password, displayName, photoURL) => {
     });
 
     // Send email verification
-    await sendEmailVerification(user);
+    // await sendEmailVerification(user);
 
     console.log("User profile updated:", user);
     return user;

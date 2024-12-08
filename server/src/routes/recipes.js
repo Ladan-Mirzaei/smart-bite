@@ -5,14 +5,15 @@ import {
   recipeDetails,
 } from "../controllers/recipes.js";
 import { recipeFilter } from "../controllers/recipesFilter.js";
-import firebaseAuthMiddleware from "../firebaseAuthMiddleware.js";
+import firebaseRequireAuth from "../firebaseRequireAuth.js";
+import firebaseGetAuth from "../firebaseGetAuth.js";
 
 const router = Router();
-router.post("/", firebaseAuthMiddleware, createRecipe);
+router.post("/", firebaseRequireAuth, createRecipe);
 router.get("/random", getRandomRecipes);
 // router.get("/", getAllRecipes);
 router.get("/:recipeId", recipeDetails);
-router.post("/recipeFilter", recipeFilter);
+router.post("/recipeFilter", firebaseGetAuth, recipeFilter);
 
 // router.post("/", firebaseAuthMiddleware, createRecipe);
 export default router;

@@ -6,24 +6,29 @@ import { useFetch } from "../../hooks/fetch.jsx";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import RecipePlanner from "../../components/Calendar/index.jsx";
+import RecipeFeedback from "../../components/Feedback/RecipeFeedback.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const RecipeDetails = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const recipeId = id;
   const { fetchData } = useFetch();
   const [fetchRezeptData, setFetchRezeptData] = useState({
     ingredient_details: [],
   });
   const [totalNutrients, setTotalNutrients] = useState({});
   const [data, setData] = useState();
+  const [dataRecipeSammlung, setDataRecipeSammlung] = useState();
+  const [showPopup, setShowPopup] = useState();
   const contentRef = useRef(null);
   const [isFavorited, setIsFavorited] = useState(false);
-
+  const [ratingSum, setRatingSum] = useState({ total_rating: 0 });
   // console.log(contentRef);
   const handlePrint = useReactToPrint({
     contentRef,
   });
+
   useEffect(() => {
     async function loadFetch() {
       const data = await fetchData(`${API_URL}/recipes/${id}`);
@@ -36,29 +41,60 @@ const RecipeDetails = () => {
       );
       setTotalNutrients(totals);
     }
-    console.log("data44", isFavorited);
 
-    const favorited = async () => {
+    const loadFavorited = async () => {
+      // const token = await user.getIdToken();
       try {
-        const response = await fetch(`${API_URL}/users/sammlung`, {
+        const response = await fetch(`${API_URL}/users/sammlungrecipe`, {
           method: "POST",
           headers: {
+            // Authorization: `Bearer ${token}`,
+
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id, uid: user.uid }),
+          body: JSON.stringify({ uid: user.uid, id: recipeId }),
         });
+
         if (!response.ok) {
           console.error("Data fetching error");
         }
-        const data = await response.json();
+        const dataSammlung = await response.json();
+        setDataRecipeSammlung(dataSammlung);
         setIsFavorited(true);
       } catch (err) {
         console.log(err);
       }
     };
-    favorited();
+
+    const loadRating = async () => {
+      try {
+        const responseRating = await fetch(
+          `${API_URL}/feedback/recipe_feedback`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ recipe_id: id }),
+          }
+        );
+        if (!responseRating.ok) {
+          console.error("Data fetching error");
+        }
+        const result = await responseRating.json();
+        setRatingSum(result);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    loadRating();
+    loadFavorited();
     loadFetch();
   }, []);
+  console.log("rating5555555", ratingSum.total_rating);
+
+  console.log("dataRecipeSammlung", dataRecipeSammlung);
+  // dataRecipeSammlung ? setIsFavorited(true) : setIsFavorited(false);
 
   if (!fetchRezeptData) {
     return <div>Lade Rezeptdaten...</div>;
@@ -94,14 +130,34 @@ const RecipeDetails = () => {
       totalNutrients.fats += (factor * ing.fats) / portions;
       totalNutrients.protein += (factor * ing.protein) / portions;
     });
+
     return totalNutrients;
   }
+  const handleFeedbackSubmit = async (feedback) => {
+    const token = await user.getIdToken();
+    console.log(feedback);
+    try {
+      const responseFeedback = await fetch(`${API_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ feedback }),
+      });
+      if (!responseFeedback.ok) {
+        console.error("Data fetching error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handelSammlung = async (id) => {
     if (!user || !user.uid) {
       alert("Bitte loggen Sie sich zuerst ein!!");
       return;
     }
-    console.log("id", id, user.uid);
     try {
       const response = await fetch(`${API_URL}/users/sammlung`, {
         method: "POST",
@@ -114,34 +170,70 @@ const RecipeDetails = () => {
         console.error("Data fetching error");
       }
       const data = await response.json();
-      console.log(data);
       setData(data);
       setIsFavorited(true);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log("data", data);
+
+  const handleOpenPopup = () => {
+    if (!user || !user.uid) {
+      alert("Bitte loggen Sie sich zuerst ein!!");
+      return;
+    }
+    setShowPopup(true);
+  };
   return (
     <>
       {" "}
-      <div className="test" ref={contentRef}>
+      <div className="" ref={contentRef}>
         <div className="p-15">
           <div className="p-15-header">
             <div className="p-15-title-section">
               <h2>{fetchRezeptData.title}</h2>
+
               <div className="p-15-icons">
+                <span>
+                  <button
+                    className="profile-feedback-btn"
+                    onClick={() => handleOpenPopup()}
+                  >
+                    Feedback geben
+                  </button>
+                </span>
+                {showPopup && (
+                  <div
+                    className="popup-feedback-recipeD"
+                    style={{
+                      position: "fixed",
+                      top: "20%",
+                      left: "55%",
+                      background: "white",
+                      padding: "10px 30px",
+                      border: "1px solid black",
+                      zIndex: 1000,
+                    }}
+                  >
+                    <RecipeFeedback
+                      recipeId={recipeId}
+                      onSubmitFeedback={handleFeedbackSubmit}
+                      setShowPopup={setShowPopup}
+                    />
+                  </div>
+                )}
+
                 <button onClick={handlePrint}>
                   <i className="fa fa-print"></i>
                 </button>
                 {isFavorited ? (
-                  <button style={{ backgroundColor: "green" }}>
+                  <button style={{ backgroundColor: "var(--pine-forest)" }}>
                     {<i className="fa fa-heart"></i>}
                   </button>
                 ) : (
                   <button
                     onClick={() => handelSammlung(fetchRezeptData.id)}
-                    style={{ backgroundColor: "red" }}
+                    style={{ backgroundColor: "var(--moss-green)" }}
                   >
                     {<i className="fa fa-heart"></i>}
                   </button>
@@ -176,14 +268,16 @@ const RecipeDetails = () => {
                 {fetchRezeptData.difficulty_level} für{" "}
                 {fetchRezeptData.portions} personen
               </span>
-              <div className="p-15-rating">★★★★☆ 19</div>
+              <div className="p-15-rating">★★★★☆ {ratingSum.total_rating}</div>
             </div>
           </div>
         </div>
         <div className="P-15-row">
           <div className="P-15-text-container">
-            <h6> {fetchRezeptData.category_name}</h6>
-            <h6> {fetchRezeptData.created_at}</h6>
+            <h4> {fetchRezeptData.category_name}</h4>
+            <h6>
+              {new Date(fetchRezeptData.created_at).toLocaleDateString("en-GB")}
+            </h6>
             {/* <p>
            test
           </p> */}
@@ -206,7 +300,7 @@ const RecipeDetails = () => {
                       fontSize: "12px",
                     }}
                   >
-                    Allergene: {ing.allergen_category}
+                    {ing.allergen_name && <>Allergene: {ing.allergen_name}</>}
                   </span>
                 </li>
               ))}
@@ -222,7 +316,7 @@ const RecipeDetails = () => {
             <p>{fetchRezeptData.description}</p>
           </div>
 
-          <div className="P-15-text-container">
+          <div className="P-15-text-container-setion">
             {user && user.uid ? (
               <RecipePlanner
                 name={fetchRezeptData.title}
@@ -250,7 +344,7 @@ const RecipeDetails = () => {
                     {" "}
                     {totalNutrients.calories
                       ? totalNutrients.calories.toFixed(2)
-                      : "0.00"}{" "}
+                      : "0.00"}
                     kcal
                   </p>
                 </div>
@@ -260,10 +354,9 @@ const RecipeDetails = () => {
                 >
                   <h3>Kohlenhydrate</h3>
                   <p>
-                    {" "}
                     {totalNutrients.carbohydrates
                       ? totalNutrients.carbohydrates.toFixed(2)
-                      : "0.00"}{" "}
+                      : "0.00"}
                   </p>
                 </div>
                 <div

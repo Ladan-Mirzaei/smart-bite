@@ -12,5 +12,5 @@ CREATE TABLE recipe_mealplan (
     carbohydrates FLOAT,
     fats FLOAT,
     date DATE,
-    meal_type VARCHAR(100) CHECK (meal_type IN ('Frühstück', 'Mittagsessen', 'Abendessen', 'Snack'))
+    meal_type VARCHAR(100) 
 );

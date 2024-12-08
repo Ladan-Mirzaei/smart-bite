@@ -1,67 +1,63 @@
-import { useState } from "react";
-import "../../pages/PersonalInfo/style.css";
+import { useState, useContext } from "react";
+import "../../pages/PersonalInfo/personalInfo.css";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import SelectArray from "../../components/Select/select.jsx";
 
 export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
-  console.log(goToNextStep);
-
   const [formData, setFormData] = useState({
-    // date_of_birth: "",
-    // gender: "",
-    // weight: "",
-    // height: "",
-    // activity_level: "",
+    date_of_birth: "",
+    gender: "",
+    weight: "",
+    height: "",
+    activity_level: "",
   });
+
   const { user } = useContext(AuthContext);
-  console.log("user", user.email);
 
   const handleFormChange = (e) => {
     const { id, value } = e.target;
-
     setFormData((prevData) => ({ ...prevData, [id]: value }));
-    console.log(formData);
+  };
+
+  const handleGenderChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      gender: selectedOption?.value || "",
+    }));
+  };
+
+  const handleActivityLevelChange = (selectedOption) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      activity_level: selectedOption?.value || "",
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onFormSubmit(formData); //von hier schicke ich formData zu ./pages/personalInfo/index.jsx
+    console.log("Submitting Form Data:", formData);
+    onFormSubmit(formData);
     goToNextStep();
   };
 
   return (
     <div className="form-container">
-      {/* <p>
-        {user ? (
-          <>
-            <span>Willkommen{user.email}</span>
-          </>
-        ) : (
-          <span>Willkommen{user.email}</span>
-        )}
-      </p> */}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="date_of_birth">Geburtsdatum</label>
+        <label htmlFor="date_of_birth">Geburtsdatum*</label>
         <input
           type="date"
           id="date_of_birth"
           value={formData.date_of_birth}
           onChange={handleFormChange}
-          required
         />
 
-        <label htmlFor="gender">Geschlecht</label>
-        <select
-          id="gender"
-          value={formData.gender}
-          onChange={handleFormChange}
-          required
-        >
-          <option value="">Bitte auswählen</option>
-          <option value="männlich">Männlich</option>
-          <option value="weiblich">Weiblich</option>
-          <option value="divers">Divers</option>
-        </select>
+        <label htmlFor="gender">Geschlecht *</label>
+        <br />
+        <br />
+        <SelectArray
+          setSelectedOption={handleGenderChange}
+          optionsName="gender"
+        />
 
         <label htmlFor="weight">Gewicht (in kg)</label>
         <input
@@ -70,7 +66,8 @@ export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
           value={formData.weight}
           onChange={handleFormChange}
           step="0.1"
-          required
+          min="30"
+          max="250"
         />
 
         <label htmlFor="height">Größe (in cm)</label>
@@ -79,21 +76,17 @@ export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
           id="height"
           value={formData.height}
           onChange={handleFormChange}
-          required
+          min="30"
+          max="250"
         />
 
         <label htmlFor="activity_level">Aktivitätslevel</label>
-        <select
-          id="activity_level"
-          value={formData.activity_level}
-          onChange={handleFormChange}
-          required
-        >
-          <option value="">Bitte auswählen</option>
-          <option value="niedrig">Niedrig</option>
-          <option value="mittel">Mittel</option>
-          <option value="hoch">Hoch</option>
-        </select>
+        <br />
+        <br />
+        <SelectArray
+          setSelectedOption={handleActivityLevelChange}
+          optionsName="activity_level"
+        />
 
         <button type="submit">Registrieren</button>
       </form>

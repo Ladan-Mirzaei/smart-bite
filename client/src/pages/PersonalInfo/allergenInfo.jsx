@@ -1,8 +1,11 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import ZutatenForm from "../../components/Recipe/selectIngredients.jsx";
-import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
-import "./style.css";
+// import ZutatenForm from "../../components/Select/selectIngredients.jsx";
+// import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
+import SelectMulti from "../../components/Select/selectMulti.jsx";
+import SelectSingel from "../../components/Select/selectSingel.jsx";
+
+import "./personalInfo.css";
 import { useNavigate } from "react-router-dom";
 
 export default function AllergyInfo() {
@@ -11,8 +14,9 @@ export default function AllergyInfo() {
   const [allergenData, setAllergenData] = useState([""]);
   const [categoriesData, setCategoriesData] = useState(null);
   const [dietData, setDietData] = useState([]);
-  const [ingredientsData, setIngredientsData] = useState([""]);
+
   const navigate = useNavigate();
+  console.log(categoriesData, dietData, allergenData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +24,10 @@ export default function AllergyInfo() {
     const finalData = {
       category_id: categoriesData || null,
       diet_type_id: dietData || null,
-      ingredient_id: ingredientsData || null,
+      ingredient_id: null,
       allergene_id: allergenData || null,
     };
-
+    console.log("finalData-check2", finalData);
     try {
       const token = await user.getIdToken();
       const response = await fetch(`${API_URL}/users/userallergene`, {
@@ -32,7 +36,7 @@ export default function AllergyInfo() {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...finalData, uid: user.uid }),
+        body: JSON.stringify({ ...finalData }),
       });
       if (!response.ok) {
         console.error("Data fetching error");
@@ -76,23 +80,24 @@ export default function AllergyInfo() {
   //     }))
   //   : [];
   return (
-    <div className="form-container">
-      <h2>Benutzerinformationen zu Ernährung und Allergien</h2>
-      <h2>Persönliche Ernährungseinstellungen</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <ZutatenForm
-            dataArray={dietData}
+    <div className="personal-container">
+      <h2>Persönliche Ernährungs und Allergien Einstellungen</h2>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="diets">Deien Ernährungsweise </label>
+          <br />
+          <SelectMulti
             setDataArray={setDietData}
             route="diets"
-            hasIngredients={true}
+            placeholder="Ernährungsform auswählen"
           />
-          <ZutatenForm
+          <label htmlFor="categories">Deine lieblings Küche </label> <br />
+          <SelectSingel
             dataArray={categoriesData}
             setDataArray={setCategoriesData}
             route="categories"
             hasIngredients={false}
-          />
+          />{" "}
           {/* {ingredientsSelect.map((ing, index) => (
             <div key={index}>
               {" "}
@@ -109,21 +114,26 @@ export default function AllergyInfo() {
               />
             </div>
           ))} */}
-          <SelectWithPlus
+          {/* <SelectWithPlus
             dataArray={ingredientsData}
             setDataArray={setIngredientsData}
             route="ingredients"
             placeholder="Zutaten Allergie auswählen"
           />
-        </div>
-        oedr
-        <SelectWithPlus
-          dataArray={allergenData}
-          setDataArray={setAllergenData}
-          route="allergene"
-          placeholder="Allergie auswählen"
-        />
-        {/* <Select
+          oedr */}
+          {/* <SelectWithPlus
+            dataArray={allergenData}
+            setDataArray={setAllergenData}
+            route="allergene"
+            placeholder="Allergie auswählen"
+          /> */}
+          <label htmlFor="allergene">Deine Lebensmittel Allergie </label> <br />
+          <SelectMulti
+            setDataArray={setAllergenData}
+            route="allergene"
+            placeholder="Allergie auswählen"
+          />
+          {/* <Select
           placeholder="Allergie auswählen"
           name="allergene"
           options={options}
@@ -133,8 +143,9 @@ export default function AllergyInfo() {
           isMulti
           onChange={handelAllChange}
         /> */}
-        <button type="submit">Speichern</button>
-      </form>
+          <button type="submit">Speichern</button>
+        </form>
+      </div>
     </div>
   );
 }

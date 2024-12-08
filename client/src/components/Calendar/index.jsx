@@ -4,24 +4,27 @@ import moment from "moment";
 import { AuthContext } from "../../context/AuthContext";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment-timezone";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
-
+import "./calender.css";
 const localizer = momentLocalizer(moment);
 moment.tz.setDefault("Europe/Berlin");
 const API_URL = import.meta.env.VITE_API_URL;
 
-const RecipePlanner = ({ name, link, recipe_id }) => {
+const RecipePlanner = ({ name, recipe_id }) => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useContext(AuthContext);
   const [showWeek, setShowWeek] = useState(false);
-  const shoppingListUrl = "https://192.168.2.124:5173/shoppinglist";
+  const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
 
   useEffect(() => {
     const saveEventToServer = async (newEvent) => {
       try {
         const token = await user.getIdToken();
+        // /**/speichen newEvent in DB
 
         await fetch(`${API_URL}/planner`, {
           method: "POST",
@@ -37,33 +40,29 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
       }
     };
 
-    const planRecipe = async () => {
-      if (selectedDate) {
-        const newEvent = {
-          uid: user.uid,
-          recipe_title: name,
-          date: moment(selectedDate).format("YYYY-MM-DD"),
-          recipe_id: recipe_id,
-          link: link,
-        };
-
-        await saveEventToServer(newEvent);
-
-        setEvents((prevEvents) => [
-          ...prevEvents,
-          { ...newEvent, date: selectedDate },
-        ]);
-        setSelectedDate(null);
-      }
-    };
-    planRecipe();
+    // async function planRecipe() {
+    if (selectedDate) {
+      const newEvent = {
+        uid: user.uid,
+        recipe_title: name,
+        date: moment(selectedDate).format("YYYY-MM-DD"),
+        recipe_id: recipe_id,
+        // link: link,
+      };
+      saveEventToServer(newEvent);
+      setEvents((prev) => [...prev, { ...newEvent, date: selectedDate }]);
+      setSelectedDate(null);
+      console.log("setEvents", events, newEvent);
+    }
+    // }
+    // planRecipe();
   }, [selectedDate]);
 
   useEffect(() => {
     async function fetchEvents() {
       try {
         const token = await user.getIdToken();
-
+        console.log("recipee_id", recipe_id);
         const response = await fetch(`${API_URL}/planner/events`, {
           method: "POST",
           headers: {
@@ -80,17 +79,16 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
           title: event.event_name,
           recipe_id: event.recipe_id,
           ingredients: event.ingredients,
-
           event_id: event.event_id,
         }));
         setEvents(mappedEvents);
+        console.log("mappedEvents-recipe_id", mappedEvents);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
     fetchEvents();
   }, [selectedDate]);
-  console.log(events);
   const startOfWeek = moment().startOf("week");
   const endOfWeek = moment().endOf("week");
 
@@ -107,21 +105,18 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
   };
   console.log(showWeek);
   function handleEventClick(event) {
-    const urlLink = `recipedetails/${event.recipe_id}`;
-    window.open(urlLink, "_self");
+    // /***************** */
+    // const urlLink = `${event.recipe_id}`;
+    // window.open(urlLink, "_self");
+    console.log("events", event);
+    navigate(`/recipeDetails/${event.recipe_id}`);
   }
-  console.log(filteredEvents);
   return (
     <div className="Calendar">
-      {recipe_id && (
-        <h4>
-          <Link to="/profile">Mein Profile</Link>
-        </h4>
-      )}
+      {recipe_id && <h4>{/* <Link to="/profile">Mein Profile</Link> */}</h4>}
       <div className="calender-container">
         <div className="">
           <button
-            className=""
             onClick={() => {
               setShowWeek(false);
             }}
@@ -129,9 +124,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
             Kalender
           </button>
         </div>
-        <button className="" onClick={toggleWeekView}>
-          Meine Rezepte diese Woche
-        </button>
+        <button onClick={toggleWeekView}>Essensplan für die Woche</button>
       </div>
       {!showWeek && (
         <div className="mt-8">
@@ -147,7 +140,7 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
             onSelectSlot={(slotInfo) =>
               recipe_id ? setSelectedDate(slotInfo.start) : null
             }
-            onSelectEvent={handleEventClick}
+            onSelectEvent={(event) => handleEventClick(event)}
             eventPropGetter={() => ({
               style: {
                 height: "20px",
@@ -163,10 +156,9 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
           />
         </div>
       )}
-      {/* Anzeige der Events und QR-Code, wenn showWeek true ist */}
       {showWeek && (
         <div>
-          <ul className="week-events">
+          {/* <ul className="week-events">
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
                 <li key={event.date} className="day-item">
@@ -181,22 +173,49 @@ const RecipePlanner = ({ name, link, recipe_id }) => {
             ) : (
               <div className="no-events">Keine Events diese Woche</div>
             )}
-          </ul>
+          </ul> */}
 
+          <div className="meal-planner">
+            <div className="meal-planner-header">
+              <h2></h2>
+              {/* " Essensplan für die Woche " */}
+            </div>
+
+            <div className="recipe-week-container">
+              <ul>
+                {filteredEvents.length > 0 ? (
+                  filteredEvents.map((event) => (
+                    <li key={event.date} className="day-item">
+                      <div className="day-header">
+                        <strong>
+                          {moment(event.date).format("DD.MM.YYYY")}
+                        </strong>
+                      </div>
+                      <div className="day-events">
+                        <div className="event">{event.title}</div>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <div className="no-events">Keine Events diese Woche</div>
+                )}
+              </ul>
+            </div>
+          </div>
           {/* QR-Code für die Einkaufsliste */}
           <div>
-            <h2>Scanne diesen QR-Code, um deine Einkaufsliste zu sehen</h2>
+            <p>Scanne diesen QR-Code, um deine Einkaufsliste zu sehen</p>
             <QRCode
               // value={"some data, a link or whatever"}
               value={shoppingListUrl}
-              size={256}
+              size={80}
               viewBox={`0 0 256 256`}
             />
-            <p>
+            {/* <p>
               Scanne den QR-Code mit deinem Handy, um deine Einkaufsliste zu
               erhalten!
-            </p>
-            <a href="/scanner">Scanner</a>
+            </p> */}
+            {/* <a href="/scanner">Scanner</a> */}
           </div>
         </div>
       )}

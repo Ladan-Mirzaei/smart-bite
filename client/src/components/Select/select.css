@@ -1,0 +1,53 @@
+.select-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.recipe-select-field {
+  flex: 1;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  color: rgb(100, 92, 92);
+  margin-right: 10px;
+}
+.recipe-select-button-filter {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #dcd8d8;
+  color: rgb(100, 92, 92);
+  font-size: 0.9em;
+  padding: 2px 7px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.recipe-select-button-filter:hover {
+  background-color: #97a999;
+  border-color: #ccc;
+}
+.recipeform-ingredient-item {
+  border: 0px solid #ccc;
+}
+.recipeform-select-field {
+  width: 100%;
+  /* padding: 10px; */
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  flex: 1;
+  color: rgb(100, 92, 92);
+  font-size: 0.9em;
+}
+.recipeform-input-field-btn:hover {
+  background-color: #97a999;
+  border: 0px solid;
+  padding: 5px;
+}
+.recipeform-input-field-btn {
+  padding: 5px;
+}
+.recipeform-uploadImage:hover {
+  /* background-color: #97a999; */
+}
