@@ -76,6 +76,8 @@ export default function Recipe({ onFormSubmit }) {
     onFormSubmit(finalData);
     console.log("finalData", finalData);
   };
+  console.log("imageURL", imgUrl);
+
   return (
     <div className="recipeform-container">
       <form id="recipeForm" onSubmit={handleSubmit}>
@@ -255,10 +257,14 @@ export default function Recipe({ onFormSubmit }) {
         </label>
         <br />
         <div className="recipeform-uploadImage">
-          <UploadImage imageUrl={imgUrl} setImageUrl={setImgUrl} />
+          <UploadImage setImageUrl={setImgUrl} />
         </div>
         {/* <Link to={`/recipeDetails/${recipeID}`}>  */}
-        <button type="submit" className="recipeform-btn-submit">
+        <button
+          // disabled={!imgUrl}
+          type="submit"
+          className="recipeform-btn-submit"
+        >
           Rezept hinzufügen
         </button>
         {/* </Link>  */}

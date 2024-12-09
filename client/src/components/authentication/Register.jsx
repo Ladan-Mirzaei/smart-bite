@@ -34,7 +34,7 @@ function Register() {
     }
 
     try {
-      console.log(photoURL.secure_url);
+      console.log("part1url", photoURL.secure_url);
       const registeredUser = await registerUser(
         email,
         password,
@@ -42,14 +42,16 @@ function Register() {
         photoURL.secure_url
       );
 
-      console.log("Benutzer registriert und eingeloggt:", registeredUser.email);
-
+      console.log(
+        "Benutzer registriert und eingeloggt:",
+        registeredUser.email,
+        registeredUser
+      );
       // Zusätzliche Benutzerdaten in Firestore speichern
       await setDoc(doc(db, "users", registeredUser.uid), {
         firstName: firstName,
         lastName: lastName,
       });
-      console.log("firstname", firstName);
       // alert(
       //   "Willkommen",
       //   { firstName },
@@ -79,7 +81,7 @@ function Register() {
       setError(error.message);
     }
   };
-  console.log("photoURL");
+  // console.log("firstname", photoURL.secure_url, photoURL);
   return (
     <div>
       <div className="progress-bar">
@@ -150,9 +152,9 @@ function Register() {
             <br />
             <div className="register-uploadImage">
               <UploadImage imageUrl={photoURL} setImageUrl={setPhotoURL} />
-              {/* {photoURL.secure_url && (
+              {photoURL.secure_url && (
                 <p>Bild hochgeladen: {photoURL.secure_url}</p>
-              )} */}
+              )}
             </div>
 
             <button onClick={handleRegister} className="btn-login">

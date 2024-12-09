@@ -58,8 +58,8 @@ const RecipeDetails = () => {
         if (!response.ok) {
           console.error("Data fetching error");
         }
-        const dataSammlung = await response.json();
-        setDataRecipeSammlung(dataSammlung);
+        // const dataSammlung = await response.json();//todo/*************** */
+        // setDataRecipeSammlung(dataSammlung);//todo/*************** */
         setIsFavorited(true);
       } catch (err) {
         console.log(err);

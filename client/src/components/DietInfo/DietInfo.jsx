@@ -26,7 +26,7 @@ export default function UserDietInfo() {
           alt="Healthy food "
           className="dietinfo-image"
         />
-        <div className="dietinfo-section"></div>
+        {/* <div className="dietinfo-section"></div> */}
       </div>
       <div className="dietinfo-content-section">
         <h2>Der Nährstoffbedarf ist individuell!</h2>
@@ -41,17 +41,43 @@ export default function UserDietInfo() {
         </p>
 
         <div className="dietinfo-result">
-          <h2>Deine Tagesbedarf</h2>
-
-          <div>
-            {fetchDietsData.map((item, index) => (
-              <li key={index}>
-                <h3>Diät:{item.diet_name}</h3>
-                <p>Tägliche Fette {item.daily_fats} g</p>
-                <p>Tägliche Kohlenhydrate:{item.daily_carbohydrates} g</p>
-                <p>Tägliches Protein: {item.daily_protein} g</p>
-              </li>
-            ))}
+          <h2>Dein Tagesbedarf</h2>
+          <div className="dietinfo-result">
+            <div className="dietinfo-header">
+              <div className="table-cell">
+                <span>wert</span>
+              </div>
+              <div className="table-cell">
+                <span>Kalorien</span>
+              </div>
+              <div className="table-cell">
+                <span>Kohlenhydrate</span>
+              </div>
+              <div className="table-cell">
+                <span>Fette</span>
+              </div>
+              <div className="table-cell">
+                <span>Eiweiß</span>
+              </div>
+            </div>
+            <div className="dietinfo-section">
+              {fetchDietsData.map((item, index) => (
+                <div key={index} className="dietinfo-item">
+                  <div className="diet-row">
+                    <span>{item.diet_name}</span>
+                  </div>
+                  <div className="diet-row">
+                    <span>{item.daily_fats} g</span>
+                  </div>
+                  <div className="diet-row">
+                    <span>{item.daily_carbohydrates} g</span>
+                  </div>
+                  <div className="diet-row">
+                    <span>{item.daily_protein} g</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
