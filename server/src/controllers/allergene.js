@@ -22,7 +22,7 @@ export const getAllergen = async (req, res) => {
 export async function updateUserAllergene(req, res) {
   const { updateFields } = req.body;
   const uid = req.user.uid;
-
+  console.log(uid);
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {

@@ -321,7 +321,7 @@ export async function recipeDetails(req, res) {
 
     return res.status(200).json(combinedResult);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching Recipes: 3", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

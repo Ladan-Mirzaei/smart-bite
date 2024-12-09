@@ -32,7 +32,7 @@ export async function creatFeedback(req, res) {
       .status(201)
       .json({ message: "Feedback submitted successfully.", feedbackId });
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Feedback Recipes:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -47,6 +47,7 @@ export async function getRecipeFeedback(req, res) {
   const { recipe_id } = req.body;
 
   try {
+    console.debug("getRecipeFeedback -> recipe_id", recipe_id);
     const recipeId = Number(recipe_id);
 
     const rating = await db("recipe_feedback")
@@ -61,7 +62,7 @@ export async function getRecipeFeedback(req, res) {
 
     res.status(200).json(rating[0]);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching Recipes 2:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

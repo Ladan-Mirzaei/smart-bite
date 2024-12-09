@@ -37,7 +37,6 @@ export default function Profile() {
         console.log(err);
       }
     }
-
     async function loadUserRecipes() {
       try {
         const token = await user.getIdToken();
@@ -63,6 +62,7 @@ export default function Profile() {
     loadUserRecipes();
     loadUserData();
   }, []);
+  console.log("user4565", user.photoURL);
 
   const handleOpenPopup = (showData) => {
     if (showData === "categories") {
@@ -81,12 +81,12 @@ export default function Profile() {
       <div className="profile-privat">
         <div className="profile-info">
           {Array.isArray(profileData) &&
-            profileData.map((user) =>
-              user.gender === "weiblich" ? (
+            profileData.map((item) =>
+              item.gender === "weiblich" ? (
                 <img
                   key={user.uid}
                   src={
-                    user.photoURL
+                    user.photoURL /***Firbase */
                       ? user.photoURL
                       : "../../../public/avatar-677865778.jpeg"
                   }

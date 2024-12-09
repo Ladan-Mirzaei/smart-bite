@@ -127,7 +127,7 @@ export async function recipeFilter(req, res) {
     }
     return res.status(200).json(result);
   } catch (error) {
-    console.error("Error fetching recipes:", error);
+    console.error("Error fetching recipes: 5", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }
