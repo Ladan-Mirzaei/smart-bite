@@ -24,13 +24,11 @@ export default function Home() {
     <>
       <div className="home-content">
         <section className="hero">
-          <p>
-            <h1>Gesund essen mit Genuss</h1>
-            Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
-            möchtest, versorgst du ihn am besten mit allem, was er braucht, um
-            dich gesund und glücklich durch dein Leben zu tragen.
-            <button className="cta-button">Mein Kalender</button>
-          </p>
+          <h1>Gesund essen mit Genuss</h1>
+          Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
+          möchtest, versorgst du ihn am besten mit allem, was er braucht, um
+          dich gesund und glücklich durch dein Leben zu tragen.
+          <button className="cta-button">Mein Kalender</button>
         </section>
 
         <section className="subscription">

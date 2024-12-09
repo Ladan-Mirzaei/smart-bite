@@ -10,8 +10,10 @@ export default function RandomRecipe() {
   useEffect(() => {
     async function loadFetch() {
       const recipe = await fetchData(`${API_URL}/recipes/random`);
-      setRecipesData(recipe);
-      console.log("recipe", recipe);
+      if (recipe) {
+        setRecipesData(recipe);
+        console.log("recipe", recipe);
+      }
     }
     loadFetch(fetchData);
   }, []);

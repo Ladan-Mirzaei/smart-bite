@@ -36,7 +36,7 @@ export async function userRecipeSammlung(req, res) {
     });
     return res.status(200).json(sammlungRecipe);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching Recipes: 6", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -60,7 +60,7 @@ export async function recipeSammlung(req, res) {
       .first();
     return res.status(200).json(sammlungRecipe);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching Recipes:7", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -146,7 +146,7 @@ export async function allSammlung(req, res) {
 
     return res.status(200).json(recipes);
   } catch (error) {
-    console.error("Error fetching recipes:", error);
+    console.error("Error fetching recipes:8", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

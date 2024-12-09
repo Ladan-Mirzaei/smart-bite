@@ -12,7 +12,6 @@ export function useFetch() {
 
     try {
       const token = await getToken();
-
       setIsLoading(true);
       const response = await fetch(url, {
         method,
@@ -35,11 +34,12 @@ export function useFetch() {
         setErrorMessage(`Unexpected error: ${response.status}`);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log("Error fetching data:", error);
       setErrorMessage("An internal error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
   }
+
   return { fetchData, data, isLoading, errorMessage };
 }

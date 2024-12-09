@@ -29,6 +29,7 @@ export default function Recipe({ onFormSubmit }) {
   const [categoriesData, setCategoriesData] = useState(null);
   const [diet, setDiet] = useState([]);
   const [imgUrl, setImgUrl] = useState(); //ich habe hier geändert,...{}
+  const submitButtonDisabled = !imgUrl;
   const [ingredientsArr, setIngredientsArr] = useState([
     { ingredient: "", quantity: "", unit: "" },
   ]);
@@ -260,8 +261,9 @@ export default function Recipe({ onFormSubmit }) {
           <UploadImage setImageUrl={setImgUrl} />
         </div>
         {/* <Link to={`/recipeDetails/${recipeID}`}>  */}
+        <pre>{submitButtonDisabled ? "disabled" : "enabled"}</pre>
         <button
-          // disabled={!imgUrl}
+          disabled={submitButtonDisabled}
           type="submit"
           className="recipeform-btn-submit"
         >
