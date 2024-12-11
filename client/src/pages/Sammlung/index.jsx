@@ -39,7 +39,7 @@ export default function Recipe() {
         });
 
         if (!response.ok) {
-          console.error("Data fetching error");
+          console.log("Data fetching error");
         }
         const data = await response.json();
         setRecipesData(data);
@@ -64,6 +64,7 @@ export default function Recipe() {
 
       if (!response.ok) {
         console.error("Data fetching error");
+        return;
       }
       const data = await response.json();
       setRecipesData(data);

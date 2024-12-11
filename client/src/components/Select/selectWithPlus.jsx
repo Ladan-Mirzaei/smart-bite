@@ -27,7 +27,7 @@ export default function SelectWithPlus({
       if (Array.isArray(data)) {
         setFetchSelectData(data);
       } else {
-        console.error("Unexpected data format", data);
+        console.log("Datenformat nicht erkannt", data);
         setFetchSelectData([]);
       }
     }

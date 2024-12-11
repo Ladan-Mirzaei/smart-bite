@@ -31,3 +31,6 @@
 .feedback-form button:hover {
   background-color: var(--pine-forest);
 }
+.feedback-form label {
+  font-size: 0.9rem;
+}

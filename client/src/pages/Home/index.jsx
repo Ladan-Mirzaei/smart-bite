@@ -24,21 +24,26 @@ export default function Home() {
     <>
       <div className="home-content">
         <section className="hero">
-          <h1>Gesund essen mit Genuss</h1>
-          Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
-          möchtest, versorgst du ihn am besten mit allem, was er braucht, um
-          dich gesund und glücklich durch dein Leben zu tragen.
-          <button className="cta-button">Mein Kalender</button>
+          <span>
+            <h1>Gesund essen mit Genuss</h1>
+            Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
+            möchtest, versorgst du ihn am besten mit allem, was er braucht, um
+            dich gesund und glücklich durch dein Leben zu tragen.
+            <button className="cta-button">Mein Kalender</button>
+          </span>
         </section>
 
         <section className="subscription">
           <form onSubmit={handleSubmit} className="subscription-form">
-            <div>
+            <div className="select-home-ing">
               <SelectMulti
                 setDataArray={setIngredientsData}
                 route="ingredients"
                 placeholder="Zutaten auswählen"
-                style={{ width: "500px" }}
+                // style={{
+                // width: window.innerWidth <= 768 ? "100%" : "500px",
+                //   maxWidth: "500px",
+                // }}
               />
             </div>
             <SelectMulti

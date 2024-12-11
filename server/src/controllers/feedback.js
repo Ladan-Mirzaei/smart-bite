@@ -32,7 +32,7 @@ export async function creatFeedback(req, res) {
       .status(201)
       .json({ message: "Feedback submitted successfully.", feedbackId });
   } catch (error) {
-    console.error("Feedback Recipes:", error);
+    console.error("Error fetching create new Feedbacks:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -49,20 +49,30 @@ export async function getRecipeFeedback(req, res) {
   try {
     console.debug("getRecipeFeedback -> recipe_id", recipe_id);
     const recipeId = Number(recipe_id);
-
-    const rating = await db("recipe_feedback")
+    const SumRating = await db("recipe_feedback")
+      //  .select("recipe_id", db.raw("ROUND(SUM(rating)) AS recipe_rating"))
       .select("recipe_id")
       .sum("rating as total_rating")
       .where("recipe_id", recipeId)
-      .groupBy("recipe_id");
+      .groupBy("recipe_id")
+      .first();
+    const CountRecipeID = await db("recipe_feedback")
+      .count("* AS total_count")
+      .where("recipe_id", recipeId)
+      .first();
 
-    if (rating.length === 0) {
+    console.log("SumRating", SumRating);
+    console.log("count rating", CountRecipeID);
+    const recipeRating = SumRating.total_rating / CountRecipeID.total_count;
+    console.log("count rating", recipeRating.toFixed(2));
+
+    if (recipeRating.length === 0) {
       return { message: "No feedback found for this recipe." };
     }
 
-    res.status(200).json(rating[0]);
+    res.status(200).json(recipeRating.toFixed(2));
   } catch (error) {
-    console.error("Error fetching Recipes 2:", error);
+    console.error("Error fetching Feedback-Rating:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

@@ -8,8 +8,8 @@ function App() {
 
   return (
     <>
-      <div>
-        <Navbar />
+      <div className="App" id="outer-container">
+        <Navbar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
       </div>
 
       <div className={`root${isHome ? "home" : ""}`}>

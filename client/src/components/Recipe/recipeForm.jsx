@@ -95,8 +95,9 @@ export default function Recipe({ onFormSubmit }) {
           required
         />
         {/* Schwierigkeitsgrad */}
-        <label>Schwierigkeitsgrad:*</label>
         <div className="recipeform-radio-group">
+          <label>Schwierigkeitsgrad:*</label>
+
           {["einfach", "mittel", "schwer"].map((level) => (
             <label key={level} className="recipeform-radio-label">
               <input
@@ -257,11 +258,12 @@ export default function Recipe({ onFormSubmit }) {
           Wähle die passende Datei auf deiner Festplatte aus.
         </label>
         <br />
+        <br />
         <div className="recipeform-uploadImage">
           <UploadImage setImageUrl={setImgUrl} />
         </div>
         {/* <Link to={`/recipeDetails/${recipeID}`}>  */}
-        <pre>{submitButtonDisabled ? "disabled" : "enabled"}</pre>
+        {/* <pre>{submitButtonDisabled ? "disabled" : "enabled"}</pre> */}
         <button
           disabled={submitButtonDisabled}
           type="submit"

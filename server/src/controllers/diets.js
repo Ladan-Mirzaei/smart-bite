@@ -14,7 +14,7 @@ export async function creatDiet(req, res) {
     });
     res.status(200).json({ message: "Diet created successfully", newDiet });
   } catch (error) {
-    console.error("Error fetching Diet:", error);
+    console.error("Error fetching create new Diet:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -32,7 +32,7 @@ export async function getDiet(req, res) {
     }
     res.status(200).json(diet);
   } catch (error) {
-    console.error("Error fetching Diet:", error);
+    console.error("Error fetching Diets:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -43,8 +43,7 @@ export async function getDiet(req, res) {
  *
  */
 export async function userDietsInfo(req, res) {
-  const uid = "HxEy7HktZvcz7fPtEPAEM1ILnry1";
-  console.log("gggggg");
+  const uid = req.user.uid;
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
@@ -64,14 +63,13 @@ export async function userDietsInfo(req, res) {
       .leftJoin(
         "recipe_diet_type",
         "recipe_user_diet_type.diet_type_id",
-        "=",
         "recipe_diet_type.id"
       )
       .where("recipe_user_diet_type.user_id", user_id);
-    console.log("gggggg", dietsInfos);
+    console.log("dietsInfos", dietsInfos);
     res.status(200).json(dietsInfos);
   } catch (error) {
-    console.error("Error fetching Diet:", error);
+    console.error("Error fetching user Diets :", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

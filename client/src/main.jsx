@@ -24,7 +24,7 @@ import BMI from "./pages/BMI/index.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
 import RecipeFavoriten from "./pages/Sammlung/index.jsx";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
-import UserDietInfo from "./components/DietInfo/DietInfo.jsx";
+import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
         path: "/allergene",
         element: <Allergen />,
       },
-      {
-        path: "/info",
-        element: <Info />,
-      },
+      // {
+      //   path: "/info",
+      //   element: <Info />,
+      // },
       {
         path: "/editForm",
         element: <EditForm />,

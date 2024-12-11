@@ -12,7 +12,7 @@ export default function UserProfile({ goToNextStep }) {
   async function onFormSubmit(formData) {
     try {
       if (!user) {
-        console.error("User not logged in");
+        console.log("User not logged in");
         return;
       }
       const token = await user.getIdToken();
@@ -33,12 +33,14 @@ export default function UserProfile({ goToNextStep }) {
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to fetch userProfile ");
+      if (!response.ok) {
+        console.log("Failed to fetch userProfile ");
+      }
 
       const data = await response.json();
       setUserData(data);
     } catch (error) {
-      console.error("Error fetching cart items:", error);
+      console.error("Error fetching Data:", error);
     }
   }
   // if (userData) {

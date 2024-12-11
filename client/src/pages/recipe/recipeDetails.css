@@ -83,7 +83,10 @@
   color: #f4b400;
   font-weight: bold;
 }
-
+.p-15-rating span {
+  color: #4a6a50;
+  margin-right: 6px;
+}
 .P-15-row {
   display: flex;
   justify-content: space-between;
@@ -111,10 +114,9 @@
 }
 .P-15-text-container,
 .P-15-image-container {
-  width: 48%;
-  padding: 16px;
-  margin-top: 0px;
+  width: 100%;
   padding: 0px;
+  margin-top: 0px;
 }
 .P-15-text-container {
   padding-top: 20px;
@@ -129,7 +131,7 @@
 .P-15-image-container img {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 590px;
+  width: 100%;
   height: 450px;
 }
 .ingredients-list {
@@ -179,44 +181,79 @@
   .P-15-row,
   .P-15-row-h {
     flex-direction: column;
-    align-items: flex-start;
   }
 
   .P-15-text-container,
   .P-15-image-container {
     width: 100%;
-    text-align: center;
   }
 
   .P-15-image-container img {
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
+    max-height: 100px;
+  }
+
+  .p-15-title-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .p-15-icons {
+    margin-top: 10px;
+  }
+  .ingredients-list {
+    margin: 0px;
+    padding: o;
+  }
+  .nutritional-grid {
+    display: non;
+    gap: 0;
+  }
+  .container {
+    padding: 0;
+  }
+
+  .row {
+    flex-direction: row;
+  }
+
+  .column {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .nutritional-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nutritional-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nutritional-item h3,
+  .nutritional-item p {
+    font-size: 14px;
   }
 }
 /* ----------------------- */
 .nutritional-info {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
   max-width: 500px;
-  margin: auto;
-  font-family: Arial, sans-serif;
-  width: 50%;
-  margin-top: 50px;
-  text-align: center;
 }
 
 .nutritional-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 5px 5px;
+  font-size: 0.8rem;
 }
 
 .nutritional-header h2 {
-  font-size: 18px;
-  font-weight: bold;
   margin: 0;
 }
 
@@ -226,53 +263,100 @@
   gap: 10px;
 }
 
-.nutritional-score span {
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .score-indicator {
-  width: 40px;
-  height: 40px;
-  background: conic-gradient(#f77f64 0% 40%, #a3d977 40% 100%);
-  border-radius: 50%;
-  position: relative;
-}
-
-.score-indicator::after {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 10px;
   width: 20px;
   height: 20px;
-  background: #fff;
+  background-color: #4caf50;
   border-radius: 50%;
 }
 
 .nutritional-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .nutritional-item {
-  text-align: center;
-  border-radius: 10px;
-  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .nutritional-item h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.nutritional-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* .nutritional-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+} */
+
+/* .nutritional-item {
+  text-align: center;
+  border-radius: 10px;
+  padding: 15px;
+} */
+
+/* .nutritional-item h3 {
   font-size: 14px;
   font-weight: bold;
   margin: 0;
   margin-bottom: 8px;
-}
+} */
 
-.nutritional-item p {
+/* .nutritional-item p {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+} */
+
+/* Hauptcontainer */
+.nutritional-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.nutritional-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.nutritional-column {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+}
+
+.nutritional-header {
+  background-color: #4a6a50;
+  color: white;
+}
+
+/* .nutritional-item {
+  background-color: #dbd3d4;
+  color: black;
+} */
+
+.green {
+  background-color: #90ee90;
+  color: black;
 }
 
 @media print {
@@ -302,11 +386,14 @@
     padding: 0px;
   } */
   .P-15-image-container img {
-    width: 300px;
+    width: 400px;
     height: auto;
-    margin: 10px auto;
+    margin: 10px 50px;
+    padding: 10px;
   }
   .P-15-text-container {
-    width: 1800px;
+    width: 1500px;
+    margin: 50px;
+    padding: 40px;
   }
 }

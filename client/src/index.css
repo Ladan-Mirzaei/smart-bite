@@ -55,13 +55,15 @@ input[type="radio"] {
   color: rgb(100, 92, 92);
 }
 body {
-  margin: 0;
   display: flex;
   place-items: center;
   width: 100%;
   box-sizing: border-box;
   background-color: white;
   color: black;
+  /* overflow-x: hidden; */
+  /* Verhindert horizontales Scrollen */
+  margin: 0;
 }
 
 h1 {

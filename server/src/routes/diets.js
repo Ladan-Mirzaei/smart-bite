@@ -12,6 +12,6 @@ const router = Router();
 router.post("/", creatDiet);
 router.get("/", getDiet);
 router.post("/updatediets", firebaseGetAuth, updateUserDiet);
-router.get("/getuserdiets", firebaseGetAuth, userDietsInfo);
+router.post("/getuserdiets", firebaseRequireAuth, userDietsInfo);
 
 export default router;

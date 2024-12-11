@@ -15,7 +15,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -34,13 +34,13 @@ function Register() {
     }
 
     try {
-      console.log("part1url", photoURL.secure_url);
-      const registeredUser = await registerUser(
+      console.log("part1url", imageUrl);
+      const registeredUser = await registerUser({
         email,
         password,
         displayName,
-        photoURL.secure_url
-      );
+        photoURL: imageUrl,
+      });
 
       console.log(
         "Benutzer registriert und eingeloggt:",
@@ -81,7 +81,7 @@ function Register() {
       setError(error.message);
     }
   };
-  // console.log("firstname", photoURL.secure_url, photoURL);
+  console.log("secure_url", imageUrl.secure_url);
   return (
     <div>
       <div className="progress-bar">
@@ -151,9 +151,9 @@ function Register() {
 
             <br />
             <div className="register-uploadImage">
-              <UploadImage imageUrl={photoURL} setImageUrl={setPhotoURL} />
-              {photoURL.secure_url && (
-                <p>Bild hochgeladen: {photoURL.secure_url}</p>
+              <UploadImage setImageUrl={setImageUrl} />
+              {imageUrl.secure_url && (
+                <p>Bild hochgeladen: {imageUrl.secure_url}</p>
               )}
             </div>
 

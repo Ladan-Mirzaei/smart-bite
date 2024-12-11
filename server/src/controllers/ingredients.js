@@ -18,7 +18,7 @@ export async function creatIngredient(req, res) {
       .status(200)
       .json({ message: "Ingredient created successfully", newiIngredient });
   } catch (error) {
-    console.error("Error fetching Ingredient:", error);
+    console.error("Error fetching create new Ingredient:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

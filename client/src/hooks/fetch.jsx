@@ -4,14 +4,16 @@ import { useAuth } from "../context/AuthContext.jsx";
 export function useFetch() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { getToken } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
+  const { user } = useAuth();
 
   async function fetchData(url, method = "GET", body = null, headers = {}) {
     setErrorMessage("");
 
     try {
-      const token = await getToken();
+      const token = await user.getIdToken();
+
+      // const token = await getToken();
       setIsLoading(true);
       const response = await fetch(url, {
         method,

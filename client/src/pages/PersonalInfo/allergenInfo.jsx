@@ -39,7 +39,7 @@ export default function AllergyInfo() {
         body: JSON.stringify({ ...finalData }),
       });
       if (!response.ok) {
-        console.error("Data fetching error");
+        console.log("Data fetching error");
       }
       const data = await response.json();
       console.log("Server Response:", data);

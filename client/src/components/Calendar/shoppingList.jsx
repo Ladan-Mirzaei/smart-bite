@@ -61,7 +61,10 @@ const RecipePlanner = () => {
     const eventDate = moment(event.date);
     return eventDate.isBetween(startOfWeek, endOfWeek);
   });
-
+  const uniqueDates = filteredEvents
+    .map((event) => moment(event.date).format("DD.MM.YYYY"))
+    .filter((date, index, self) => self.indexOf(date) === index);
+  console.log(uniqueDates, "uniqueDates", filteredEvents);
   return (
     <div>
       <h3>Meine Einkaufsliste für diese Woche</h3>
@@ -70,9 +73,16 @@ const RecipePlanner = () => {
         <ul className="week-events">
           {filteredEvents.map((event) => (
             <li key={event.event_id} className="day-item">
-              <div className="day-header">
-                <strong>{moment(event.date).format("DD.MM.YYYY")}</strong>
-              </div>
+              {uniqueDates.includes(moment(event.date).format("DD.MM.YYYY")) ? (
+                <div className="day-header">
+                  <strong>not found</strong>
+                </div>
+              ) : (
+                <div className="day-header">
+                  <strong>{moment(event.date).format("DD.MM.YYYY")}</strong>
+                </div>
+              )}
+              <div className="day-header"></div>
               <div className="day-events">
                 <strong>{event.title}</strong>
                 <div className="ingredients">
@@ -91,7 +101,7 @@ const RecipePlanner = () => {
           ))}
         </ul>
       ) : (
-        <p>Keine Events für diese Woche</p>
+        <p>Es wurden keine Rezepte für diese Woche ausgewählt.</p>
       )}
     </div>
   );

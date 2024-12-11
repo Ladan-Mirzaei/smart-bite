@@ -8,7 +8,12 @@ import {
 } from "firebase/auth";
 
 // Function to register a new user
-export const registerUser = async (email, password, displayName, photoURL) => {
+export const registerUser = async ({
+  email,
+  password,
+  displayName,
+  photoURL,
+}) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,

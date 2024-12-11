@@ -3,13 +3,22 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../authentication/authService.js";
+import { slide as Menu } from "react-burger-menu";
+// import { bubble as Menu } from "react-burger-menu";
+
+import { useState } from "react";
+
 export default function Navbar() {
   const { user, signOut } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const navigate = useNavigate();
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className="navbar">
-      <div className="navbar-brand">SMARTBITE</div>
-      <nav>
+      <div className="navbar-logo">SMARTBITE</div>
+      <nav className="normal-menu">
         <ul className="navbar-links">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -23,7 +32,9 @@ export default function Navbar() {
           {user ? (
             <>
               <li>
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/profile" onClick={closeMenu}>
+                  Profile
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/recipeform">Neue Rezepte</NavLink>
@@ -62,6 +73,60 @@ export default function Navbar() {
           )}
         </ul>
       </nav>
+      <Menu
+        isOpen={menuOpen}
+        onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
+      >
+        <NavLink className="menu-item" to="/" onClick={closeMenu}>
+          Home
+        </NavLink>
+        <NavLink className="menu-item" to="/recipeAll" onClick={closeMenu}>
+          Rezepte
+        </NavLink>
+        <NavLink className="menu-item" to="/BMI" onClick={closeMenu}>
+          BMI
+        </NavLink>
+        {user ? (
+          <>
+            <NavLink className="menu-item" to="/profile" onClick={closeMenu}>
+              Profile
+            </NavLink>
+            <NavLink className="menu-item" to="/recipeform" onClick={closeMenu}>
+              Neue Rezepte
+            </NavLink>
+            <NavLink
+              className="menu-item"
+              to="/meine-favoriten"
+              onClick={closeMenu}
+            >
+              <img
+                className="navbar-herz"
+                src="../../../public/icons8-herz-48.png"
+                alt="Herz-Icon"
+              />{" "}
+              Rezepte
+            </NavLink>
+            <button
+              className="menu-item"
+              onClick={async () => {
+                await logoutUser();
+                closeMenu();
+                navigate("/");
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <NavLink className="menu-item" to="/login" onClick={closeMenu}>
+            Login
+          </NavLink>
+        )}
+      </Menu>
+
+      {/* <Menu>
+        <div className="burger-menu">
+          <NavLink className="menu-item" to="/" onClick={closeMenu}> */}
     </header>
   );
 }

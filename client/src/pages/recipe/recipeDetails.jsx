@@ -23,7 +23,7 @@ const RecipeDetails = () => {
   const [showPopup, setShowPopup] = useState();
   const contentRef = useRef(null);
   const [isFavorited, setIsFavorited] = useState(false);
-  const [ratingSum, setRatingSum] = useState({ total_rating: 0 });
+  const [recipeRating, setRecipeRating] = useState(null);
   // console.log(contentRef);
   const handlePrint = useReactToPrint({
     contentRef,
@@ -56,10 +56,10 @@ const RecipeDetails = () => {
         });
 
         if (!response.ok) {
-          console.error("Data fetching error");
+          console.log("Data fetching error");
         }
-        // const dataSammlung = await response.json();//todo/*************** */
-        // setDataRecipeSammlung(dataSammlung);//todo/*************** */
+
+        const dataSammlung = await response.json();
         setIsFavorited(true);
       } catch (err) {
         console.log(err);
@@ -79,10 +79,11 @@ const RecipeDetails = () => {
           }
         );
         if (!responseRating.ok) {
-          console.error("Data fetching error");
+          console.log("Data fetching error");
         }
         const result = await responseRating.json();
-        setRatingSum(result);
+        setRecipeRating(result);
+        console.log("result", result);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -91,11 +92,9 @@ const RecipeDetails = () => {
     loadFavorited();
     loadFetch();
   }, []);
-  console.log("rating5555555", ratingSum.total_rating);
-
   console.log("dataRecipeSammlung", dataRecipeSammlung);
   // dataRecipeSammlung ? setIsFavorited(true) : setIsFavorited(false);
-
+  console.log("setRecipeRating", recipeRating);
   if (!fetchRezeptData) {
     return <div>Lade Rezeptdaten...</div>;
   }
@@ -146,7 +145,7 @@ const RecipeDetails = () => {
         body: JSON.stringify({ feedback }),
       });
       if (!responseFeedback.ok) {
-        console.error("Data fetching error");
+        console.log("Data fetching error");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -167,7 +166,7 @@ const RecipeDetails = () => {
         body: JSON.stringify({ id, uid: user.uid }),
       });
       if (!response.ok) {
-        console.error("Data fetching error");
+        console.log("Data fetching error");
       }
       const data = await response.json();
       setData(data);
@@ -184,6 +183,8 @@ const RecipeDetails = () => {
     }
     setShowPopup(true);
   };
+  console.log("recipeRating", recipeRating);
+  const totalRaring = recipeRating;
   return (
     <>
       {" "}
@@ -268,7 +269,9 @@ const RecipeDetails = () => {
                 {fetchRezeptData.difficulty_level} für{" "}
                 {fetchRezeptData.portions} personen
               </span>
-              <div className="p-15-rating">★★★★☆ {ratingSum.total_rating}</div>
+              <div className="p-15-rating">
+                ★★★★☆ <span>{recipeRating}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -285,12 +288,12 @@ const RecipeDetails = () => {
               {fetchRezeptData.ingredient_details?.map((ing, index) => (
                 <li
                   key={index}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "200px auto",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
+                  // style={{
+                  //   display: "grid",
+                  //   gridTemplateColumns: "200px auto",
+                  //   alignItems: "center",
+                  //   gap: "10px",
+                  // }}
                 >
                   <span>
                     {ing.quantity} {ing.unit} {ing.name}
@@ -325,62 +328,59 @@ const RecipeDetails = () => {
                 uid={fetchRezeptData.uid}
               />
             ) : null}
-
-            <div className="nutritional-info">
-              <div className="nutritional-header">
-                <h2>Nährwerte pro Person:</h2>
-                <div className="nutritional-score">
-                  <span>4/10</span>
-                  <div className="score-indicator"></div>
-                </div>
-              </div>
-              <div className="nutritional-grid">
-                <div
-                  className="nutritional-item"
-                  style={{ backgroundColor: "#fdece8" }}
-                >
-                  <h3>Energie</h3>
-                  <p>
-                    {" "}
-                    {totalNutrients.calories
-                      ? totalNutrients.calories.toFixed(2)
-                      : "0.00"}
-                    kcal
-                  </p>
-                </div>
-                <div
-                  className="nutritional-item"
-                  style={{ backgroundColor: "#f2eef9" }}
-                >
-                  <h3>Kohlenhydrate</h3>
-                  <p>
-                    {totalNutrients.carbohydrates
-                      ? totalNutrients.carbohydrates.toFixed(2)
-                      : "0.00"}
-                  </p>
-                </div>
-                <div
-                  className="nutritional-item"
-                  style={{ backgroundColor: "#eaf4ec" }}
-                >
-                  <h3>Fett</h3>
-                  {totalNutrients.fats
-                    ? totalNutrients.fats.toFixed(2)
-                    : "0.00"}
-                </div>
-                <div
-                  className="nutritional-item"
-                  style={{ backgroundColor: "#fbf4e7" }}
-                >
-                  <h3>Eiweiß</h3>
-                  {totalNutrients.protein
-                    ? totalNutrients.protein.toFixed(2)
-                    : "0.00"}
-                </div>
-              </div>
-            </div>
           </div>
         </div>{" "}
+        <div className="nutritional-info">
+          <div className="nutritional-header">
+            <h2>Nährwerte pro Person:</h2>
+            <div className="nutritional-score">
+              <span>4/10</span>
+              <div className="score-indicator"></div>
+            </div>
+          </div>
+          <div className="nutritional-grid">
+            <div
+              className="nutritional-item"
+              style={{ backgroundColor: "#fdece8" }}
+            >
+              <h3>Energie</h3>
+              <p>
+                {" "}
+                {totalNutrients.calories
+                  ? totalNutrients.calories.toFixed(2)
+                  : "0.00"}
+                kcal
+              </p>
+            </div>
+            <div
+              className="nutritional-item"
+              style={{ backgroundColor: "#f2eef9" }}
+            >
+              <h3>Kohlenhydrate</h3>
+              <p>
+                {totalNutrients.carbohydrates
+                  ? totalNutrients.carbohydrates.toFixed(2)
+                  : "0.00"}
+              </p>
+            </div>
+            <div
+              className="nutritional-item"
+              style={{ backgroundColor: "#eaf4ec" }}
+            >
+              <h3>Fett</h3>
+              {totalNutrients.fats ? totalNutrients.fats.toFixed(2) : "0.00"}
+            </div>
+            <div
+              className="nutritional-item"
+              style={{ backgroundColor: "#fbf4e7" }}
+            >
+              <h3>Eiweiß</h3>
+              {totalNutrients.protein
+                ? totalNutrients.protein.toFixed(2)
+                : "0.00"}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

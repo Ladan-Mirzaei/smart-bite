@@ -24,7 +24,7 @@ export default function Recipe() {
         body: JSON.stringify({ ...finalData }),
       });
       if (!response.ok) {
-        console.error("Data fetching error");
+        console.log("Data fetching error");
       }
       const recipeId = await response.json();
       setRecipeID(recipeId);
