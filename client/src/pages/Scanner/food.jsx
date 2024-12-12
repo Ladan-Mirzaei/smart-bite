@@ -10,7 +10,7 @@ const Food = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     if (!barcode) {
       setError("Bitte einen Barcode eingeben.");

@@ -36,16 +36,16 @@ function Register() {
       setError("Vorname darf nicht leer sein.");
       return;
     }
-    if (loading) {
-      return <h2>Loading...</h2>;
-    }
-    if (user) {
-      if (user.signUpCompleted) {
-        return <Navigate to="/" />;
-      } else {
-        return <Navigate to="/register/userinfo" />;
-      }
-    }
+    // if (loading) {
+    //   return <h2>Loading...</h2>;
+    // }
+    // if (user) {
+    //   if (user.signUpCompleted) {
+    //     return <Navigate to="/" />;
+    //   } else {
+    //     return <Navigate to="/register/userinfo" />;
+    //   }
+    // }
     try {
       console.log("part1url", imageUrl);
       const registeredUser = await registerUser({

@@ -12,8 +12,6 @@ export default function UserProfile({ goToNextStep }) {
 
   async function onFormSubmit(formData) {
     try {
-      console.log(user, user.getIdToken, "user");
-
       if (!user) {
         console.log("User not logged in");
         return;
@@ -47,19 +45,19 @@ export default function UserProfile({ goToNextStep }) {
       console.error("Error fetching Data:", error);
     }
   }
-  if (loading) {
-    console.log("user details loading");
-    return <h2>Loading...</h2>;
-  }
+  // if (loading) {
+  //   console.log("user details loading");
+  //   return <h2>Loading...</h2>;
+  // }
 
-  if (user && user.signUpCompleted) {
-    console.log("user details navigate home");
-    return <Navigate to="/" />;
-  }
+  // if (user && user.signUpCompleted) {
+  //   console.log("user details navigate home");
+  //   return <Navigate to="/" />;
+  // }
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
   return (
     <>
       {" "}

@@ -8,8 +8,8 @@ function BScanner() {
   const [barcodeScanner, setBarcodeScanner] = useState("");
   const [recipes, setRecipes] = useState([]);
 
-  const EDAMAM_APP_ID = "d3877bd5"; // Ersetzen Sie dies durch Ihre Edamam App ID
-  const EDAMAM_APP_KEY = "9f69838dd745f41a99de1b2358160900"; // Ersetzen Sie dies durch Ihren Edamam API-Schlüssel
+  const EDAMAM_APP_ID = "d3877bd5";
+  const EDAMAM_APP_KEY = "9f69838dd745f41a99de1b2358160900";
 
   const handleInputChange = (e) => {
     setBarcode(e.target.value);

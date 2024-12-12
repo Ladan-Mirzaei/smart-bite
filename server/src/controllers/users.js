@@ -112,12 +112,12 @@ export async function creatUserProfile(req, res) {
       });
 
       //  custom user claims
-      await admin.auth().setCustomUserClaims(uid, { signUpCompleted: true });
+      // await admin.auth().setCustomUserClaims(uid, { signUpCompleted: true });
 
       res.status(200).json({
         message: "User profile created successfully",
         newUser,
-        customClaims: { signUpCompleted: true },
+        // customClaims: { signUpCompleted: true },
       });
     }
   } catch (error) {

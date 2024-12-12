@@ -19,13 +19,13 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         // ++++++++++++++++++++++++++++
-        firebaseUser.getIdTokenResult().then((idTokenResult) => {
-          console.log("idTokenResult", idTokenResult);
-          setUser({
-            ...firebaseUser,
-            signUpCompleted: !!idTokenResult.claims.signUpCompleted,
-          });
-        });
+        // firebaseUser.getIdTokenResult().then((idTokenResult) => {
+        //   console.log("idTokenResult", idTokenResult);
+        //   setUser({
+        //     ...firebaseUser,
+        //     signUpCompleted: !!idTokenResult.claims.signUpCompleted,
+        //   });
+        // });
         // ********************************
         setUser(firebaseUser);
 
@@ -64,22 +64,22 @@ export const AuthProvider = ({ children }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  async function refreshUser() {
-    if (auth.currentUser) {
-      try {
-        setLoading(true);
-        const idTokenResult = await auth.currentUser.getIdTokenResult(true);
-        setUser({
-          ...auth.currentUser,
-          signUpCompleted: idTokenResult.claims.signUpCompleted,
-        });
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-  }
+  // async function refreshUser() {
+  //   if (auth.currentUser) {
+  //     try {
+  //       setLoading(true);
+  //       const idTokenResult = await auth.currentUser.getIdTokenResult(true);
+  //       setUser({
+  //         ...auth.currentUser,
+  //         signUpCompleted: idTokenResult.claims.signUpCompleted,
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // }
 
   return (
     <AuthContext.Provider
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
         user,
         userData,
         loading,
-        refreshUser,
+        // refreshUser,
         setUser,
         getToken,
         signOut: () => signOut(auth),

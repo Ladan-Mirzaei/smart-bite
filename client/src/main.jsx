@@ -102,10 +102,10 @@ const router = createBrowserRouter([
       //     </RequireAuth>
       //   ),
       // },
-      {
-        path: "/recipeAll",
-        element: <RecipeAll />,
-      },
+      // {
+      //   path: "/recipeAll",
+      //   element: <RecipeAll />,
+      // },
       {
         path: "/profile",
         element: (
@@ -153,6 +153,10 @@ const router = createBrowserRouter([
       {
         path: "BMI",
         element: <BMI />,
+      },
+      {
+        path: "recipeAll",
+        element: <RecipeAll />,
       },
     ],
   },

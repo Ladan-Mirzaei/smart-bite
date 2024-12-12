@@ -128,7 +128,7 @@ export async function getRandomRecipes(req, res) {
       .first();
     const ketoRecipe = await getRandomRecipe
       .clone()
-      .where("recipe_diet_type.name", "keto")
+      .where("recipe_diet_type.name", "Keto")
       .first();
     const vegetarischRecipe = await getRandomRecipe
       .clone()
@@ -138,6 +138,7 @@ export async function getRandomRecipes(req, res) {
       .clone()
       .where("recipe_diet_type.name", "Glutenfrei")
       .first();
+    console.log(ketoRecipe, "ketoRecipe");
     const randomRecipes = {
       vegan: veganRecipe || null,
       keto: ketoRecipe || null,
