@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./BMI.css";
 
-const BMIApp = () => {
+function BMIApp() {
   const [bmiResult, setBmiResult] = useState(null);
   const [bmiCategory, setBmiCategory] = useState("");
   const [inputValue, setInputValue] = useState({
@@ -150,6 +150,6 @@ const BMIApp = () => {
       </div>
     </div>
   );
-};
+}
 
 export default BMIApp;

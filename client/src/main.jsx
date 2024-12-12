@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 // import Recipe from "./pages/recipe/index.jsx";
 import RecipeAll from "./pages/recipe/recipeAll.jsx";
 import Allergen from "./pages/PersonalInfo/allergenInfo.jsx";
-import Info from "./pages/PersonalInfo/index.jsx";
+import UserInfo from "./pages/PersonalInfo/index.jsx";
 
 import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
@@ -25,6 +25,10 @@ import Scanner from "./pages/Scanner/index.jsx";
 import RecipeFavoriten from "./pages/Sammlung/index.jsx";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
 import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
+import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
+import ApiFood from "./pages/Scanner/food.jsx";
+import AuthLayout from "./AuthLayout.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,8 +39,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/food",
+        element: <ApiFood />,
+      },
+      {
         path: "/allergene",
         element: <Allergen />,
+      },
+      {
+        path: "/bscanner",
+        element: <BScanner />,
       },
       // {
       //   path: "/info",
@@ -50,18 +62,18 @@ const router = createBrowserRouter([
       //   path: "/shoppinglist",
       //   element: <ShoppingList />,
       // },
-      {
-        path: "/BMI",
-        element: <BMI />,
-      },
+      // {
+      //   path: "/BMI",
+      //   element: <BMI />,
+      // },
       {
         path: "/meine-favoriten",
         element: <RecipeFavoriten />,
       },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
+      // {
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
       {
         path: "/recipeform",
         element: <RecipeForm />,
@@ -94,14 +106,14 @@ const router = createBrowserRouter([
         path: "/recipeAll",
         element: <RecipeAll />,
       },
-      // {
-      //   path: "/profile",
-      //   element: (
-      //     // <RequireAuth>
-      //     <Profile />
-      //     // </RequireAuth>
-      //   ),
-      // },
+      {
+        path: "/profile",
+        element: (
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        ),
+      },
       // {
       //   path: "/recipe",
       //   element: (
@@ -110,14 +122,14 @@ const router = createBrowserRouter([
       //     </RequireAuth>
       //   ),
       // },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
+      // {
+      //   path: "login",
+      //   element: <Login />,
+      // },
+      // {
+      //   path: "register",
+      //   element: <Register />,
+      // },
       {
         path: "logout",
         element: <Logout />,
@@ -126,6 +138,34 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/ShoppingList", element: <ShoppingList /> },
+  {
+    path: "register",
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <Register />,
+      },
+      {
+        path: "userinfo",
+        element: <UserInfo />,
+      },
+      {
+        path: "BMI",
+        element: <BMI />,
+      },
+    ],
+  },
+  {
+    path: "login",
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

@@ -61,41 +61,51 @@ const RecipePlanner = () => {
     const eventDate = moment(event.date);
     return eventDate.isBetween(startOfWeek, endOfWeek);
   });
-  const uniqueDates = filteredEvents
-    .map((event) => moment(event.date).format("DD.MM.YYYY"))
-    .filter((date, index, self) => self.indexOf(date) === index);
-  console.log(uniqueDates, "uniqueDates", filteredEvents);
+
+  const result = filteredEvents.reduce((acc, cur) => {
+    if (acc[cur.date]) {
+      return {
+        ...acc,
+        [cur.date]: [...acc[cur.date], cur],
+      };
+    } else {
+      return {
+        ...acc,
+        [cur.date]: [cur],
+      };
+    }
+  }, {});
+  console.log("result", result);
+
   return (
     <div>
       <h3>Meine Einkaufsliste für diese Woche</h3>
-
-      {filteredEvents.length > 0 ? (
+      {Object.keys(result).length > 0 ? (
         <ul className="week-events">
-          {filteredEvents.map((event) => (
-            <li key={event.event_id} className="day-item">
-              {uniqueDates.includes(moment(event.date).format("DD.MM.YYYY")) ? (
-                <div className="day-header">
-                  <strong>not found</strong>
-                </div>
-              ) : (
-                <div className="day-header">
-                  <strong>{moment(event.date).format("DD.MM.YYYY")}</strong>
-                </div>
-              )}
-              <div className="day-header"></div>
+          {Object.keys(result).map((date, index) => (
+            <li key={index} className="day-item">
+              <div className="day-header">
+                <strong>{moment(date).format("DD.MM.YYYY")}</strong>
+              </div>
               <div className="day-events">
-                <strong>{event.title}</strong>
-                <div className="ingredients">
-                  {event.ingredients.ingredient_names.map(
-                    (ingredient, index) => (
-                      <div key={index} className="ingredient-item-shoplist">
-                        <p>{ingredient}</p>
-                        <p>{event.ingredients.ingredient_units[index]}</p>
-                        <p>{event.ingredients.ingredient_quantities[index]}</p>
-                      </div>
-                    )
-                  )}
-                </div>
+                {result[date].map((event, index) => (
+                  <div key={index}>
+                    <strong>{event.title}</strong>
+                    <div className="ingredients">
+                      {event.ingredients?.ingredient_names.map(
+                        (ingredient, idx) => (
+                          <div key={idx} className="ingredient-item-shoplist">
+                            <p>{ingredient}</p>
+                            <p>{event.ingredients.ingredient_units[idx]}</p>
+                            <p>
+                              {event.ingredients.ingredient_quantities[idx]}
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </li>
           ))}
@@ -106,5 +116,4 @@ const RecipePlanner = () => {
     </div>
   );
 };
-
 export default RecipePlanner;

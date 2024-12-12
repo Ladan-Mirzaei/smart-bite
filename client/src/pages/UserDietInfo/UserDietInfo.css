@@ -5,15 +5,20 @@
   color: #2c2929;
 }
 .dietinfo-section {
-  margin-top: 20px;
+  margin-top: 5px;
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: #f8f7f7;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   /* padding: 20px; */
   /* display: flex;
   flex-direction: column;
   align-items: center; */
+}
+
+.dietinfo-section {
+  border: 1px solid #ddd;
+  border-top: none;
 }
 .dietinfo-image-section {
   flex: 1;
@@ -47,12 +52,12 @@
   margin-bottom: 20px;
 }
 
-.dietinfo-result h2 {
-  margin-top: 40px;
+.dietinfo-result-section h2 {
   background-color: #4e7c58;
   border-bottom: 5px solid #090909;
-  padding: 10px;
+  padding: 10px 10px;
   color: #f6f4f4;
+  margin-bottom: 10px;
 }
 
 .dietinfo-result h3 {
@@ -72,19 +77,24 @@
   font-size: 16px;
   color: #f6f4f4;
 }
+.dietinfo-result-section,
 .dietinfo-result {
-  width: 80%;
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
+  width: 100%;
   font-size: 16px;
   color: #333;
 }
+.dietinfo-result-section {
+  margin-top: 40px;
+}
 
+.dietinfo-result {
+  margin-top: 0px;
+}
 .dietinfo-header {
   display: flex;
-  background-color: #f4f4f4;
+  background-color: #f3f1f1;
   font-weight: bold;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #391a1a;
 }
 
 .table-cell {
@@ -96,11 +106,6 @@
 
 .table-cell:last-child {
   border-right: none;
-}
-
-.dietinfo-section {
-  border: 1px solid #ddd;
-  border-top: none;
 }
 
 .dietinfo-item {
@@ -117,8 +122,12 @@
   padding: 10px;
   text-align: center;
   border-right: 1px solid #ddd;
+  min-width: 100px;
+  max-width: 200px;
 }
-
+.diet-row:first-child {
+  min-width: 122px;
+}
 .diet-row:last-child {
   border-right: none;
 }
@@ -136,8 +145,13 @@
     padding: 10px;
   }
 
+  .dietinfo-image-section,
+  .dietinfo-content-section {
+    flex: 1;
+  }
+
   .dietinfo-image {
-    min-width: 0px;
+    min-width: 0;
     max-width: 100%;
     height: auto;
   }
@@ -171,5 +185,27 @@
     text-align: left;
     padding: 10px;
     border-right: none;
+  }
+
+  .diet-row {
+    min-width: 0;
+  }
+  .diet-row span {
+    font-weight: bold;
+  }
+  .dietinfo-header,
+  .dietinfo-item {
+    flex-direction: column;
+  }
+
+  .table-cell,
+  .diet-row {
+    text-align: left;
+    padding: 5px;
+    border-right: none;
+  }
+
+  .diet-row {
+    font-size: 14px;
   }
 }

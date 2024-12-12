@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { loginUser } from "./authService.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext.jsx";
+
 import "./Login.css";
 
 function Login() {
@@ -8,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { user, loading } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +22,16 @@ function Login() {
       setError(error.message);
     }
   };
-
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+  if (user) {
+    if (user.signUpCompleted) {
+      return <Navigate to="/" />;
+    } else {
+      return <Navigate to="/register/userinfo" />;
+    }
+  }
   return (
     <div className="login">
       <div className="login-container">

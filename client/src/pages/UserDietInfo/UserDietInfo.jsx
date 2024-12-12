@@ -61,12 +61,12 @@ export default function UserDietInfo() {
           gewählten Diät:
         </p>
 
-        <div className="dietinfo-result">
+        <div className="dietinfo-result-section">
           <h2>Dein Tagesbedarf</h2>
           <div className="dietinfo-result">
             <div className="dietinfo-header">
               <div className="table-cell">
-                <span>wert</span>
+                <span>Ernährungsweise</span>
               </div>
               <div className="table-cell">
                 <span>Kalorien</span>
@@ -89,10 +89,13 @@ export default function UserDietInfo() {
                       <span>{item.diet_name}</span>
                     </div>
                     <div className="diet-row">
-                      <span>{item.daily_fats} g</span>
+                      <span>{item.daily_calories} g</span>
                     </div>
                     <div className="diet-row">
                       <span>{item.daily_carbohydrates} g</span>
+                    </div>
+                    <div className="diet-row">
+                      <span>{item.daily_fats} g</span>
                     </div>
                     <div className="diet-row">
                       <span>{item.daily_protein} g</span>

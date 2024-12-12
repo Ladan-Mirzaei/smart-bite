@@ -56,6 +56,9 @@
 .burger-menu {
   display: none;
 }
+.navbar-links a.active {
+  color: rgb(94, 29, 29);
+}
 
 @media (max-width: 768px) {
   .navbar-links {

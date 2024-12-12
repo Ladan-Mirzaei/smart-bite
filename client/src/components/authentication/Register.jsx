@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext.jsx";
+
 import { registerUser } from "./authService.js";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
@@ -18,6 +21,7 @@ function Register() {
   const [imageUrl, setImageUrl] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const { user, loading } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const [step, setStep] = useState(1);
@@ -32,7 +36,16 @@ function Register() {
       setError("Vorname darf nicht leer sein.");
       return;
     }
-
+    if (loading) {
+      return <h2>Loading...</h2>;
+    }
+    if (user) {
+      if (user.signUpCompleted) {
+        return <Navigate to="/" />;
+      } else {
+        return <Navigate to="/register/userinfo" />;
+      }
+    }
     try {
       console.log("part1url", imageUrl);
       const registeredUser = await registerUser({

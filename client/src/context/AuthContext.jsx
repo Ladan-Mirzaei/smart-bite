@@ -18,6 +18,15 @@ export const AuthProvider = ({ children }) => {
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
+        // ++++++++++++++++++++++++++++
+        firebaseUser.getIdTokenResult().then((idTokenResult) => {
+          console.log("idTokenResult", idTokenResult);
+          setUser({
+            ...firebaseUser,
+            signUpCompleted: !!idTokenResult.claims.signUpCompleted,
+          });
+        });
+        // ********************************
         setUser(firebaseUser);
 
         try {
@@ -34,6 +43,8 @@ export const AuthProvider = ({ children }) => {
           setUserData(null);
         }
       } else {
+        console.log("No user is signed in.");
+
         setUser(null);
         setUserData(null);
       }
@@ -45,6 +56,7 @@ export const AuthProvider = ({ children }) => {
 
   const getToken = async () => {
     if (user) {
+      console.log("IdTocken", user.getIdToken);
       return await user.getIdToken();
     }
     return null;
@@ -52,12 +64,30 @@ export const AuthProvider = ({ children }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
+  async function refreshUser() {
+    if (auth.currentUser) {
+      try {
+        setLoading(true);
+        const idTokenResult = await auth.currentUser.getIdTokenResult(true);
+        setUser({
+          ...auth.currentUser,
+          signUpCompleted: idTokenResult.claims.signUpCompleted,
+        });
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
 
   return (
     <AuthContext.Provider
       value={{
         user,
         userData,
+        loading,
+        refreshUser,
         setUser,
         getToken,
         signOut: () => signOut(auth),

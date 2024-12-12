@@ -3,14 +3,17 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
 import { auth } from "../../firebaseConfig.js";
 import "./personalInfo.css";
+import { Navigate } from "react-router-dom";
 
 export default function UserProfile({ goToNextStep }) {
   const [userData, setUserData] = useState("null");
-  const { user } = useContext(AuthContext);
+  const { user, loading, refreshUser } = useContext(AuthContext);
   const API_URL = import.meta.env.VITE_API_URL;
 
   async function onFormSubmit(formData) {
     try {
+      console.log(user, user.getIdToken, "user");
+
       if (!user) {
         console.log("User not logged in");
         return;
@@ -39,13 +42,24 @@ export default function UserProfile({ goToNextStep }) {
 
       const data = await response.json();
       setUserData(data);
+      refreshUser();
     } catch (error) {
       console.error("Error fetching Data:", error);
     }
   }
-  // if (userData) {
-  //   return <Navigate to="/home" />;
-  // }
+  if (loading) {
+    console.log("user details loading");
+    return <h2>Loading...</h2>;
+  }
+
+  if (user && user.signUpCompleted) {
+    console.log("user details navigate home");
+    return <Navigate to="/" />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
   return (
     <>
       {" "}

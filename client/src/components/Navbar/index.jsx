@@ -8,28 +8,33 @@ import { slide as Menu } from "react-burger-menu";
 
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ homeOnly = false }) {
   const { user, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
   const closeMenu = () => setMenuOpen(false);
-
+  console.log(homeOnly);
   return (
     <header className="navbar">
       <div className="navbar-logo">SMARTBITE</div>
       <nav className="normal-menu">
         <ul className="navbar-links">
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/recipeAll">Rezepte</NavLink>
-          </li>
-          <li>
-            <NavLink to="/BMI">BMI</NavLink>
-          </li>
-          {user ? (
+          {/* {homeOnly && ( */}
+          <>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/recipeAll">Rezepte</NavLink>
+            </li>
+            <li>
+              <NavLink to="/BMI">BMI</NavLink>
+            </li>
+          </>
+          {/* )} */}
+
+          {user && !homeOnly ? (
             <>
               <li>
                 <NavLink to="/profile" onClick={closeMenu}>

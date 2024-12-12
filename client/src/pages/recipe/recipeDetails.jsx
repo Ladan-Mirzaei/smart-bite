@@ -184,7 +184,6 @@ const RecipeDetails = () => {
     setShowPopup(true);
   };
   console.log("recipeRating", recipeRating);
-  const totalRaring = recipeRating;
   return (
     <>
       {" "}
@@ -270,7 +269,7 @@ const RecipeDetails = () => {
                 {fetchRezeptData.portions} personen
               </span>
               <div className="p-15-rating">
-                ★★★★☆ <span>{recipeRating}</span>
+                {/* ★★★★☆ <span>{recipeRating}</span> */}
               </div>
             </div>
           </div>
@@ -287,6 +286,7 @@ const RecipeDetails = () => {
             <ul className="ingredients-list">
               {fetchRezeptData.ingredient_details?.map((ing, index) => (
                 <li
+                  className="ingerdient-allergen-list"
                   key={index}
                   // style={{
                   //   display: "grid",
@@ -314,7 +314,7 @@ const RecipeDetails = () => {
           </div>
         </div>
         <div className="P-15-row-h">
-          <div className="P-15-text-container">
+          <div className="P-15-text-container-text">
             <h3>Zubereitung</h3>
             <p>{fetchRezeptData.description}</p>
           </div>
