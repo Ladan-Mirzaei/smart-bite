@@ -15,6 +15,7 @@ export default function Profile() {
   const [showPopupCategory, setShowPopupcategory] = useState(false);
   const [showPopupAllergene, setShowPopupAllergene] = useState(false);
   const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
+
   useEffect(() => {
     async function loadUserData() {
       try {
@@ -28,7 +29,7 @@ export default function Profile() {
           body: JSON.stringify({ uid: user.uid }),
         });
         if (!response.ok) {
-          console.error("Data fetching error");
+          console.log("Data fetching error");
         }
         const userDataFetch = await response.json();
         setProfileData(userDataFetch);
@@ -37,7 +38,6 @@ export default function Profile() {
         console.log(err);
       }
     }
-
     async function loadUserRecipes() {
       try {
         const token = await user.getIdToken();
@@ -50,7 +50,7 @@ export default function Profile() {
           body: JSON.stringify({ uid: user.uid }),
         });
         if (!response.ok) {
-          console.error("Data fetching error");
+          console.log("Data fetching error");
         }
         const userRecipeFetch = await response.json();
         setUserRecipe(userRecipeFetch);
@@ -60,9 +60,11 @@ export default function Profile() {
         console.log(err);
       }
     }
-    loadUserRecipes();
-    loadUserData();
-  }, []);
+    if (!showPopupCategory && !showPopupAllergene && !showPopupDiet) {
+      loadUserRecipes();
+      loadUserData();
+    }
+  }, [showPopupCategory, showPopupAllergene, showPopupDiet]);
 
   const handleOpenPopup = (showData) => {
     if (showData === "categories") {
@@ -81,12 +83,12 @@ export default function Profile() {
       <div className="profile-privat">
         <div className="profile-info">
           {Array.isArray(profileData) &&
-            profileData.map((user) =>
-              user.gender === "weiblich" ? (
+            profileData.map((item) =>
+              item.gender === "weiblich" ? (
                 <img
                   key={user.uid}
                   src={
-                    user.photoURL
+                    user.photoURL /***Firbase */
                       ? user.photoURL
                       : "../../../public/avatar-677865778.jpeg"
                   }
@@ -103,13 +105,12 @@ export default function Profile() {
         </div>
         <div className="profile-userInfo">
           {/* <h3>Über mich</h3> */}
-          <p>
-            <h3>
-              {" "}
-              Willkommen,
-              {userData?.firstName || "Gast"} {userData?.lastName || ""}!
-            </h3>
-          </p>{" "}
+          {/* <p>  //änderung */}
+          <h3>
+            Willkommen,
+            {userData?.firstName || "Gast"} {userData?.lastName || ""}!
+          </h3>
+          {/* </p> */}
           <p>{user?.email} </p>
         </div>
         {/* QR-Code für die Einkaufsliste */}
@@ -123,6 +124,9 @@ export default function Profile() {
           {" "}
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
+            <span className="profile-stoffbedarf">
+              <Link to="/userDietInfo"> Nährstoffbedarf</Link>
+            </span>
             <span>
               <button
                 className="profile-edit-btn"
@@ -272,7 +276,6 @@ export default function Profile() {
 
         <div className="profile-calendar-container">
           <RecipePlanner />
-          <Link to="/userDietInfo"> Diet</Link>
         </div>
       </div>
     </div>

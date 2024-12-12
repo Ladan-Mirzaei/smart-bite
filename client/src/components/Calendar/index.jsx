@@ -40,22 +40,22 @@ const RecipePlanner = ({ name, recipe_id }) => {
       }
     };
 
-    // async function planRecipe() {
-    if (selectedDate) {
-      const newEvent = {
-        uid: user.uid,
-        recipe_title: name,
-        date: moment(selectedDate).format("YYYY-MM-DD"),
-        recipe_id: recipe_id,
-        // link: link,
-      };
-      saveEventToServer(newEvent);
-      setEvents((prev) => [...prev, { ...newEvent, date: selectedDate }]);
-      setSelectedDate(null);
-      console.log("setEvents", events, newEvent);
+    async function planRecipe() {
+      if (selectedDate) {
+        const newEvent = {
+          uid: user.uid,
+          recipe_title: name,
+          date: moment(selectedDate).format("YYYY-MM-DD"),
+          recipe_id: recipe_id,
+          // link: link,
+        };
+        saveEventToServer(newEvent);
+        setEvents((prev) => [...prev, { ...newEvent, date: selectedDate }]);
+        setSelectedDate(null);
+        console.log("setEvents", events, newEvent);
+      }
     }
-    // }
-    // planRecipe();
+    planRecipe();
   }, [selectedDate]);
 
   useEffect(() => {
@@ -71,9 +71,13 @@ const RecipePlanner = ({ name, recipe_id }) => {
           },
           body: JSON.stringify({ uid: user.uid }),
         });
-
         const savedEvents = await response.json();
-        const mappedEvents = savedEvents.map((event) => ({
+        //änderung zeile events löchen und nur savedEvents  schreiben
+
+        const events =
+          savedEvents && Array.isArray(savedEvents) ? savedEvents : [];
+
+        const mappedEvents = events?.map((event) => ({
           ...event,
           date: moment(event.date),
           title: event.event_name,
@@ -81,6 +85,8 @@ const RecipePlanner = ({ name, recipe_id }) => {
           ingredients: event.ingredients,
           event_id: event.event_id,
         }));
+        mappedEvents.sort((a, b) => a.date - b.date);
+
         setEvents(mappedEvents);
         console.log("mappedEvents-recipe_id", mappedEvents);
       } catch (error) {

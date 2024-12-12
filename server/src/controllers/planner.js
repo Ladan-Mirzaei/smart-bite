@@ -5,7 +5,7 @@ import db from "../util/db-connect.js";
  *
  */
 export async function creatEvents(req, res) {
-  const { uid, recipe_id, recipe_title, date, link } = req.body;
+  const { uid, recipe_id, recipe_title, date } = req.body;
 
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
@@ -20,11 +20,10 @@ export async function creatEvents(req, res) {
       recipe_id,
       recipe_title,
       date: date,
-      link,
     });
     res.status(200).json({ message: "Event created successfully", newEvent });
   } catch (error) {
-    console.error("Error fetching Event:", error);
+    console.error("Error fetching  Calendar Events:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -79,7 +78,7 @@ export async function getEvents(req, res) {
 
     res.status(200).json(events);
   } catch (error) {
-    console.error("Error fetching Events:", error);
+    console.error("Error fetching Weeks Events:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

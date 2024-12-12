@@ -14,7 +14,7 @@ export async function updateUserInfo(token, route, data) {
       body: JSON.stringify({ updateFields: data }),
     });
     if (!response.ok) {
-      throw new Error("Data fetching error");
+      console.log("Data fetching error");
     }
     resultData = await response.json();
     console.log("Server Response:", resultData);

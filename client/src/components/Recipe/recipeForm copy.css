@@ -1,0 +1,228 @@
+.recipeform-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recipeform-container label,
+span {
+  font-size: 0.9em;
+  float: left;
+}
+.personal-container h2 {
+  color: #533143;
+}
+.recipeform-uploadImage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.recipeform-container h3 {
+  font-size: 0.9em;
+  margin-top: 40px;
+  margin-bottom: 10;
+}
+.recipeform-input-field,
+.recipeform-textarea,
+.recipeform-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  flex: 1;
+}
+.recipeform-radio-btn {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  appearance: none;
+  margin-top: 3px;
+  margin-left: 20px;
+}
+
+.recipeform-radio-btn:checked {
+  background-color: #97a999;
+  border-color: rgb(97, 135, 122);
+}
+.recipeform-select {
+  border: 0px solid;
+}
+.recipeform-input-field-time {
+  width: 100px;
+  padding: 9px;
+  margin-left: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+/* .recipeform-select-field {
+  width: 100%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  flex: 1;
+  color: rgb(100, 92, 92);
+  font-size: 0.9em;
+} */
+
+/* .recipeform-ingredient-item {
+  border: 0px solid #ccc;
+} */
+.recipeform-textarea::placeholder {
+  font-size: 0.9em;
+}
+.recipeform-textarea {
+  min-height: 200px;
+}
+.recipeform-btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a6a50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.recipeform-btn-submit:hover {
+  /* background-color: #5e8261; */
+  background-color: #3b222f;
+  /* color: #4a6a50;  
+  /* background-color: #7ea27b;  */
+}
+
+.recipeform-header {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #4a6a50;
+}
+
+.recipeform-radio-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.recipeform-radio-label {
+  margin-right: 10px;
+  font-size: 0.8em;
+}
+
+.recipeform-time-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.recipeform-time-inputs span {
+  font-size: 0.9em;
+  color: #555;
+}
+.recipeform-ingredients-container {
+  margin-bottom: 20px;
+}
+.recipeform-ingredient-name {
+  flex: 2;
+}
+
+.recipeform-ingredient-quantity {
+  flex: 1;
+}
+.recipeform-ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px;
+}
+.recipeform-ingredient-unit {
+  flex: 1;
+}
+
+.recipeform-btn-remove {
+  /* background-color: #ff4d4d; */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.recipeform-btn-remove:hover {
+  background-color: #65c3ac;
+}
+.recipeform-btn-add {
+  margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipeform-btn-add:hover {
+  background-color: #45a049;
+}
+.recipeform-portion-group {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.recipeform-portion-group span {
+}
+.recipeform-btn-minus,
+.recipeform-btn-plus {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.recipeform-btn-minus:hover,
+.recipeform-btn-plus:hover {
+  background-color: #97a999;
+}
+.recipeform-btn-minus {
+  margin-left: 30px;
+}
+
+.recipeform-portion-group {
+  display: flex;
+}
+@media (max-width: 768px) {
+  .recipeform-container {
+    padding: 15px;
+  }
+
+  .recipeform-btn-submit {
+    padding: 10px;
+  }
+
+  .recipeform-time-inputs {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .recipeform-time-inputs input {
+    width: 48%;
+  }
+}

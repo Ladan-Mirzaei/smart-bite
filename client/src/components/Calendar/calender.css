@@ -149,3 +149,40 @@
   text-align: left;
   width: auto;
 }
+.Calendar {
+  margin-top: 40px;
+}
+@media (max-width: 768px) {
+  .meal-planner {
+    padding: 10px;
+  }
+  .Calendar {
+    min-width: 200%;
+  }
+  .meal-planner-header h2 {
+    font-size: 1rem;
+  }
+
+  .calender-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .rbc-toolbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 1.2rem;
+  }
+
+  .day-item {
+    padding: 8px 10px;
+  }
+
+  .day-header {
+    font-size: 0.9rem;
+  }
+}

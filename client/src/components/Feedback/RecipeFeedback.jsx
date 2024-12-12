@@ -23,9 +23,9 @@ const RecipeFeedback = ({ recipeId, onSubmitFeedback, setShowPopup }) => {
   };
   return (
     <form onSubmit={handleSubmit} className="feedback-form">
-      <h3>Provide Your Feedback</h3>
+      <h3>Rezept bewerten</h3>
       <label>
-        Rating (1 to 5 stars):
+        Bewertung (1 bis 5 Sterne):
         <input
           type="number"
           min="1"
@@ -41,10 +41,10 @@ const RecipeFeedback = ({ recipeId, onSubmitFeedback, setShowPopup }) => {
         <textarea
           value={comments}
           onChange={(e) => setComments(e.target.value)}
-          placeholder="Write your comments here..."
+          placeholder="Schreib deine Kommentare hierhin... 😊"
         />
       </label>
-      <button type="submit">Submit Feedback</button>
+      <button type="submit"> Teile deine Meinung</button>
     </form>
   );
 };

@@ -4,15 +4,16 @@ import { useAuth } from "../context/AuthContext.jsx";
 export function useFetch() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { getToken } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
+  const { user } = useAuth();
 
   async function fetchData(url, method = "GET", body = null, headers = {}) {
     setErrorMessage("");
 
     try {
-      const token = await getToken();
+      const token = await user.getIdToken();
 
+      // const token = await getToken();
       setIsLoading(true);
       const response = await fetch(url, {
         method,
@@ -35,11 +36,12 @@ export function useFetch() {
         setErrorMessage(`Unexpected error: ${response.status}`);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log("Error fetching data:", error);
       setErrorMessage("An internal error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
   }
+
   return { fetchData, data, isLoading, errorMessage };
 }

@@ -16,7 +16,6 @@ export default function AllergyInfo() {
   const [dietData, setDietData] = useState([]);
 
   const navigate = useNavigate();
-  console.log(categoriesData, dietData, allergenData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +26,6 @@ export default function AllergyInfo() {
       ingredient_id: null,
       allergene_id: allergenData || null,
     };
-    console.log("finalData-check2", finalData);
     try {
       const token = await user.getIdToken();
       const response = await fetch(`${API_URL}/users/userallergene`, {
@@ -39,7 +37,7 @@ export default function AllergyInfo() {
         body: JSON.stringify({ ...finalData }),
       });
       if (!response.ok) {
-        console.error("Data fetching error");
+        console.log("Data fetching error");
       }
       const data = await response.json();
       console.log("Server Response:", data);

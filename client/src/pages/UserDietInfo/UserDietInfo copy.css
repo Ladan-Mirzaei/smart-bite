@@ -1,0 +1,137 @@
+.dietinfo-container {
+  display: flex;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  color: #2c2929;
+}
+.dietinfo-section {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* padding: 20px; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+.dietinfo-image-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.dietinfo-image {
+  width: 100%;
+  min-width: 550px;
+  border-radius: 0px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dietinfo-content-section {
+  flex: 2;
+  padding: 20px;
+}
+
+.dietinfo-content-section h2 {
+  font-size: 24px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.dietinfo-content-section p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.dietinfo-result h2 {
+  margin-top: 40px;
+  background-color: #4e7c58;
+  border-bottom: 5px solid #090909;
+  padding: 10px;
+  color: #f6f4f4;
+}
+
+.dietinfo-result h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #f6f4f4;
+  background-color: gray;
+}
+
+.dietinfo-value {
+  font-size: 30px;
+  font-weight: bold;
+  color: #121212;
+}
+
+.dietinfo-comment {
+  font-size: 16px;
+  color: #f6f4f4;
+}
+/* Allgemeiner Stil */
+.dietinfo-result {
+  width: 80%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Kopfzeile */
+.dietinfo-header {
+  display: flex;
+  background-color: #f4f4f4;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+}
+
+.table-cell:last-child {
+  border-right: none;
+}
+
+/* Datenabschnitt */
+.dietinfo-section {
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.dietinfo-item {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.dietinfo-item:last-child {
+  border-bottom: none;
+}
+
+.diet-row {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+}
+
+.diet-row:last-child {
+  border-right: none;
+}
+
+/* Hover-Effekt */
+.dietinfo-item:hover {
+  background-color: #f9f9f9;
+}
+
+/* Alternierende Zeilenfarben */
+.dietinfo-item:nth-child(even) {
+  background-color: #f8f8f8;
+}

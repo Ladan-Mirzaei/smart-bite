@@ -72,7 +72,7 @@ export async function createRecipe(req, res) {
     // ]
     res.status(200).json(finalRecipeId);
   } catch (error) {
-    console.error("Error fetching userprofile:", error);
+    console.error("Error fetching create new recipe:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -128,7 +128,7 @@ export async function getRandomRecipes(req, res) {
       .first();
     const ketoRecipe = await getRandomRecipe
       .clone()
-      .where("recipe_diet_type.name", "keto")
+      .where("recipe_diet_type.name", "Keto")
       .first();
     const vegetarischRecipe = await getRandomRecipe
       .clone()
@@ -138,6 +138,7 @@ export async function getRandomRecipes(req, res) {
       .clone()
       .where("recipe_diet_type.name", "Glutenfrei")
       .first();
+    console.log(ketoRecipe, "ketoRecipe");
     const randomRecipes = {
       vegan: veganRecipe || null,
       keto: ketoRecipe || null,
@@ -321,7 +322,7 @@ export async function recipeDetails(req, res) {
 
     return res.status(200).json(combinedResult);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching recipeDetails", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

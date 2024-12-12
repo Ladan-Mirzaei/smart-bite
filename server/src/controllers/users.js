@@ -111,9 +111,14 @@ export async function creatUserProfile(req, res) {
         activity_level: activity_level || null,
       });
 
-      res
-        .status(200)
-        .json({ message: "User profile created successfully", newUser });
+      //  custom user claims
+      // await admin.auth().setCustomUserClaims(uid, { signUpCompleted: true });
+
+      res.status(200).json({
+        message: "User profile created successfully",
+        newUser,
+        // customClaims: { signUpCompleted: true },
+      });
     }
   } catch (error) {
     console.error("Error fetching userprofile:", error);
@@ -242,7 +247,7 @@ export async function getAllUsersRecipes(req, res) {
 
     return res.status(200).json(recipes);
   } catch (error) {
-    console.error("Error fetching Recipes:", error);
+    console.error("Error fetching All Recipes:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

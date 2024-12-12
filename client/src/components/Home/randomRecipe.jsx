@@ -10,8 +10,10 @@ export default function RandomRecipe() {
   useEffect(() => {
     async function loadFetch() {
       const recipe = await fetchData(`${API_URL}/recipes/random`);
-      setRecipesData(recipe);
-      console.log("recipe", recipe);
+      if (recipe) {
+        setRecipesData(recipe);
+        console.log("recipe", recipe);
+      }
     }
     loadFetch(fetchData);
   }, []);
@@ -42,30 +44,31 @@ export default function RandomRecipe() {
       {Object.entries(recipesData).map(([key, value]) =>
         value ? (
           <div className="randomcard" key={key}>
-            <div className="randomcard-icon">
-              <img src={images[key]} alt={key} />
-            </div>
-            <div className="randomcard-icon-titel"> {value.diet_type}</div>
+            <Link to={`/recipeDetails/${value.recipeID}`}>
+              <div className="randomcard-icon">
+                <img src={images[key]} alt={key} />
+              </div>
+              <div className="randomcard-icon-titel"> {value.diet_type}</div>
 
-            <div className="randomcard-title">{value.recipe_title}</div>
-            <div className="randomcard-subtitel">
-              <h4>{value.category_name}</h4>
-            </div>
-            <div className="randomcard-icon2">
-              {" "}
-              <img
-                src={
-                  value.image
-                    ? value.image
-                    : "https://res.cloudinary.com/dxneunm1q/image/upload/v1733394868/b8pb1rxbydxlrqnmg4fg.avif"
-                }
-                alt={key}
-              />
-            </div>
-
-            <div className="read-more">
+              <div className="randomcard-title">{value.recipe_title}</div>
+              <div className="randomcard-subtitel">
+                <h4>{value.category_name}</h4>
+              </div>
+              <div className="randomcard-icon2">
+                {" "}
+                <img
+                  src={
+                    value.image
+                      ? value.image
+                      : "https://res.cloudinary.com/dxneunm1q/image/upload/v1733394868/b8pb1rxbydxlrqnmg4fg.avif"
+                  }
+                  alt={key}
+                />
+              </div>
+            </Link>
+            {/* <div className="read-more">
               <Link to={`/recipeDetails/${value.recipeID}`}>Read More</Link>
-            </div>
+            </div> */}
           </div>
         ) : null
       )}

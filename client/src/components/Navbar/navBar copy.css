@@ -1,0 +1,137 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: white;
+  width: 100%;
+  background-color: rgb(15, 14, 14);
+  box-sizing: border-box;
+  margin-bottom: 0px;
+}
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fcfefc;
+}
+.navbar-herz {
+  max-width: 20px;
+}
+.navbar-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+.navbar-links button {
+  background-color: black;
+  border: 2px solid #4a6a50;
+  color: #f2efef;
+  font-weight: 500;
+}
+.navbar-links button:hover {
+  background-color: rgb(95, 94, 94);
+  border: 2px solid #4a6a50;
+  color: #f2efef;
+}
+.navbar-links a {
+  text-decoration: none;
+  color: #f2efef;
+  font-weight: 500;
+}
+
+.navbar-links a:hover {
+  color: #4a6a50;
+}
+.burger-menu {
+  display: none;
+}
+
+@media (max-width: 769px) {
+  .navbar-links {
+    display: none;
+  }
+  .burger-menu {
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 36px;
+    top: 36px;
+  }
+
+  .bm-burger-bars {
+    background: #ffffff;
+  }
+
+  .menu-item {
+    display: block;
+    padding: 0.5em 0;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #ac0b59;
+  }
+
+  .menu-item:hover {
+    color: #4a6a50;
+  }
+
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .bm-burger-bars {
+    background: #373a47;
+  }
+
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+
+  .bm-cross {
+    background: #bdc3c7;
+  }
+
+  .bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+  }
+
+  .bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+  }
+
+  .bm-item-list {
+    color: #b8b7ad;
+    padding: 0.8em;
+  }
+
+  .bm-item {
+    display: inline-block;
+  }
+}
+@media (min-width: 768px) {
+  .burger-menu,
+  .bm-menu,
+  .bm-burger-button,
+  .bm-burger-bars,
+  .menu-item,
+  .menu-item:hover,
+  .bm-overlay,
+  .bm-cross-button,
+  .bm-cross,
+  .bm-item,
+  .bm-menu,
+  .bm-item-list,
+  .bm-menu-wrap {
+    display: none;
+  }
+}
