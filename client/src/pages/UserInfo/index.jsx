@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
-import UserProfileForm from "../../components/PersonalInfo/index.jsx";
-import "./personalInfo.css";
+import UserInfoForm from "../../components/UserInfoForm/index.jsx";
+import "./UserInfo.css";
 import { Navigate } from "react-router-dom";
 
-export default function UserProfile({ goToNextStep }) {
+export default function UserInfo({ goToNextStep }) {
   const [userData, setUserData] = useState("null");
   const { user, loading, refreshUser } = useContext(AuthContext);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -62,10 +62,7 @@ export default function UserProfile({ goToNextStep }) {
       {" "}
       <div className="personal-container">
         <h2>Persönliche Angaben!</h2>
-        <UserProfileForm
-          onFormSubmit={onFormSubmit}
-          goToNextStep={goToNextStep}
-        />
+        <UserInfoForm onFormSubmit={onFormSubmit} goToNextStep={goToNextStep} />
       </div>
     </>
   );

@@ -60,14 +60,14 @@ export async function getRecipeFeedback(req, res) {
       .count("* AS total_count")
       .where("recipe_id", recipeId)
       .first();
+    console.log("SumRating", SumRating);
+    console.log("count rating", CountRecipeID);
 
     if (!SumRating || !CountRecipeID || CountRecipeID.total_count === "0") {
       return res
         .status(404)
         .json({ message: "No feedback found for this recipe." });
     }
-    console.log("SumRating", SumRating);
-    console.log("count rating", CountRecipeID);
     const recipeRating = SumRating.total_rating / CountRecipeID.total_count;
     console.log("count rating", recipeRating.toFixed(2));
 

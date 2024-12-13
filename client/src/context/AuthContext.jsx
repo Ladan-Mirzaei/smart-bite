@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
         user,
         userData,
         loading,
-        // refreshUser,
+        //refreshUser,
         setUser,
         getToken,
         signOut: () => signOut(auth),

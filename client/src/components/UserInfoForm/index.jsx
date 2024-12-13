@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
-import "../../pages/PersonalInfo/personalInfo.css";
-import { AuthContext } from "../../context/AuthContext";
-import SelectArray from "../../components/Select/select.jsx";
+import "./UserInfo.css";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import SelectArray from "../Select/select.jsx";
 
-export default function UserProfileForm({ onFormSubmit, goToNextStep }) {
+export default function UserInfoForm({ onFormSubmit, goToNextStep }) {
   const [formData, setFormData] = useState({
     date_of_birth: "",
     gender: "",

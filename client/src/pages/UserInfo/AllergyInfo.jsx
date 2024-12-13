@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 // import ZutatenForm from "../../components/Select/selectIngredients.jsx";
 // import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import SelectMulti from "../../components/Select/selectMulti.jsx";
 import SelectSingel from "../../components/Select/selectSingel.jsx";
 
-import "./personalInfo.css";
+import "./UserInfo.css";
 import { useNavigate } from "react-router-dom";
 
 export default function AllergyInfo() {

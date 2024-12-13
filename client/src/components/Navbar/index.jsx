@@ -34,7 +34,7 @@ export default function Navbar({ homeOnly = false }) {
           </>
           {/* )} */}
 
-          {user && !homeOnly ? (
+          {user ? (
             <>
               <li>
                 <NavLink to="/profile" onClick={closeMenu}>

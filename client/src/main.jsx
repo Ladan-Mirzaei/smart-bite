@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 // import Recipe from "./pages/recipe/index.jsx";
 import RecipeAll from "./pages/recipe/recipeAll.jsx";
-import Allergen from "./pages/PersonalInfo/allergenInfo.jsx";
-import UserInfo from "./pages/PersonalInfo/index.jsx";
+import Allergen from "./pages/UserInfo/AllergyInfo.jsx";
+import UserInfo from "./pages/UserInfo/index.jsx";
 
 import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
@@ -143,14 +143,14 @@ const router = createBrowserRouter([
         index: true,
         element: <Register />,
       },
-      {
-        path: "userinfo",
-        element: <UserInfo />,
-      },
-      {
-        path: "allergene",
-        element: <Allergen />,
-      },
+      // {
+      //   path: "userinfo",
+      //   element: <UserInfo />,
+      // },
+      // {
+      //   path: "allergene",
+      //   element: <Allergen />,
+      // },
       {
         path: "BMI",
         element: <BMI />,
