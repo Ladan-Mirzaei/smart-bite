@@ -22,16 +22,16 @@ function Login() {
       setError(error.message);
     }
   };
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-  if (user) {
-    if (user.signUpCompleted) {
-      return <Navigate to="/" />;
-    } else {
-      return <Navigate to="/register/userinfo" />;
-    }
-  }
+  // if (loading) {
+  //   return <h2>Loading...</h2>;
+  // }
+  // if (user) {
+  //   if (user.signUpCompleted) {
+  //     return <Navigate to="/" />;
+  //   } else {
+  //     return <Navigate to="/register/userinfo" />;
+  //   }
+  // }
   return (
     <div className="login">
       <div className="login-container">

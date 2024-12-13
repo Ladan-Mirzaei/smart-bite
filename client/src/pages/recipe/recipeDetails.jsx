@@ -346,25 +346,21 @@ const RecipeDetails = () => {
               className="nutritional-item"
               style={{ backgroundColor: "#fdece8" }}
             >
-              <h3>Energie</h3>
-              <p>
-                {" "}
-                {totalNutrients.calories
-                  ? totalNutrients.calories.toFixed(2)
-                  : "0.00"}
-                kcal
-              </p>
+              <h3>Energie</h3>{" "}
+              {totalNutrients.calories
+                ? totalNutrients.calories.toFixed(2)
+                : "0.00"}
+              kcal
             </div>
             <div
               className="nutritional-item"
               style={{ backgroundColor: "#f2eef9" }}
             >
               <h3>Kohlenhydrate</h3>
-              <p>
-                {totalNutrients.carbohydrates
-                  ? totalNutrients.carbohydrates.toFixed(2)
-                  : "0.00"}
-              </p>
+
+              {totalNutrients.carbohydrates
+                ? totalNutrients.carbohydrates.toFixed(2)
+                : "0.00"}
             </div>
             <div
               className="nutritional-item"

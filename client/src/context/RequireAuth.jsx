@@ -23,5 +23,15 @@ export const RequireAuth = ({ children }) => {
     //   return <Navigate to="/register/userinfo" />;
     // }
   }
-  return <Navigate to="/login" />;
+
+  return children;
 };
+//   if (user) {
+//     if (user.signUpCompleted) {
+//       return <>{children}</>;
+//     } else {
+//       return <Navigate to="/register/userinfo" />;
+//     }
+//   }
+//   return <Navigate to="/login" />;
+// };

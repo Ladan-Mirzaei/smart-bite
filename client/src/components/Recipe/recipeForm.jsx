@@ -28,7 +28,7 @@ export default function Recipe({ onFormSubmit }) {
 
   const [categoriesData, setCategoriesData] = useState(null);
   const [diet, setDiet] = useState([]);
-  const [imgUrl, setImgUrl] = useState(); //ich habe hier geändert,...{}
+  const [imgUrl, setImgUrl] = useState();
   const submitButtonDisabled = !imgUrl;
   const [ingredientsArr, setIngredientsArr] = useState([
     { ingredient: "", quantity: "", unit: "" },
@@ -58,8 +58,6 @@ export default function Recipe({ onFormSubmit }) {
       return updatedData;
     });
   };
-
-  console.log(formData);
 
   const handleSubmit = (e) => {
     e.preventDefault();

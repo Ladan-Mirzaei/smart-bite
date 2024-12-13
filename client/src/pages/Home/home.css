@@ -80,9 +80,9 @@
   font-size: 1rem;
   border: none;
   border-radius: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   cursor: pointer;
-  padding-bottom: 15px;
+  padding-bottom: 8px;
 }
 
 .subscribe-button:hover {
@@ -95,12 +95,11 @@
 /* Card */
 .card-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   padding: 30px;
-  max-width: 800px;
-  /* margin: 0 auto; */
+  /* max-width: 800px; */
+  margin: 0 auto;
 }
 
 .randomcard {
@@ -208,8 +207,22 @@
   color: #666;
   margin: 0;
 }
+@media (min-width: 600px) and (max-width: 769px) {
+  .card-container {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-@media (max-width: 768px) {
+  .randomcard {
+    width: calc(
+      40% - 20px
+    ); /* Zwei Karten pro Zeile mit Platz für den Abstand */
+  }
+}
+
+@media (max-width: 767px) {
   .hero {
     padding: 3rem 1rem;
   }
@@ -232,6 +245,7 @@
 
   .card-container {
     padding: 10px;
+    flex-wrap: wrap;
   }
 
   .randomcard {
@@ -241,6 +255,9 @@
 
   .layout-card {
     flex-direction: column;
+  }
+  .subscribe-button {
+    padding: 10px;
   }
 }
 
@@ -264,9 +281,13 @@
   }
 
   .randomcard {
-    width: 30%;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 25%;
   }
-
+  .card-container {
+    width: 80%;
+  }
   .layout-card {
     flex-direction: row;
     max-width: 1400px;
@@ -281,5 +302,8 @@
     flex: 0.7;
     text-align: left;
     padding: 50px;
+  }
+  .select-home-ing {
+    width: 400px;
   }
 }

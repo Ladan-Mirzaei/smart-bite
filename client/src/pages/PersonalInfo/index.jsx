@@ -44,10 +44,10 @@ export default function UserProfile({ goToNextStep }) {
       console.error("Error fetching Data:", error);
     }
   }
-  if (loading) {
-    console.log("user details loading");
-    return <h2>Loading...</h2>;
-  }
+  // if (loading) {
+  //   console.log("user details loading");
+  //   return <h2>Loading...</h2>;
+  // }
 
   // if (user && user.signUpCompleted) {
   //   console.log("user details navigate home");

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  /* padding: 1rem; */
   color: white;
   width: 100%;
   background-color: rgb(15, 14, 14);
@@ -66,7 +66,8 @@
   }
   .navbar {
     display: block;
-    padding: 0;
+    padding-bottom: 30px;
+    padding-left: 0px;
   }
   .burger-menu {
     display: block;
@@ -78,23 +79,27 @@
     height: 30px;
     right: 16px;
     top: 16px;
-    z-index: 1000; /* Ensure it stays above other elements */
+    z-index: 1000;
   }
 
   .bm-burger-bars {
-    background: #4a6a50;
+    background: #d8ddd8;
     height: 0.1px;
     width: 30px;
   }
 
   .menu-item {
     display: block;
-    padding: 0.5em 0;
+    padding: 0.5em 10px;
     text-decoration: none;
     color: white;
     font-weight: bold;
   }
-
+  .menu-item-logout {
+    margin-top: 15px;
+    background-color: rgb(248, 246, 243);
+    padding: 10px 20px;
+  }
   .menu-item:hover {
     color: #4a6a50;
   }
@@ -114,7 +119,7 @@
 
   .bm-menu {
     background: rgba(20, 20, 21, 0.97);
-    padding: 2.5em 1.5em 0;
+    /* padding: 2.5em 1.5em 0; */
     font-size: 1.15em;
     height: 100%;
   }
@@ -168,10 +173,16 @@
   .navbar-links {
     margin-left: 280px;
   }
+  .navbar {
+    padding: 0px 20px 20px 20px;
+  }
 }
 
 @media (min-width: 1440px) {
   .navbar-links {
     margin-left: 680px;
+  }
+  .navbar {
+    padding: 20px 20px 20px 20px;
   }
 }

@@ -26,10 +26,10 @@ export default function Navbar({ homeOnly = false }) {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/recipeAll">Rezepte</NavLink>
+              <NavLink to="/Register/recipeAll">Rezepte</NavLink>
             </li>
             <li>
-              <NavLink to="/BMI">BMI</NavLink>
+              <NavLink to="/Register/BMI">BMI</NavLink>
             </li>
           </>
           {/* )} */}
@@ -112,7 +112,7 @@ export default function Navbar({ homeOnly = false }) {
               Rezepte
             </NavLink>
             <button
-              className="menu-item"
+              className="menu-item-logout"
               onClick={async () => {
                 await logoutUser();
                 closeMenu();
