@@ -2,11 +2,9 @@ import { useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-import { registerUser } from "./authService.js";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import UploadImage from "../UploadImage/index.jsx";
+import UploadImage from "../../components/UploadImage/index.jsx";
 
-import "./Login.css";
 import "./Register.css";
 
 import { useNavigate } from "react-router-dom";
@@ -14,11 +12,10 @@ function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const { user, loading, updateUserInfo } = useContext(AuthContext);
+  const { user, loading, signUp } = useContext(AuthContext);
 
   const [error, setError] = useState("");
 
@@ -26,14 +23,6 @@ function Register() {
   const goToNextStep = () => {
     navigate("/register/userinfo");
   };
-
-  async function handleUserInfoSubmit(formData) {
-    try {
-      await updateUserInfo(formData);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   const handleRegister = async () => {
     if (!firstName) {
@@ -50,10 +39,9 @@ function Register() {
     }
     try {
       console.log("part1url", imageUrl);
-      const registeredUser = await registerUser({
+      const registeredUser = await signUp({
         email,
         password,
-        displayName,
         photoURL: imageUrl,
       });
 
@@ -119,16 +107,6 @@ function Register() {
               className="login-input-field"
             />
           </div>
-
-          {/* <label htmlFor="url">Photo URL</label> */}
-          {/* <input
-                id="url"
-                type="url"
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
-                placeholder="Photo"
-                className="login-input-field"
-              /> */}
 
           <br />
           <div className="register-uploadImage">

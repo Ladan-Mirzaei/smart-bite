@@ -44,7 +44,7 @@ export default function RandomRecipe() {
       {Object.entries(recipesData).map(([key, value]) =>
         value ? (
           <div className="randomcard" key={key}>
-            <Link to={`/recipeDetails/${value.recipeID}`}>
+            <Link to={`/recipedetails/${value.recipeID}`}>
               <div className="randomcard-icon">
                 <img src={images[key]} alt={key} />
               </div>
@@ -66,9 +66,6 @@ export default function RandomRecipe() {
                 />
               </div>
             </Link>
-            {/* <div className="read-more">
-              <Link to={`/recipeDetails/${value.recipeID}`}>Read More</Link>
-            </div> */}
           </div>
         ) : null
       )}

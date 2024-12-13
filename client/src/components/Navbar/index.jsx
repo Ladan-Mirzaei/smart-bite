@@ -2,9 +2,7 @@ import "./navbar.css";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../authentication/authService.js";
 import { slide as Menu } from "react-burger-menu";
-// import { bubble as Menu } from "react-burger-menu";
 
 import { useState } from "react";
 
@@ -55,15 +53,9 @@ export default function Navbar({ homeOnly = false }) {
                 </NavLink>
               </li>
               <li>
-                {/* <button
-                  onClick={() => {
-                    signOut;
-                    navigate("/");
-                  }}
-                > */}
                 <button
                   onClick={async () => {
-                    await logoutUser();
+                    await signOut();
                     navigate("/");
                   }}
                 >

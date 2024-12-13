@@ -9,26 +9,24 @@ import RecipeAll from "./pages/recipe/recipeAll.jsx";
 import Allergen from "./pages/UserInfo/AllergyInfo.jsx";
 import UserInfo from "./pages/UserInfo/index.jsx";
 
-import Login from "./components/authentication/Login.jsx";
-import Register from "./components/authentication/Register.jsx";
-import Logout from "./components/authentication/Logout.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Register from "./Pages/Register";
 import Profile from "./pages/Profile/index.jsx";
 import EditForm from "./pages/Profile/edit.jsx";
 import RecipeForm from "./pages/recipe/recipeform.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
-import RecipeDetails from "./pages/recipe/recipeDetails.jsx";
-import Upload from "./pages/Image/index.jsx";
+import RecipeDetails from "./pages/Recipe/recipeDetails.jsx";
 import Select from "./components/Select/selectIngredients.jsx";
 import BMI from "./pages/BMI/index.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
-import RecipeFavoriten from "./pages/Sammlung/index.jsx";
+import FavoriteRecipes from "./pages/FavoriteRecipes";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
 import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
 import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
 import ApiFood from "./pages/Scanner/food.jsx";
 import AuthLayout from "./AuthLayout.jsx";
-import StepperLayout from "./pages/Register/StepperLayout.jsx";
+import StepperLayout from "./pages/StepperLayout";
 
 const router = createBrowserRouter([
   {
@@ -48,36 +46,27 @@ const router = createBrowserRouter([
         path: "/bscanner",
         element: <BScanner />,
       },
-      // {
-      //   path: "/info",
-      //   element: <Info />,
-      // },
+
       {
         path: "/editForm",
         element: <EditForm />,
       },
-      // {
-      //   path: "/shoppinglist",
-      //   element: <ShoppingList />,
-      // },
+
       {
         path: "/BMI",
         element: <BMI />,
       },
       {
         path: "/meine-favoriten",
-        element: <RecipeFavoriten />,
+        element: <FavoriteRecipes />,
       },
-      // {
-      //   path: "/profile",
-      //   element: <Profile />,
-      // },
+
       {
         path: "/recipeform",
         element: <RecipeForm />,
       },
       {
-        path: "/recipeDetails/:id",
+        path: "/recipedetails/:id",
         element: <RecipeDetails />,
       },
       {
@@ -88,18 +77,7 @@ const router = createBrowserRouter([
         path: "/select",
         element: <Select />,
       },
-      {
-        path: "/Upload",
-        element: <Upload />,
-      },
-      // {
-      //   path: "/recipe",
-      //   element: (
-      //     <RequireAuth>
-      //       <Recipe />
-      //     </RequireAuth>
-      //   ),
-      // },
+
       {
         path: "/recipeAll",
         element: <RecipeAll />,
@@ -131,10 +109,6 @@ const router = createBrowserRouter([
         ],
       },
 
-      {
-        path: "logout",
-        element: <Logout />,
-      },
       { path: "scanner", element: <Scanner /> },
     ],
   },

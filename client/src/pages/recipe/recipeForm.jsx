@@ -29,14 +29,12 @@ export default function Recipe() {
       const recipeId = await response.json();
       setRecipeID(recipeId);
       console.debug("Recipe - onFormSubmit: ", { recipeId });
-      navigate(`/recipeDetails/${recipeId}`);
+      navigate(`/recipedetails/${recipeId}`);
     } catch (err) {
       console.log(err);
     }
   };
-  // if (userData) {
-  //   return <Navigate to="/home" />;
-  // }
+
   console.log("data in Form", recipeID);
 
   return (

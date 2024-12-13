@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function UserInfo() {
   const navigate = useNavigate();
-  const { updateUserInfo } = useContext(AuthContext);
+  const { updateUserData } = useContext(AuthContext);
 
   function handleNextStep() {
     navigate("/register/allergene");
@@ -14,7 +14,7 @@ export default function UserInfo() {
 
   async function onFormSubmit(formData) {
     try {
-      await updateUserInfo(formData);
+      await updateUserData(formData);
     } catch (err) {
       console.log(err);
     }

@@ -115,7 +115,7 @@ const RecipePlanner = ({ name, recipe_id }) => {
     // const urlLink = `${event.recipe_id}`;
     // window.open(urlLink, "_self");
     console.log("events", event);
-    navigate(`/recipeDetails/${event.recipe_id}`);
+    navigate(`/recipedetails/${event.recipe_id}`);
   }
   return (
     <div className="Calendar">

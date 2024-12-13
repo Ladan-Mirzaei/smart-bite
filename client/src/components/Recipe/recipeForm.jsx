@@ -260,8 +260,6 @@ export default function Recipe({ onFormSubmit }) {
         <div className="recipeform-uploadImage">
           <UploadImage setImageUrl={setImgUrl} />
         </div>
-        {/* <Link to={`/recipeDetails/${recipeID}`}>  */}
-        {/* <pre>{submitButtonDisabled ? "disabled" : "enabled"}</pre> */}
         <button
           disabled={submitButtonDisabled}
           type="submit"
