@@ -24,8 +24,9 @@ function Register() {
 
   const auth = getAuth();
   const db = getFirestore();
-  const goToNextStep = () =>
+  const goToNextStep = () => {
     setStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
+  };
 
   const handleRegister = async () => {
     if (!firstName) {

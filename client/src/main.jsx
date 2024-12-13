@@ -42,10 +42,7 @@ const router = createBrowserRouter([
         path: "/food",
         element: <ApiFood />,
       },
-      {
-        path: "/allergene",
-        element: <Allergen />,
-      },
+
       {
         path: "/bscanner",
         element: <BScanner />,
@@ -149,6 +146,10 @@ const router = createBrowserRouter([
       {
         path: "userinfo",
         element: <UserInfo />,
+      },
+      {
+        path: "allergene",
+        element: <Allergen />,
       },
       {
         path: "BMI",

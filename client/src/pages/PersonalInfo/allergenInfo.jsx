@@ -17,8 +17,6 @@ export default function AllergyInfo() {
 
   const navigate = useNavigate();
   console.log(categoriesData, dietData, allergenData);
-  console.log("vor user");
-  console.log({ user });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

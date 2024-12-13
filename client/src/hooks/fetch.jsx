@@ -1,27 +1,28 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 
 export function useFetch() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
   async function fetchData(url, method = "GET", body = null, headers = {}) {
     setErrorMessage("");
 
     try {
-      const token = await user.getIdToken();
+      const fetchHeaders = { "Content-Type": "application/json", ...headers };
 
-      // const token = await getToken();
+      if (user) {
+        const token = await user.getIdToken();
+        fetchHeaders.Authorization = `Bearer ${token}`;
+      }
+
       setIsLoading(true);
       const response = await fetch(url, {
         method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: fetchHeaders,
         body: body ? JSON.stringify(body) : null,
       });
 

@@ -3,7 +3,8 @@ import { useFetch } from "../../hooks/fetch.jsx";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Filter from "../../components/Filter/filter.jsx";
-import { useAuth } from "../../context/AuthContext";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 import "../recipe/recipeAll.css";
 
@@ -13,7 +14,7 @@ export default function Recipe() {
   const [resetData, setResetData] = useState();
   const location = useLocation();
   const API_URL = import.meta.env.VITE_API_URL;
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     let finalData = {

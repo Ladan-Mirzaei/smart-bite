@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
-import { auth } from "../../firebaseConfig.js";
 import "./personalInfo.css";
 import { Navigate } from "react-router-dom";
 
@@ -12,8 +11,6 @@ export default function UserProfile({ goToNextStep }) {
 
   async function onFormSubmit(formData) {
     try {
-      console.log(user, user.getIdToken, "user");
-
       if (!user) {
         console.log("User not logged in");
         return;
@@ -37,7 +34,7 @@ export default function UserProfile({ goToNextStep }) {
       });
 
       if (!response.ok) {
-        console.log("Failed to fetch userProfile ");
+        console.log("Failed to fetch userProfile ", response);
       }
 
       const data = await response.json();
@@ -52,14 +49,14 @@ export default function UserProfile({ goToNextStep }) {
     return <h2>Loading...</h2>;
   }
 
-  if (user && user.signUpCompleted) {
-    console.log("user details navigate home");
-    return <Navigate to="/" />;
-  }
+  // if (user && user.signUpCompleted) {
+  //   console.log("user details navigate home");
+  //   return <Navigate to="/" />;
+  // }
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
   return (
     <>
       {" "}

@@ -1,9 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const RequireAuth = ({ children }) => {
-  const { user, isLoading } = useAuth();
-  if (isLoading) {
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) {
     return <h2>Loading...</h2>;
   }
   //   if (!user) {
@@ -12,12 +14,14 @@ export const RequireAuth = ({ children }) => {
 
   //   return children;
   // };
+
   if (user) {
     if (user.signUpCompleted) {
       return <>{children}</>;
-    } else {
-      return <Navigate to="/register/userinfo" />;
     }
+    // else {
+    //   return <Navigate to="/register/userinfo" />;
+    // }
   }
   return <Navigate to="/login" />;
 };

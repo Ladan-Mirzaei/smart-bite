@@ -79,13 +79,16 @@ const RecipeDetails = () => {
           }
         );
         if (!responseRating.ok) {
-          console.log("Data fetching error");
+          throw new Error(
+            "Fetch failed with status code:" + responseRating.status
+          );
         }
+
         const result = await responseRating.json();
         setRecipeRating(result);
         console.log("result", result);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error", error);
       }
     };
     loadRating();
@@ -269,7 +272,7 @@ const RecipeDetails = () => {
                 {fetchRezeptData.portions} personen
               </span>
               <div className="p-15-rating">
-                {/* ★★★★☆ <span>{recipeRating}</span> */}
+                ★★★★☆ <span>{recipeRating}</span>
               </div>
             </div>
           </div>
