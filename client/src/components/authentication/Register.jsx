@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
 import { registerUser } from "./authService.js";
-import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import PersonalInfo from "../../pages/PersonalInfo/index.jsx";
 import AllergenInfo from "../../pages/PersonalInfo/allergenInfo.jsx";
@@ -26,7 +25,6 @@ function Register() {
   const [error, setError] = useState("");
   const [step, setStep] = useState(1);
 
-  const auth = getAuth();
   const db = getFirestore();
   const goToNextStep = () =>
     setStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
@@ -36,16 +34,17 @@ function Register() {
       setError("Vorname darf nicht leer sein.");
       return;
     }
-    // if (loading) {
-    //   return <h2>Loading...</h2>;
-    // }
-    // if (user) {
-    //   if (user.signUpCompleted) {
-    //     return <Navigate to="/" />;
-    //   } else {
-    //     return <Navigate to="/register/userinfo" />;
-    //   }
-    // }
+    if (loading) {
+      return <h2>Loading...</h2>;
+    }
+    if (user) {
+      if (user.signUpCompleted) {
+        return <Navigate to="/" />;
+      }
+      // else {
+      //   // return <Navigate to="/register/userinfo" />;
+      // }
+    }
     try {
       console.log("part1url", imageUrl);
       const registeredUser = await registerUser({
@@ -94,7 +93,8 @@ function Register() {
       setError(error.message);
     }
   };
-  console.log("secure_url", imageUrl.secure_url);
+  // console.log("secure_url", imageUrl.secure_url);
+
   return (
     <div>
       <div className="progress-bar">
@@ -189,7 +189,7 @@ function Register() {
 
       {step === 2 && <PersonalInfo goToNextStep={goToNextStep} />}
 
-      {step === 3 && <AllergenInfo />}
+      {step === 3 && <Navigate to="allergene" />}
     </div>
   );
 }

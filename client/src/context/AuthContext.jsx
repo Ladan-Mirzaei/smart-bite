@@ -19,13 +19,15 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         // ++++++++++++++++++++++++++++
-        // firebaseUser.getIdTokenResult().then((idTokenResult) => {
-        //   console.log("idTokenResult", idTokenResult);
-        //   setUser({
-        //     ...firebaseUser,
-        //     signUpCompleted: !!idTokenResult.claims.signUpCompleted,
-        //   });
-        // });
+        firebaseUser.getIdTokenResult().then((idTokenResult) => {
+          console.log("idTokenResult", idTokenResult);
+
+          const signUpCompleted = !!idTokenResult.claims.signUpCompleted;
+          firebaseUser.signUpCompleted = signUpCompleted;
+          console.log("firebaseUser", firebaseUser);
+
+          setUser(firebaseUser);
+        });
         // ********************************
         setUser(firebaseUser);
 
@@ -56,7 +58,6 @@ export const AuthProvider = ({ children }) => {
 
   const getToken = async () => {
     if (user) {
-      console.log("IdTocken", user.getIdToken);
       return await user.getIdToken();
     }
     return null;
@@ -64,22 +65,23 @@ export const AuthProvider = ({ children }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  // async function refreshUser() {
-  //   if (auth.currentUser) {
-  //     try {
-  //       setLoading(true);
-  //       const idTokenResult = await auth.currentUser.getIdTokenResult(true);
-  //       setUser({
-  //         ...auth.currentUser,
-  //         signUpCompleted: idTokenResult.claims.signUpCompleted,
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // }
+  async function refreshUser() {
+    if (auth.currentUser) {
+      try {
+        setLoading(true);
+        const idTokenResult = await auth.currentUser.getIdTokenResult(true);
+
+        const signUpCompleted = idTokenResult.claims.signUpCompleted;
+        auth.currentUser.signUpCompleted = signUpCompleted;
+
+        setUser(auth.currentUser);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
 
   return (
     <AuthContext.Provider

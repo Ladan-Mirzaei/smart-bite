@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditForm from "./edit.jsx";
 import QRCode from "react-qr-code";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile() {
   const API_URL = import.meta.env.VITE_API_URL;
-  const { user, userData } = useAuth();
+  const { userData } = useAuth();
+  const { user } = useContext(AuthContext);
+
   const [profileData, setProfileData] = useState([]);
   const [userRecipe, setUserRecipe] = useState([]);
   const [showPopupDiet, setShowPopupDiet] = useState(false);

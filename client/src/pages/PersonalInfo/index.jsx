@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import UserProfileForm from "../../components/PersonalInfo/index.jsx";
-import { auth } from "../../firebaseConfig.js";
 import "./personalInfo.css";
 import { Navigate } from "react-router-dom";
 
@@ -35,7 +34,7 @@ export default function UserProfile({ goToNextStep }) {
       });
 
       if (!response.ok) {
-        console.log("Failed to fetch userProfile ");
+        console.log("Failed to fetch userProfile ", response);
       }
 
       const data = await response.json();

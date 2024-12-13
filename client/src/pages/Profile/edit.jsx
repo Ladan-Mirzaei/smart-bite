@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
-import { useAuth } from "../../context/AuthContext";
 import SelectWithPlus from "../../components/Select/selectWithPlus.jsx";
 import { updateUserInfo } from "../../functions/updateUserInfo.js";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function EditForm({
   setShowPopupDiet,
@@ -13,7 +14,7 @@ export default function EditForm({
 }) {
   const { fetchData } = useFetch();
   const [resultData, setResultData] = useState([]);
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
   const [userUpdateData, SetUserUpdateData] = useState([]);
 

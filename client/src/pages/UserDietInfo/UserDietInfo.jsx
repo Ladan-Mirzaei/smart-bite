@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import "./UserDietInfo.css";
-import { useAuth } from "../../context/AuthContext";
+
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function UserDietInfo() {
   const [fetchDietsData, setFetchDietsData] = useState(null);
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
   const API_URL = import.meta.env.VITE_API_URL;
   const { fetchData } = useFetch();
