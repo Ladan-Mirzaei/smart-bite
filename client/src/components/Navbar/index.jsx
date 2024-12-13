@@ -29,12 +29,12 @@ export default function Navbar({ homeOnly = false }) {
               <NavLink to="/Register/recipeAll">Rezepte</NavLink>
             </li>
             <li>
-              <NavLink to="/Register/BMI">BMI</NavLink>
+              <NavLink to="/BMI">BMI</NavLink>
             </li>
           </>
           {/* )} */}
 
-          {user ? (
+          {user && user.signUpCompleted ? (
             <>
               <li>
                 <NavLink to="/profile" onClick={closeMenu}>

@@ -28,6 +28,7 @@ import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
 import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
 import ApiFood from "./pages/Scanner/food.jsx";
 import AuthLayout from "./AuthLayout.jsx";
+import StepperLayout from "./pages/Register/StepperLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -59,10 +60,10 @@ const router = createBrowserRouter([
       //   path: "/shoppinglist",
       //   element: <ShoppingList />,
       // },
-      // {
-      //   path: "/BMI",
-      //   element: <BMI />,
-      // },
+      {
+        path: "/BMI",
+        element: <BMI />,
+      },
       {
         path: "/meine-favoriten",
         element: <RecipeFavoriten />,
@@ -99,10 +100,10 @@ const router = createBrowserRouter([
       //     </RequireAuth>
       //   ),
       // },
-      // {
-      //   path: "/recipeAll",
-      //   element: <RecipeAll />,
-      // },
+      {
+        path: "/recipeAll",
+        element: <RecipeAll />,
+      },
       {
         path: "/profile",
         element: (
@@ -111,22 +112,25 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
       },
-      // {
-      //   path: "/recipe",
-      //   element: (
-      //     <RequireAuth>
-      //       <Recipe />
-      //     </RequireAuth>
-      //   ),
-      // },
-      // {
-      //   path: "login",
-      //   element: <Login />,
-      // },
-      // {
-      //   path: "register",
-      //   element: <Register />,
-      // },
+      {
+        path: "register",
+        element: <StepperLayout />,
+        children: [
+          {
+            index: true,
+            element: <Register />,
+          },
+          {
+            path: "userinfo",
+            element: <UserInfo />,
+          },
+          {
+            path: "allergene",
+            element: <Allergen />,
+          },
+        ],
+      },
+
       {
         path: "logout",
         element: <Logout />,
@@ -135,32 +139,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/ShoppingList", element: <ShoppingList /> },
-  {
-    path: "register",
-    element: <AuthLayout />,
-    children: [
-      {
-        index: true,
-        element: <Register />,
-      },
-      // {
-      //   path: "userinfo",
-      //   element: <UserInfo />,
-      // },
-      // {
-      //   path: "allergene",
-      //   element: <Allergen />,
-      // },
-      {
-        path: "BMI",
-        element: <BMI />,
-      },
-      {
-        path: "recipeAll",
-        element: <RecipeAll />,
-      },
-    ],
-  },
+
   {
     path: "login",
     element: <AuthLayout />,
