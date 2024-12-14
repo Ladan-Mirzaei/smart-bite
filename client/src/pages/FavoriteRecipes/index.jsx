@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useFetch } from "../../hooks/fetch.jsx";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Filter from "../../components/Filter/filter.jsx";
@@ -8,8 +7,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 
 import "../recipe/recipeAll.css";
 
-export default function Recipe() {
-  const { fetchData } = useFetch();
+export default function FavoriteRecipes() {
   const [recipesData, setRecipesData] = useState([]);
   const [resetData, setResetData] = useState();
   const location = useLocation();
@@ -92,7 +90,7 @@ export default function Recipe() {
           {Array.isArray(recipesData) &&
             recipesData.map((recip, index) => (
               <div className="recipe-card" key={index}>
-                <Link to={`/recipeDetails/${recip.id}`}>
+                <Link to={`/recipedetails/${recip.id}`}>
                   <div className="recipe-image">
                     <img
                       src={

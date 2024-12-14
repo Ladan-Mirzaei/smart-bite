@@ -4,7 +4,7 @@ import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState, useContext } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 import RecipeFeedback from "../../components/Feedback/RecipeFeedback.jsx";
 const API_URL = import.meta.env.VITE_API_URL;

@@ -1,11 +1,19 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; //firstname
 
 export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -56,12 +64,6 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const getToken = async () => {
-    if (user) {
-      return await user.getIdToken();
-    }
-    return null;
-  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -83,15 +85,86 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const signIn = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.error("Login error:", error.message);
+      throw new Error("Fehler beim Anmelden: " + error.message);
+    }
+  };
+
+  const signUp = async ({ email, password, displayName, photoURL }) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Update displayName and photoURL
+      await updateProfile(user, {
+        displayName: displayName,
+        photoURL: photoURL,
+      });
+
+      // Send email verification
+      // await sendEmailVerification(user);
+
+      console.log("User profile updated:", user);
+      return user;
+    } catch (error) {
+      console.error("Fehler bei der Registrierung:", error.message);
+      throw new Error("Fehler bei der Registrierung: " + error.message);
+    }
+  };
+
+  async function updateUserData(userInfo) {
+    try {
+      if (!user) {
+        throw new Error("User not logged in");
+      }
+      const token = await user.getIdToken();
+
+      const response = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...userInfo,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update userProfile " + response.status);
+      }
+
+      const data = await response.json();
+      setUserData(data);
+      refreshUser();
+    } catch (error) {
+      console.error("Error updating user info:", error);
+      throw error;
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
         userData,
         loading,
-        //refreshUser,
-        setUser,
-        getToken,
+        updateUserData,
+        signIn,
+        signUp,
         signOut: () => signOut(auth),
       }}
     >

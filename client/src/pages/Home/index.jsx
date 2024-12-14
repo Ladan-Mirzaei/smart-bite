@@ -1,5 +1,5 @@
 import "./home.css";
-import RandomRecipe from "../../components/Home/randomRecipe.jsx";
+import RandomRecipe from "../../components/RandomRecipe/index.jsx";
 import SelectMulti from "../../components/Select/selectMulti.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
