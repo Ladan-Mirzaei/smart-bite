@@ -103,6 +103,9 @@
 }
 
 .randomcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
   padding: 10px;
   text-align: center;
@@ -112,37 +115,44 @@
   min-height: 280px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
 }
 
-.randomcard h2 {
-  font-size: 1.2rem;
-  color: #344738;
-}
-.randomcard-icon2 img {
-  width: 180px;
-  height: 120px;
-}
-.randomcard-icon img {
-  width: 40px;
-  height: 40px;
-}
-.randomcard-subtitel h4 {
-  font-size: 13px;
-  color: #584949;
+.randomcard-icon {
+  max-width: 20%;
+  height: auto;
 }
 
-.randomcard h3 {
-  color: #5c2525;
+.randomcard-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-start;
+  gap: 8px;
 }
 .randomcard-title {
   font-size: 18px;
   color: #342222;
   font-weight: bold;
 }
+
+.randomcard-subtitel h4 {
+  font-size: 13px;
+  color: #4c2121;
+  margin-top: auto;
+}
+
+.randomcard-image {
+  margin-top: auto;
+  align-items: center;
+  width: 200px;
+  height: 120px;
+}
 .randomcard-icon-titel {
   font-size: 15px;
   color: #2a4337;
 }
+
 /* Layout */
 .layout-container {
   display: flex;
@@ -165,12 +175,15 @@
   max-width: 1200px;
 }
 
-.image-wrapper {
-  flex: 0.4;
+.image-wrapper img {
   display: flex;
+  flex: 1;
+  min-width: 500px;
   justify-content: center;
   align-items: center;
   background-color: #faf7f7;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 
 .card-image {
@@ -189,8 +202,8 @@
 .statistics {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 60px;
+  justify-content: space-between;
+  padding: 20px 40px;
 }
 .stat-block {
   text-align: center;
@@ -219,6 +232,14 @@
     width: calc(
       40% - 20px
     ); /* Zwei Karten pro Zeile mit Platz für den Abstand */
+  }
+  .image-wrapper img {
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: #faf7f7;
+    padding-top: 10px;
+    padding-left: 80px;
   }
 }
 
@@ -259,6 +280,17 @@
   .subscribe-button {
     padding: 10px;
   }
+  .image-wrapper img {
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: #faf7f7;
+    padding-top: 10px;
+    padding-left: 30px;
+  }
+  .statistics {
+    display: grid;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -281,7 +313,7 @@
   }
 
   .randomcard {
-    margin-left: 20px;
+    margin-left: 0px;
     margin-right: 20px;
     width: 25%;
   }

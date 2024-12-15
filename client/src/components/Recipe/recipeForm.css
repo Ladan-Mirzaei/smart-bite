@@ -66,19 +66,7 @@ span {
   border-radius: 5px;
   box-sizing: border-box;
 }
-/* .recipeform-select-field {
-  width: 100%;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-  flex: 1;
-  color: rgb(100, 92, 92);
-  font-size: 0.9em;
-} */
 
-/* .recipeform-ingredient-item {
-  border: 0px solid #ccc;
-} */
 .recipeform-textarea::placeholder {
   font-size: 0.9em;
 }

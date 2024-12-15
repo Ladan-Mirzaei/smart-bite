@@ -26,14 +26,19 @@
 .bmi-input-section {
   margin-top: 20px;
   width: 100%;
-  max-width: 600px;
+  max-width: 750px;
   background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 0px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
+  margin-left: 8px;
+  margin-right: 0px;
+  padding-left: 60px;
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .bmi-input-section label {
@@ -70,7 +75,7 @@
 }
 
 .bmi-radio-label span {
-  margin-bottom: 11px;
+  margin-bottom: 17px;
 }
 
 .bmi-radio-btn {
@@ -90,7 +95,6 @@
 }
 
 .bmi-input-field {
-  width: 540px;
   padding: 0px;
   flex-direction: column;
   margin-top: 15px;
@@ -137,7 +141,9 @@
   border-bottom: 5px solid #090909;
   padding-top: 0.5px;
 }
-
+.BMI-login-form {
+  width: 90%;
+}
 .bmi-result h2 {
   font-size: 20px;
   margin-bottom: 5px;
@@ -166,6 +172,7 @@
   cursor: pointer;
   margin-top: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .bmi-btn-submit:hover {

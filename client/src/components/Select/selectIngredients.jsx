@@ -67,107 +67,91 @@ export function ZutatenForm({ dataArray, setDataArray, route }) {
       {" "}
       <div style={{ textAlign: "left" }}>
         {
-          // route === "diets" ? (
+          // route === "categories" ? (
           //   <Select
-          //     // className="basic-multi-select"
-          //     className="recipeform-select"
+          //     // className="basic-single"
+          //     className="recipeform-select "
           //     classNamePrefix="select"
           //     isClearable={true}
           //     isSearchable={true}
-          //     isMulti
-          //     placeholder="Ernährungsform"
-          //     name="diet_select"
+          //     placeholder="Gerichte"
+          //     name={` ${route}`}
           //     options={options}
-          //     onChange={(event) => handleOnSelectDiet(event)}
+          //     onChange={handleFormChangeCat}
           //   />
-          // ) :
-          route === "categories" ? (
-            <Select
-              // className="basic-single"
-              className="recipeform-select "
-              classNamePrefix="select"
-              isClearable={true}
-              isSearchable={true}
-              placeholder="Gerichte"
-              name={` ${route}`}
-              options={options}
-              onChange={handleFormChangeCat}
-            />
-          ) : (
-            <>
-              {/* <div>{JSON.stringify(dataArray)}</div> */}
-              {dataArray.map((ingredient, index) => (
-                <div
-                  key={index}
-                  style={{ textAlign: "left" }}
-                  className="recipeform-ingredient-item"
-                >
-                  <Select
-                    defaultInputValue={ingredient.ingredient}
-                    // className="basic-single"
-                    className="recipeform-select-field"
-                    classNamePrefix="select"
-                    isClearable={true}
-                    isSearchable={true}
-                    placeholder="Zutaten auswählen"
-                    name={`ingredients_select_${index}`}
-                    options={options}
-                    onChange={(e) => handleOnSelectIngredient(index, e.value)}
-                    required
-                  />
+          // ) : (
+          <>
+            {/* <div>{JSON.stringify(dataArray)}</div> */}
+            {dataArray.map((ingredient, index) => (
+              <div
+                key={index}
+                style={{ textAlign: "left" }}
+                className="recipeform-ingredient-item"
+              >
+                <Select
+                  defaultInputValue={ingredient.ingredient}
+                  // className="basic-single"
+                  className="recipeform-select-field"
+                  classNamePrefix="select"
+                  isClearable={true}
+                  isSearchable={true}
+                  placeholder="Zutaten auswählen"
+                  name={`ingredients_select_${index}`}
+                  options={options}
+                  onChange={(e) => handleOnSelectIngredient(index, e.value)}
+                  required
+                />
 
-                  <input
-                    type="number"
-                    value={ingredient.quantity || ""}
-                    onChange={(e) =>
-                      handleChange(index, "quantity", e.target.value)
-                    }
-                    placeholder="Menge"
-                    className="recipeform-input-field"
-                    required
-                    min="0"
-                  />
-                  <select
-                    className="recipeform-input-field"
-                    placeholder="Einheit"
-                    value={ingredient.unit || ""}
-                    onChange={(e) =>
-                      handleChange(index, "unit", e.target.value)
-                    }
-                  >
-                    <option value="" disabled>
-                      Einheit
-                    </option>
-                    <option value="g">g</option>
-                    <option value="kg">kg</option>
-                    <option value="ml">ml</option>
-                    <option value="l">l</option>
-                    <option value="stk">Stück</option>
-                  </select>
-                  {/* <SelectArray
+                <input
+                  type="number"
+                  value={ingredient.quantity || ""}
+                  onChange={(e) =>
+                    handleChange(index, "quantity", e.target.value)
+                  }
+                  placeholder="Menge"
+                  className="recipeform-input-field"
+                  required
+                  min="0"
+                />
+                <select
+                  className="recipeform-input-field"
+                  placeholder="Einheit"
+                  value={ingredient.unit || ""}
+                  onChange={(e) => handleChange(index, "unit", e.target.value)}
+                >
+                  <option value="" disabled>
+                    Einheit
+                  </option>
+                  <option value="g">g</option>
+                  <option value="kg">kg</option>
+                  <option value="ml">ml</option>
+                  <option value="l">l</option>
+                  <option value="stk">Stück</option>
+                </select>
+                {/* <SelectArray
                     setSelectedOption={setSelectedOptionUnit}
                     optionsName="unit"
                   /> */}
-                  {dataArray.length > 1 && (
-                    <button
-                      className="recipeform-input-field-btn"
-                      type="button"
-                      onClick={() => handleRemoveIngredient(dataArray, index)}
-                    >
-                      -
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button
-                className="recipeform-input-field-btn"
-                type="button"
-                onClick={handleAddIngredient}
-              >
-                + Zutat hinzufügen
-              </button>
-            </>
-          )
+                {dataArray.length > 1 && (
+                  <button
+                    className="recipeform-input-field-btn"
+                    type="button"
+                    onClick={() => handleRemoveIngredient(dataArray, index)}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              className="recipeform-input-field-btn"
+              type="button"
+              onClick={handleAddIngredient}
+            >
+              + Zutat hinzufügen
+            </button>
+          </>
+          // )
         }
       </div>
     </>

@@ -91,33 +91,33 @@ export default function FavoriteRecipes() {
             recipesData.map((recip, index) => (
               <div className="recipe-card" key={index}>
                 <Link to={`/recipedetails/${recip.id}`}>
-                  <div className="recipe-image">
-                    <img
-                      src={
-                        recip.image
-                          ? recip.image
-                          : "https://res.cloudinary.com/dxneunm1q/image/upload/v1733394868/b8pb1rxbydxlrqnmg4fg.avif"
-                      }
-                      alt={recip.title || "Rezeptbild"}
-                    />
-                  </div>
-                  <h3>{recip.title}</h3>
-                  <div className="recipe-info-diet">
-                    <span className="recipe-type">
-                      {Array.isArray(recip.diet_types)
-                        ? recip.diet_types.join(" | ")
-                        : null}
-                    </span>
-                    <span className="recipe-type recipe-cat">
-                      {recip.category_name}
-                    </span>
-                  </div>
-                  <div className="recipe-info">
-                    <span>⏱️ {recip.cooking_time} Min.</span>
-                    <span>⭐ 4/9</span>
-                    <span>{recip.difficulty_level}</span>
-                  </div>
+                  <img
+                    className="recipe-card-image"
+                    src={
+                      recip.image
+                        ? recip.image
+                        : "https://res.cloudinary.com/dxneunm1q/image/upload/v1733394868/b8pb1rxbydxlrqnmg4fg.avif"
+                    }
+                    alt={recip.title || "Rezeptbild"}
+                  />{" "}
                 </Link>
+                <Link to={`/recipedetails/${recip.id}`}>
+                  <div className="recipe-card-title">{recip.title} </div>{" "}
+                </Link>
+
+                <div className="recipe-card-type">
+                  <span>
+                    {Array.isArray(recip.diet_types)
+                      ? recip.diet_types.join(" | ")
+                      : null}
+                  </span>
+                  <span>{recip.category_name}</span>
+                </div>
+                <div className="recipe-card-info">
+                  <span>⏱️ {recip.cooking_time} Min.</span>
+                  <span>⭐ 4/9</span>
+                  <span>{recip.difficulty_level}</span>
+                </div>
               </div>
             ))}
         </main>

@@ -6,3 +6,29 @@
 .upload-input {
   padding: 5px;
 }
+
+.upload-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+  max-height: 100px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+}

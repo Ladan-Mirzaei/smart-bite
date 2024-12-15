@@ -24,7 +24,7 @@ export default function Navbar({ homeOnly = false }) {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/Register/recipeAll">Rezepte</NavLink>
+              <NavLink to="/recipeAll">Rezepte</NavLink>
             </li>
             <li>
               <NavLink to="/BMI">BMI</NavLink>

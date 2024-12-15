@@ -1,9 +1,9 @@
-import "./home.css";
+import "./Home.css";
 import RandomRecipe from "../../components/RandomRecipe/index.jsx";
 import SelectMulti from "../../components/Select/selectMulti.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
+import { Link } from "react-router-dom";
 export default function Home() {
   const [ingredientsData, setIngredientsData] = useState([]);
   const [dietData, setDietData] = useState([]);
@@ -20,6 +20,7 @@ export default function Home() {
     };
     navigate("/recipeAll", { state: finalData });
   };
+
   return (
     <>
       <div className="home-content">
@@ -29,7 +30,9 @@ export default function Home() {
             Dein Körper ist dein Zuhause. Wenn du dich darin rundum wohlfühlen
             möchtest, versorgst du ihn am besten mit allem, was er braucht, um
             dich gesund und glücklich durch dein Leben zu tragen.
-            <button className="cta-button">Mein Kalender</button>
+            <Link to="./recipeAll">
+              <button className="cta-button">Rezepte</button>
+            </Link>
           </span>
         </section>
 
@@ -69,7 +72,7 @@ export default function Home() {
         <div className="layout-card">
           <div className="image-wrapper">
             <img
-              src="https://res.cloudinary.com/dxneunm1q/image/upload/v1732794719/jo7qz6pny6xh0vzmtovt.avif"
+              src="../../../public/pexels-julkoha-28174944.jpg"
               alt="Person enjoying salad"
               className="card-image"
             />

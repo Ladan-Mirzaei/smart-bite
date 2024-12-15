@@ -19,7 +19,6 @@ export default function Profile() {
   const [showPopupCategory, setShowPopupcategory] = useState(false);
   const [showPopupAllergene, setShowPopupAllergene] = useState(false);
   const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
-
   useEffect(() => {
     async function loadUserData() {
       try {
@@ -69,7 +68,7 @@ export default function Profile() {
       loadUserData();
     }
   }, [showPopupCategory, showPopupAllergene, showPopupDiet]);
-
+  console.log(userRecipe);
   const handleOpenPopup = (showData) => {
     if (showData === "categories") {
       setShowPopupcategory(true);
@@ -112,7 +111,7 @@ export default function Profile() {
           {/* <p>  //änderung */}
           <h3>
             Willkommen,
-            {userData?.firstName || "Gast"} {userData?.lastName || ""}!
+            {userData?.firstName} {userData?.lastName || ""}!
           </h3>
           {/* </p> */}
           <p>{user?.email} </p>
@@ -128,9 +127,9 @@ export default function Profile() {
           {" "}
           <div className="profile-header">
             <h3>Meine Ernährungsweise </h3>
-            <span className="profile-stoffbedarf">
+            <button className="profile-btn-ellipse ">
               <Link to="/userDietInfo"> Nährstoffbedarf</Link>
-            </span>
+            </button>
             <span>
               <button
                 className="profile-edit-btn"
@@ -152,7 +151,6 @@ export default function Profile() {
                 }}
               >
                 <h2>Diets!</h2>
-                {/* <button onClick={handleClosePopup}>speichern</button>  */}
                 <EditForm
                   setShowPopupDiet={setShowPopupDiet}
                   route="diets"
@@ -268,8 +266,10 @@ export default function Profile() {
             {Array.isArray(userRecipe) &&
               userRecipe.map((user) => (
                 <div key={user.uid} className="profile-gallery-item">
-                  <img src={user.image} alt={`Bild ${user.id}`} />
-                  <h4>{user.title}</h4>
+                  <Link to={`/recipedetails/${user.id}`}>
+                    <img src={user.image} alt={`Bild ${user.id}`} />
+                    <h4>{user.title}</h4>{" "}
+                  </Link>
                   <span className="profile-gallery-cat">
                     {user.category_name}
                   </span>
@@ -279,7 +279,7 @@ export default function Profile() {
         </div>
 
         <div className="profile-calendar-container">
-          <RecipePlanner />
+          <RecipePlanner link={`/recipedetails`} />
         </div>
       </div>
     </div>

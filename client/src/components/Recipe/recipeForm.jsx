@@ -1,5 +1,5 @@
 // import "../../pages/PersonalInfo/style.css";
-import "./recipeForm.css";
+import "./RecipeForm.css";
 import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
 import ZutatenForm from "../Select/selectIngredients.jsx";
@@ -218,14 +218,6 @@ export default function Recipe({ onFormSubmit }) {
           Bitte wähle aus, welche Ernährungsweise deinem Rezept zugeordnet
           werden sollen.*
         </label>
-        {/* Diet-type */}
-        <br />
-        {/* <ZutatenForm
-          dataArray={diet}
-          setDataArray={setDiet}
-          route="diets"
-          hasIngredients={true}
-        /> */}
         <SelectMulti
           setDataArray={setDiet}
           route="diets"
@@ -237,14 +229,6 @@ export default function Recipe({ onFormSubmit }) {
           Bitte wähle aus, welche Kategorien deinem Rezept zugeordnet werden
           sollen.
         </span>
-        {/* category */}
-        <br />
-        {/* <ZutatenForm
-          dataArray={categoriesData}
-          setDataArray={setCategoriesData}
-          route="categories"
-          hasIngredients={false}
-        /> */}
         <SelectSingel
           dataArray={categoriesData}
           setDataArray={setCategoriesData}
@@ -267,7 +251,6 @@ export default function Recipe({ onFormSubmit }) {
         >
           Rezept hinzufügen
         </button>
-        {/* </Link>  */}
       </form>
     </div>
   );
