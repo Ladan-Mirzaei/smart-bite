@@ -13,7 +13,7 @@ import Login from "./pages/Login/Login.jsx";
 import Register from "./Pages/Register";
 import Profile from "./pages/Profile/index.jsx";
 import EditForm from "./pages/Profile/edit.jsx";
-import RecipeForm from "./pages/recipe/recipeform.jsx";
+import RecipeForm from "./pages/Recipe/CreateRecipeForm.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
 import RecipeDetails from "./pages/Recipe/recipeDetails.jsx";
@@ -27,7 +27,7 @@ import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
 import ApiFood from "./pages/Scanner/food.jsx";
 import AuthLayout from "./AuthLayout.jsx";
 import StepperLayout from "./pages/StepperLayout";
-
+import UpdateRecipeForm from "./pages/Recipe/UpdateRecipeForm.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +78,10 @@ const router = createBrowserRouter([
         element: <Select />,
       },
 
+      {
+        path: "/edit-recipeform/:id",
+        element: <UpdateRecipeForm />,
+      },
       {
         path: "/recipeAll",
         element: <RecipeAll />,

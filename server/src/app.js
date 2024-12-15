@@ -63,8 +63,8 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     res.json(cldRes);
     const secureUrl = cldRes.secure_url;
     const public_id = cldRes.public_id;
-    console.log(secureUrl);
-    console.log(public_id);
+    // console.log(secureUrl);
+    // console.log(public_id);
   } catch (error) {
     console.log(error);
     res.send({

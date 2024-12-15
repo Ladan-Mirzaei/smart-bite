@@ -128,7 +128,7 @@ export async function getRandomRecipes(req, res) {
       .first();
     const ketoRecipe = await getRandomRecipe
       .clone()
-      .where("recipe_diet_type.name", "Keto")
+      .where("recipe_diet_type.name", "keto")
       .first();
     const vegetarischRecipe = await getRandomRecipe
       .clone()
@@ -145,6 +145,7 @@ export async function getRandomRecipes(req, res) {
       vegetarisch: vegetarischRecipe || null,
       glutenfrei: glutenfreiRecipe || null,
     };
+    console.log(ketoRecipe);
 
     if (
       !randomRecipes.vegan &&
@@ -162,79 +163,6 @@ export async function getRandomRecipes(req, res) {
   }
 }
 
-// /**
-//  * @api GET /recipes
-//  */
-// export async function getAllRecipes(req, res) {
-//   try {
-//     const recipes = await db("recipe")
-//       .select(
-//         "recipe.id AS id",
-//         "recipe.user_id AS user_id",
-//         "recipe.title AS title",
-//         "recipe.cooking_time AS cooking_time",
-//         "recipe.difficulty_level AS difficulty_level",
-//         "recipe_categories.name AS category_name",
-//         db.raw("ARRAY_AGG(DISTINCT recipe_diet_type.name) AS diet_types"),
-//         "recipe.image AS image"
-//       )
-//       .leftJoin("recipe_diet", "recipe.id", "recipe_diet.recipe_id")
-//       .leftJoin(
-//         "recipe_diet_type",
-//         "recipe_diet.diet_type_id",
-//         "recipe_diet_type.id"
-//       )
-//       .leftJoin(
-//         "recipe_categories",
-//         "recipe.category_id",
-//         "recipe_categories.id"
-//       )
-//       .groupBy(
-//         "recipe.id",
-//         "recipe.user_id",
-//         "recipe.title",
-//         "recipe.cooking_time",
-//         "recipe.difficulty_level",
-//         "recipe.image",
-//         "recipe_categories.name"
-//       );
-//     if (!recipes) {
-//       return res.status(404).json({ message: "No recipes found" });
-//     }
-
-//     return res.status(200).json(recipes);
-//   } catch (error) {
-//     console.error("Error fetching Recipes:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// }
-
-/**
- * @api GET /recipes/:recipeId
- * SELECT JSON_BUILD_OBJECT('name', 'Tomato', 'quantity', 2, 'unit', 'kg') AS ingredient;
-Ergebnis:
-{
-  "name": "Tomato",
-  "quantity": 2,
-  "unit": "kg"
-}
-  --------------------
-  SELECT 
-  JSON_AGG(
-    JSON_BUILD_OBJECT('name', name, 'quantity', quantity, 'unit', unit)
-  ) AS ingredients
-FROM ingredients;
-Ergebnis:
-
-json
-Code kopieren
-[
-  { "name": "Tomato", "quantity": 2, "unit": "kg" },
-  { "name": "Cucumber", "quantity": 1, "unit": "piece" }
-]
-  ARRAY_AGG	PostgreSQL-Array ["value1",...]	Einfacher, effizienter, aber keine Schlüssel-Wert-Struktur.
-JSON_AGG	JSON-Array [{}, ...]	Strukturierter (Schlüssel-Wert-Paare möglich).
- */
 export async function recipeDetails(req, res) {
   const { recipeId } = req.params;
   try {
@@ -323,6 +251,30 @@ export async function recipeDetails(req, res) {
     return res.status(200).json(combinedResult);
   } catch (error) {
     console.error("Error fetching recipeDetails", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function updateRecipe(req, res) {
+  const { id } = req.params;
+  const { image_url } = req.body;
+
+  if (!image_url) {
+    return res.status(400).json({ message: "Image URL is required" });
+  }
+
+  try {
+    const updatedRecipeId = await db("recipe").where({ id }).update({
+      image: image_url,
+    });
+
+    if (!updatedRecipeId || updatedRecipeId.length === 0) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.status(200).json({ message: "Image updated successfully" });
+  } catch (error) {
+    console.error("Error updating image:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

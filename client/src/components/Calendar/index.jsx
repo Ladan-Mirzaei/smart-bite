@@ -4,9 +4,10 @@ import moment from "moment";
 import { AuthContext } from "../../context/AuthContext";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment-timezone";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import QRCode from "react-qr-code";
-import "./calender.css";
+import "./Calender.css";
+
 const localizer = momentLocalizer(moment);
 moment.tz.setDefault("Europe/Berlin");
 const API_URL = import.meta.env.VITE_API_URL;
@@ -109,14 +110,26 @@ const RecipePlanner = ({ name, recipe_id }) => {
   const toggleWeekView = () => {
     setShowWeek(!showWeek);
   };
-  console.log(showWeek);
   function handleEventClick(event) {
     // /***************** */
-    // const urlLink = `${event.recipe_id}`;
-    // window.open(urlLink, "_self");
-    console.log("events", event);
-    navigate(`/recipedetails/${event.recipe_id}`);
+    const urlLink = `${event.recipe_id}`;
+    window.open(urlLink, "_self");
+    navigate(`/recipedetails/urlLink`);
   }
+  const result = filteredEvents.reduce((acc, cur) => {
+    if (acc[cur.date]) {
+      return {
+        ...acc,
+        [cur.date]: [...acc[cur.date], cur],
+      };
+    } else {
+      return {
+        ...acc,
+        [cur.date]: [cur],
+      };
+    }
+  }, {});
+  console.log(result);
   return (
     <div className="Calendar">
       {recipe_id && <h4>{/* <Link to="/profile">Mein Profile</Link> */}</h4>}
@@ -164,50 +177,29 @@ const RecipePlanner = ({ name, recipe_id }) => {
       )}
       {showWeek && (
         <div>
-          {/* <ul className="week-events">
-            {filteredEvents.length > 0 ? (
-              filteredEvents.map((event) => (
-                <li key={event.date} className="day-item">
+          <h3>Meine Einkaufsliste für diese Woche</h3>
+          {Object.keys(result).length > 0 ? (
+            <ul className="week-events">
+              {Object.keys(result).map((date, index) => (
+                <li key={index} className="day-item">
                   <div className="day-header">
-                    <strong>{moment(event.date).format("DD.MM.YYYY")}</strong>
+                    <strong>{moment(date).format("DD.MM.YYYY")}</strong>
                   </div>
                   <div className="day-events">
-                    <div className="event">{event.title}</div>
+                    {result[date].map((event, index) => (
+                      <div key={index}>
+                        <Link to={`/recipedetails/${event?.recipe_id}`}>
+                          <strong>{event.title}</strong>
+                        </Link>
+                      </div>
+                    ))}
                   </div>
                 </li>
-              ))
-            ) : (
-              <div className="no-events">Keine Events diese Woche</div>
-            )}
-          </ul> */}
-
-          <div className="meal-planner">
-            <div className="meal-planner-header">
-              <h2></h2>
-              {/* " Essensplan für die Woche " */}
-            </div>
-
-            <div className="recipe-week-container">
-              <ul>
-                {filteredEvents.length > 0 ? (
-                  filteredEvents.map((event) => (
-                    <li key={event.date} className="day-item">
-                      <div className="day-header">
-                        <strong>
-                          {moment(event.date).format("DD.MM.YYYY")}
-                        </strong>
-                      </div>
-                      <div className="day-events">
-                        <div className="event">{event.title}</div>
-                      </div>
-                    </li>
-                  ))
-                ) : (
-                  <div className="no-events">Keine Events diese Woche</div>
-                )}
-              </ul>
-            </div>
-          </div>
+              ))}
+            </ul>
+          ) : (
+            <p>Es wurden keine Rezepte für diese Woche ausgewählt.</p>
+          )}
           {/* QR-Code für die Einkaufsliste */}
           <div>
             <p>Scanne diesen QR-Code, um deine Einkaufsliste zu sehen</p>
@@ -217,11 +209,6 @@ const RecipePlanner = ({ name, recipe_id }) => {
               size={80}
               viewBox={`0 0 256 256`}
             />
-            {/* <p>
-              Scanne den QR-Code mit deinem Handy, um deine Einkaufsliste zu
-              erhalten!
-            </p> */}
-            {/* <a href="/scanner">Scanner</a> */}
           </div>
         </div>
       )}

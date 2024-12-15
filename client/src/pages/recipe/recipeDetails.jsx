@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState, useContext } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import RecipePlanner from "../../components/Calendar/index.jsx";
 import RecipeFeedback from "../../components/Feedback/RecipeFeedback.jsx";
@@ -189,7 +189,7 @@ const RecipeDetails = () => {
   console.log("recipeRating", recipeRating);
   return (
     <>
-      {" "}
+      {/* <Link to={`/edit-recipeform/${id}`}>update</Link> */}
       <div className="" ref={contentRef}>
         <div className="p-15">
           <div className="p-15-header">
@@ -205,6 +205,7 @@ const RecipeDetails = () => {
                     Feedback geben
                   </button>
                 </span>
+
                 {showPopup && (
                   <div
                     className="popup-feedback-recipeD"
@@ -247,7 +248,9 @@ const RecipeDetails = () => {
               {fetchRezeptData.diet_types?.map((diet, index) => (
                 <span key={index}>{diet}</span>
               ))}
+              <span>{fetchRezeptData.category_name}</span>
             </div>
+
             <div className="p-15-details">
               <span>
                 <i className="fa fa-clock"></i>{" "}
@@ -279,25 +282,9 @@ const RecipeDetails = () => {
         </div>
         <div className="P-15-row">
           <div className="P-15-text-container">
-            <h4> {fetchRezeptData.category_name}</h4>
-            <h6>
-              {new Date(fetchRezeptData.created_at).toLocaleDateString("en-GB")}
-            </h6>
-            {/* <p>
-           test
-          </p> */}
             <ul className="ingredients-list">
               {fetchRezeptData.ingredient_details?.map((ing, index) => (
-                <li
-                  className="ingerdient-allergen-list"
-                  key={index}
-                  // style={{
-                  //   display: "grid",
-                  //   gridTemplateColumns: "200px auto",
-                  //   alignItems: "center",
-                  //   gap: "10px",
-                  // }}
-                >
+                <li className="ingerdient-allergen-list" key={index}>
                   <span>
                     {ing.quantity} {ing.unit} {ing.name}
                   </span>
@@ -311,6 +298,12 @@ const RecipeDetails = () => {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="p15-category-date">
+            <h5>
+              <span></span>
+              {new Date(fetchRezeptData.created_at).toLocaleDateString("en-GB")}
+            </h5>
           </div>
           <div className="P-15-image-container">
             <img src={fetchRezeptData.image} alt="Beispielbild" />

@@ -124,7 +124,21 @@
   margin-top: 0px;
 }
 .P-15-text-container {
-  padding-top: 20px;
+  /* padding-top: 20px; */
+}
+.p15-category-date {
+  margin-top: 0;
+  padding: 0;
+}
+
+.p15-category-date h6 {
+  margin-top: 0;
+  padding: 0;
+  font-size: 8px;
+}
+.p15-category-date span {
+  margin-right: 20px;
+  font-size: 10spx;
 }
 .P-15-text-container h2 {
   text-align: left;
@@ -133,6 +147,7 @@
 .P-15-text-container p {
   padding-left: 70px;
 }
+
 .P-15-image-container img {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -142,7 +157,7 @@
 .ingredients-list {
   list-style-type: none;
   padding: 0;
-  margin: 0px 0 0 70px;
+  margin: 60px 0 0 40px;
   text-align: left;
 }
 
@@ -190,6 +205,8 @@
 .nutritional-info {
   margin: 20px;
   max-width: 500px;
+  margin-left: auto;
+  margin-right: 99px;
 }
 
 .nutritional-header {
@@ -246,31 +263,6 @@
   font-size: 14px;
 }
 
-/* .nutritional-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-} */
-
-/* .nutritional-item {
-  text-align: center;
-  border-radius: 10px;
-  padding: 15px;
-} */
-
-/* .nutritional-item h3 {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 8px;
-} */
-
-/* .nutritional-item p {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-} */
-
 /* Hauptcontainer */
 .nutritional-container {
   width: 100%;
@@ -299,11 +291,6 @@
   color: white;
 }
 
-/* .nutritional-item {
-  background-color: #dbd3d4;
-  color: black;
-} */
-
 .green {
   background-color: #90ee90;
   color: black;
@@ -322,13 +309,6 @@
     display: none;
   }
 
-  /* .p-15 {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-  } */
   .P-15-row {
     display: flex;
     justify-content: space-between;
@@ -432,7 +412,11 @@
     flex-direction: column;
     text-align: center;
   }
-
+  .nutritional-info {
+    min-width: 280px;
+    margin-left: auto;
+    margin-right: 99px;
+  }
   .nutritional-item h3,
   .nutritional-item p {
     font-size: 14px;

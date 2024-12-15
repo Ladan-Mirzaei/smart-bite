@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
-
+  console.log("(((((", userData);
   if (loading) {
     return <div>Loading...</div>;
   }

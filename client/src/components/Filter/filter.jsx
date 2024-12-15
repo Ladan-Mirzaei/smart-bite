@@ -28,11 +28,6 @@ export default function FilterComponent({ onSubmitFilters, onResetFilters }) {
   };
 
   const resetFilters = () => {
-    // setDifficultyData("");
-    // setDietData([]);
-    // setIngredientsData([]);
-    // setAllergenData([]);
-    // setCategoriesData("");
     const resetFilters = {
       diet_type_id: [],
       ingredient_id: [],

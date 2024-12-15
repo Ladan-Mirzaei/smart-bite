@@ -119,7 +119,7 @@ function Register() {
           <button onClick={handleRegister} className="btn-login">
             Registrieren
           </button>
-          <p className="forgot-password">Passwort vergessen?</p>
+          {/* <p className="forgot-password">Passwort vergessen?</p> */}
           {error && <p className="error-message">{error}</p>}
         </div>
 

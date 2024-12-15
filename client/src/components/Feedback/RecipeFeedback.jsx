@@ -1,11 +1,9 @@
-import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import "./RecipeFeedback.css";
 const RecipeFeedback = ({ recipeId, onSubmitFeedback, setShowPopup }) => {
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState("");
-  const { user } = useContext(AuthContext);
-  console.log("recipeId", recipeId);
+  // const { user } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const feedback = {
@@ -16,7 +14,6 @@ const RecipeFeedback = ({ recipeId, onSubmitFeedback, setShowPopup }) => {
     setShowPopup && setShowPopup(false);
 
     onSubmitFeedback(feedback);
-    console.log(feedback, "ww");
 
     setRating(0);
     setComments("");

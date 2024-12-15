@@ -39,6 +39,9 @@
   border-color: #4a6a50;
 }
 
+.navbar-links {
+}
+
 .navbar-links a {
   text-decoration: none;
   color: #f2efef;
@@ -57,13 +60,18 @@
   display: none;
 }
 .navbar-links a.active {
-  color: rgb(94, 29, 29);
+  color: #b5e2bd;
 }
 
 @media (max-width: 768px) {
   .navbar-links {
     display: none;
   }
+  .navbar-logo {
+    padding-top: 30px;
+    padding-right: 100px;
+  }
+
   .navbar {
     display: block;
     padding-bottom: 30px;
@@ -175,6 +183,9 @@
   }
   .navbar {
     padding: 0px 20px 20px 20px;
+  }
+  .navbar-logo {
+    padding-right: auto;
   }
 }
 

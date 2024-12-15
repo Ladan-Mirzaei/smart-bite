@@ -10,12 +10,12 @@
 }
 
 .meal-planner-header {
-  background-color: #ffffff;
+  background-color: #71513d;
   color: rgb(28, 26, 26);
   text-align: center;
-  padding: 8px;
+  padding: 1px;
+  margin-top: 5px;
 }
-
 .meal-planner-header h2 {
   margin: 0;
   font-size: 1.2rem;
@@ -32,7 +32,7 @@
 }
 
 .day-item {
-  background-color: #f9f9f9;
+  background-color: #faf6f6;
   margin-bottom: 10px;
   padding: 1px;
   padding-left: 20px;
@@ -41,7 +41,9 @@
   text-align: left;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
-
+.day-item {
+  list-style-type: none;
+}
 .day-header {
   font-size: 1rem;
   color: #4e7c58;

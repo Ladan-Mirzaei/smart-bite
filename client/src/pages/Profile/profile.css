@@ -142,6 +142,7 @@
   padding: 0px;
   background: #fff;
   border-radius: 0px;
+  width: 50%;
 }
 .profile-gallery {
   display: flex;
@@ -178,7 +179,33 @@
   font-size: 11px;
   padding: 3px;
 }
+.profile-btn-ellipse {
+  width: 20%;
+  padding: 10px;
+  background-color: transparent;
+  color: #eff4f0;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #f3f5f3;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  margin-top: 12px;
+  margin-left: 300px;
+}
+.profile-btn-ellipse a {
+  color: #eff4f0;
+}
+
+.profile-btn-ellipse:hover {
+  background-color: #341b1d;
+  color: #ffffff;
+  transform: scale(1.05);
+}
 @media (max-width: 768px) {
+  .profile-btn-ellipse {
+    width: 60%;
+    margin-left: 0px;
+  }
   .profile-info img {
     width: 120px;
     height: 120px;

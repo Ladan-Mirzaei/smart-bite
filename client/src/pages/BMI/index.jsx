@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./BMI.css";
 
-function BMIApp() {
+function BMI() {
   const [bmiResult, setBmiResult] = useState(null);
   const [bmiCategory, setBmiCategory] = useState("");
   const [inputValue, setInputValue] = useState({
@@ -50,8 +50,35 @@ function BMIApp() {
           alt="Healthy food "
           className="bmi-image"
         />
+      </div>
+      <div className="bmi-content-section">
+        <h2>Was ist BMI?</h2>
+        <p>
+          Der BMI (Body-Mass-Index) ist ein hilfreiches Werkzeug, um das
+          Körpergewicht objektiv zu beurteilen. Mit unserem BMI-Rechner können
+          Sie schnell und einfach herausfinden, ob Sie im Normalgewicht liegen
+          oder ob Sie unter- oder übergewichtig sind.
+        </p>
+        <p>
+          Sie müssen dafür nur über 18 Jahre alt sein und Ihr Alter mithilfe des
+          Schiebereglers „Alter in Jahren“ eingeben. Anschließend tragen Sie Ihr
+          aktuelles Gewicht und Ihre Körpergröße ein – und schon liefert Ihnen
+          unser Rechner die passende Auswertung.
+        </p>
+
+        <div className="bmi-result">
+          <h2>Ihr BMI</h2>
+          {bmiResult ? (
+            <div>
+              <h3>Dein BMI ist: {bmiResult}</h3>
+              <h3>Deine Kategorie ist: {bmiCategory}</h3>
+            </div>
+          ) : (
+            <div className="bmi-comment">Keine Angabe</div>
+          )}
+        </div>
         <div className="bmi-input-section">
-          <form onSubmit={handleSubmit} className="login-form">
+          <form onSubmit={handleSubmit} className="BMI-login-form">
             <label htmlFor="anrede">Geschlecht: </label>
             <div className="bmi-gender-container">
               <label className="bmi-radio-label">
@@ -77,7 +104,9 @@ function BMIApp() {
                 <span>männlich</span>
               </label>
             </div>
+            <br />
 
+            <br />
             <div className="bmi-input-field">
               <label htmlFor="alter">Alter: </label>
               <input
@@ -118,38 +147,13 @@ function BMIApp() {
             <button className="bmi-btn-submit" type="submit">
               BMI Berechnen
             </button>
-          </form>{" "}
-        </div>
-      </div>
-      <div className="bmi-content-section">
-        <h2>Was ist BMI?</h2>
-        <p>
-          Der BMI (Body-Mass-Index) ist ein hilfreiches Werkzeug, um das
-          Körpergewicht objektiv zu beurteilen. Mit unserem BMI-Rechner können
-          Sie schnell und einfach herausfinden, ob Sie im Normalgewicht liegen
-          oder ob Sie unter- oder übergewichtig sind.
-        </p>
-        <p>
-          Sie müssen dafür nur über 18 Jahre alt sein und Ihr Alter mithilfe des
-          Schiebereglers „Alter in Jahren“ eingeben. Anschließend tragen Sie Ihr
-          aktuelles Gewicht und Ihre Körpergröße ein – und schon liefert Ihnen
-          unser Rechner die passende Auswertung.
-        </p>
-
-        <div className="bmi-result">
-          <h2>Ihr BMI</h2>
-          {bmiResult ? (
-            <div>
-              <h3>Dein BMI ist: {bmiResult}</h3>
-              <h3>Deine Kategorie ist: {bmiCategory}</h3>
-            </div>
-          ) : (
-            <div className="bmi-comment">Keine Angabe</div>
-          )}
+          </form>
+          {/* <div></div>
+          <div className="bmi-comment">Keine Angabe</div> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default BMIApp;
+export default BMI;
