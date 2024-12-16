@@ -461,5 +461,6 @@ INSERT INTO recipe_ingredient (name, calories, protein, carbohydrates, fats, all
     ('Veganes Hackfleisch (Sojaprotein)', 200, 21.0, 5.0, 10.0, 7),
     ('Tofu-Hackfleisch', 120, 12.0, 3.0, 6.0, 7),
     ('Seitan-Hackfleisch', 150, 28.0, 5.0, 1.5, 6),
-    ('Wildhackfleisch', 180, 23.0, 0.0, 8.0, NULL);
+    ('Wildhackfleisch', 180, 23.0, 0.0, 8.0, NULL),
+    ('Sojamilch', 54.0, 3.3, 6.0, 1.8, NULL);
 
