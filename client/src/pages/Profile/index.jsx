@@ -19,6 +19,7 @@ export default function Profile() {
   const [showPopupCategory, setShowPopupcategory] = useState(false);
   const [showPopupAllergene, setShowPopupAllergene] = useState(false);
   const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
+  console.log("userData>>>>>>", userData);
   useEffect(() => {
     async function loadUserData() {
       try {
