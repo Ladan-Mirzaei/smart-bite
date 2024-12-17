@@ -72,7 +72,7 @@ export default function Home() {
         <div className="layout-card">
           <div className="image-wrapper">
             <img
-              src="../../../public/pexels-julkoha-28174944.jpg"
+              src="/pexels-julkoha-28174944.jpg"
               alt="Person enjoying salad"
               className="card-image"
             />
