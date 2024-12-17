@@ -113,8 +113,8 @@ const RecipePlanner = ({ name, recipe_id }) => {
   function handleEventClick(event) {
     // /***************** */
     const urlLink = `${event.recipe_id}`;
-    window.open(urlLink, "_self");
-    navigate(`/recipedetails/urlLink`);
+    // window.open(urlLink, "_self");
+    navigate(`/recipedetails/${urlLink}`);
   }
   const result = filteredEvents.reduce((acc, cur) => {
     if (acc[cur.date]) {
