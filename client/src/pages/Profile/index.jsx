@@ -94,7 +94,7 @@ export default function Profile() {
                   src={
                     user.photoURL /***Firbase */
                       ? user.photoURL
-                      : "../../../public/avatar-677865778.jpeg"
+                      : "/avatar-677865778.jpeg"
                   }
                   alt="Profile"
                 />

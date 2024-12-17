@@ -45,7 +45,7 @@ export default function UserDietInfo() {
     <div className="dietinfo-container">
       <div className="dietinfo-image-section">
         <img
-          src="../../../public/nielsen-food.jpg"
+          src="/nielsen-food.jpg"
           alt="Healthy food "
           className="dietinfo-image"
         />

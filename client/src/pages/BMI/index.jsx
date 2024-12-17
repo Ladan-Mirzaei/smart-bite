@@ -46,7 +46,7 @@ function BMI() {
     <div className="bmi-container">
       <div className="bmi-image-section">
         <img
-          src="../../../public/nielsen-food.jpg"
+          src="/nielsen-food.jpg"
           alt="Healthy food "
           className="bmi-image"
         />

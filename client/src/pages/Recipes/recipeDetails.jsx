@@ -94,7 +94,7 @@ const RecipeDetails = () => {
     loadRating();
     loadFavorited();
     loadFetch();
-  }, []);
+  }, [id]);
   console.log("dataRecipeSammlung", dataRecipeSammlung);
   // dataRecipeSammlung ? setIsFavorited(true) : setIsFavorited(false);
   console.log("setRecipeRating", recipeRating);

@@ -23,10 +23,10 @@ export default function RandomRecipe() {
   }
 
   const images = {
-    vegan: "../../../public/vegan.png",
-    keto: "../../../public/keto.png",
-    vegetarisch: "../../../public/vegetarian.png",
-    glutenfrei: "../../../public/glutenfrei.png",
+    vegan: "/vegan.png",
+    keto: "/keto.png",
+    vegetarisch: "/vegetarian.png",
+    glutenfrei: "/glutenfrei.png",
   };
 
   return (

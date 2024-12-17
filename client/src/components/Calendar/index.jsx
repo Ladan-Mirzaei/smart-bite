@@ -114,6 +114,7 @@ const RecipePlanner = ({ name, recipe_id }) => {
     // /***************** */
     const urlLink = `${event.recipe_id}`;
     // window.open(urlLink, "_self");
+    console.log(">>>>>>", urlLink);
     navigate(`/recipedetails/${urlLink}`);
   }
   const result = filteredEvents.reduce((acc, cur) => {
@@ -132,7 +133,6 @@ const RecipePlanner = ({ name, recipe_id }) => {
   console.log(result);
   return (
     <div className="Calendar">
-      {recipe_id && <h4>{/* <Link to="/profile">Mein Profile</Link> */}</h4>}
       <div className="calender-container">
         <div className="">
           <button

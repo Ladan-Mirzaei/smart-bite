@@ -46,7 +46,7 @@ export default function Navbar({ homeOnly = false }) {
                 <NavLink to="/meine-favoriten">
                   <img
                     className="navbar-herz"
-                    src="../../../public/icons8-herz-48.png"
+                    src="/icons8-herz-48.png"
                     alt="Herz-Icon"
                   />{" "}
                   Rezepte
@@ -98,7 +98,7 @@ export default function Navbar({ homeOnly = false }) {
             >
               <img
                 className="navbar-herz"
-                src="../../../public/icons8-herz-48.png"
+                src="/icons8-herz-48.png"
                 alt="Herz-Icon"
               />{" "}
               Rezepte
