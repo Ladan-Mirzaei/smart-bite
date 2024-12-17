@@ -1,4 +1,4 @@
-import "./RecipeDetails.css";
+import "./recipeDetails.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState, useContext } from "react";
