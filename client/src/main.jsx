@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 // import Recipe from "./pages/recipe/index.jsx";
-import RecipeAll from "./pages/recipe/recipeAll.jsx";
+import RecipeAll from "./pages/Recipes/recipeAll.jsx";
 import Allergen from "./pages/UserInfo/AllergyInfo.jsx";
 import UserInfo from "./pages/UserInfo/index.jsx";
 
@@ -13,10 +13,10 @@ import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/index.jsx";
 import Profile from "./pages/Profile/index.jsx";
 import EditForm from "./pages/Profile/edit.jsx";
-import RecipeForm from "./pages/Recipe/CreateRecipeForm.jsx";
+import RecipeForm from "./pages/Recipes/CreateRecipeForm.jsx";
 import { RequireAuth } from "./context/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
-import RecipeDetails from "./pages/Recipe/recipeDetails.jsx";
+import RecipeDetails from "./pages/Recipes/recipeDetails.jsx";
 import Select from "./components/Select/selectIngredients.jsx";
 import BMI from "./pages/BMI/index.jsx";
 import Scanner from "./pages/Scanner/index.jsx";
@@ -27,7 +27,7 @@ import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
 import ApiFood from "./pages/Scanner/food.jsx";
 import AuthLayout from "./AuthLayout.jsx";
 import StepperLayout from "./pages/StepperLayout";
-import UpdateRecipeForm from "./pages/Recipe/UpdateRecipeForm.jsx";
+import UpdateRecipeForm from "./pages/Recipes/UpdateRecipeForm.jsx";
 const router = createBrowserRouter([
   {
     path: "/",

@@ -5,7 +5,7 @@ import Filter from "../../components/Filter/filter.jsx";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-import "../recipe/recipeAll.css";
+import "../Recipes/recipeAll.css";
 
 export default function FavoriteRecipes() {
   const [recipesData, setRecipesData] = useState([]);
