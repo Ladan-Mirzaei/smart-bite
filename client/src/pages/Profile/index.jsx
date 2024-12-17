@@ -7,9 +7,9 @@ import EditForm from "./edit.jsx";
 import QRCode from "react-qr-code";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Profile() {
-  const API_URL = import.meta.env.VITE_API_URL;
   const { userData } = useAuth();
   const { user } = useContext(AuthContext);
 
@@ -18,7 +18,7 @@ export default function Profile() {
   const [showPopupDiet, setShowPopupDiet] = useState(false);
   const [showPopupCategory, setShowPopupcategory] = useState(false);
   const [showPopupAllergene, setShowPopupAllergene] = useState(false);
-  const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
+  const shoppingListUrl = `${API_URL}/shoppinglist?user_uid=${user.uid}`;
   useEffect(() => {
     async function loadUserData() {
       try {
