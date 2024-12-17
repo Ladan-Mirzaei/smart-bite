@@ -8,7 +8,7 @@ import QRCode from "react-qr-code";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const API_URL = import.meta.env.VITE_API_URL;
-const VERCEL_URL = import.meta.env.VERCEL_URL;
+const VERCEL_URL = "https://smart-bite-amber.vercel.app";
 export default function Profile() {
   const { userData } = useAuth();
   const { user } = useContext(AuthContext);
