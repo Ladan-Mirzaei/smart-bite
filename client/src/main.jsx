@@ -10,7 +10,7 @@ import Allergen from "./pages/UserInfo/AllergyInfo.jsx";
 import UserInfo from "./pages/UserInfo/index.jsx";
 
 import Login from "./pages/Login/Login.jsx";
-import Register from "./Pages/Register/index.jsx";
+import Register from "./pages/Register/index.jsx";
 import Profile from "./pages/Profile/index.jsx";
 import EditForm from "./pages/Profile/edit.jsx";
 import RecipeForm from "./pages/Recipe/CreateRecipeForm.jsx";
