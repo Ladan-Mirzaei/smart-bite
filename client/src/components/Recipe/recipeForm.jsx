@@ -1,5 +1,5 @@
 // import "../../pages/PersonalInfo/style.css";
-import "./RecipeForm.css";
+import "./recipeForm.css";
 import { useState } from "react";
 // import { useFetch } from "../../hooks/fetch.jsx";
 import ZutatenForm from "../Select/selectIngredients.jsx";

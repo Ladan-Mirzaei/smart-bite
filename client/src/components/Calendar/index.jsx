@@ -6,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment-timezone";
 import { useNavigate, Link } from "react-router-dom";
 import QRCode from "react-qr-code";
-import "./Calender.css";
+import "./calender.css";
 
 const localizer = momentLocalizer(moment);
 moment.tz.setDefault("Europe/Berlin");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./UploadImage.css";
+import "./uploadImage.css";
 export default function UploadImage({ setImageUrl }) {
   const [_, setResponseMessage] = useState("");
   const [previewImage, setPreviewImage] = useState(null);

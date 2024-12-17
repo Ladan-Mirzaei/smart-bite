@@ -2,7 +2,7 @@ import Select from "react-select";
 import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch.jsx";
 import "./select.css";
-import SelectArray from "./select.jsx";
+// import SelectArray from "./select.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
