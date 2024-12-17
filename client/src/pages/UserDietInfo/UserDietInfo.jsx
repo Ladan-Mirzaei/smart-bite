@@ -11,7 +11,6 @@ export default function UserDietInfo() {
 
   const API_URL = import.meta.env.VITE_API_URL;
   const { fetchData } = useFetch();
-  console.log(user.uid);
   useEffect(() => {
     const loadFetch = async () => {
       try {
@@ -49,7 +48,6 @@ export default function UserDietInfo() {
           alt="Healthy food "
           className="dietinfo-image"
         />
-        {/* <div className="dietinfo-section"></div> */}
       </div>
       <div className="dietinfo-content-section">
         <h2>Der Nährstoffbedarf ist individuell!</h2>

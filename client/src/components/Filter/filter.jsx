@@ -93,7 +93,7 @@ export default function FilterComponent({ onSubmitFilters, onResetFilters }) {
         </div>
       </div>
       <div className="filter-group">
-        <h3>Allergieneigung</h3>
+        <h3>Allergie</h3>
         <ul>
           <SelectWithPlus
             dataArray={allergenData}

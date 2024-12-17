@@ -100,7 +100,7 @@ export default function Profile() {
               ) : (
                 <img
                   key={user.uid}
-                  src={user.photoURL || "../../../public/avatar-17214950.jpg"}
+                  src={user.photoURL || "/avatar-17214950.jpg"}
                   alt="Profile"
                 />
               )
