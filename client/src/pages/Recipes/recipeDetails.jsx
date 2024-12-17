@@ -60,6 +60,7 @@ const RecipeDetails = () => {
         }
 
         const dataSammlung = await response.json();
+        console.log(dataSammlung);
         setIsFavorited(true);
       } catch (err) {
         console.log(err);
@@ -271,8 +272,8 @@ const RecipeDetails = () => {
               </span>
               <span>
                 <i className="fas fa-utensils"></i>
-                {fetchRezeptData.difficulty_level} für{" "}
-                {fetchRezeptData.portions} personen
+                {fetchRezeptData.difficulty_level} für
+                {fetchRezeptData.portions} Personen
               </span>
               <div className="p-15-rating">
                 ★★★★☆ <span>{recipeRating}</span>
