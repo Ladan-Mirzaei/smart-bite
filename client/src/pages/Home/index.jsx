@@ -80,16 +80,20 @@ export default function Home() {
           <div className="info-wrapper">
             <h2 className="title"> Gesund essen, besser leben</h2>
             <p className="description">
-              Gesund essen, besser leben. Bei SmartBite glauben wir daran, dass
-              Ernährung nicht kompliziert sein muss.s Eine ausgewogene Ernährung
-              ist der Schlüssel zu einem aktiven, glücklichen Leben. Egal, ob du
-              deine Leistungsfähigkeit steigern, deinen Stoffwechsel ankurbeln
-              oder einfach nur neue, köstliche Mahlzeiten ausprobieren möchtest
-              – wir haben alles, was du brauchst. Unser Ansatz ist individuell
-              und flexibel: Passe deine Ernährung an deinen Alltag und deine
-              Ziele an. Es geht nicht nur darum, Kalorien zu zählen, sondern
-              darum, deinem Körper die Nährstoffe zu geben, die er wirklich
-              braucht.
+              Gesund essen, besser leben. <b>"Smart"</b> steht für „intelligent”
+              und weist darauf hin, dass es um eine durchdachte, gesunde
+              Ernährung geht. Es vermittelt den Eindruck, dass man kluge
+              Entscheidungen für seine Ernährung trifft.<b>"Bite"</b> bedeutet
+              „Bissen” und bezieht sich direkt auf das Essen. Zusammen
+              vermittelt<b>"SmartBite"</b> die Idee von klugen, bewussten
+              Entscheidungen beim Essen.Eine ausgewogene Ernährung ist der
+              Schlüssel zu einem aktiven, glücklichen Leben. Egal, ob du deine
+              Leistungsfähigkeit steigern, deinen Stoffwechsel ankurbeln oder
+              einfach nur neue, köstliche Mahlzeiten ausprobieren möchtest – wir
+              haben alles, was du brauchst. Unser Ansatz ist individuell und
+              flexibel: Passe deine Ernährung an deinen Alltag und deine Ziele
+              an. Es geht nicht nur darum, Kalorien zu zählen, sondern darum,
+              deinem Körper die Nährstoffe zu geben, die er wirklich braucht.
             </p>
             <div className="statistics">
               <div className="stat-block">
