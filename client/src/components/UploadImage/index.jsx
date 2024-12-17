@@ -3,6 +3,7 @@ import "./uploadImage.css";
 export default function UploadImage({ setImageUrl }) {
   const [_, setResponseMessage] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleInputChange = async (e) => {
     const { files } = e.target;
@@ -13,7 +14,7 @@ export default function UploadImage({ setImageUrl }) {
       formData.append("image", file);
 
       try {
-        const response = await fetch("http://localhost:3000/upload", {
+        const response = await fetch(`${API_URL}/upload`, {
           method: "POST",
           body: formData,
         });
