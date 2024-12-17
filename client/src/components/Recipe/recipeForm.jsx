@@ -211,24 +211,25 @@ export default function Recipe({ onFormSubmit }) {
             className="recipeform-input-field-time"
           />
           <span>Minuten</span>
-        </div>
+        </div>{" "}
         <br />
-        <label>
-          {" "}
+        <span className="field-categorie-span">
           Bitte wähle aus, welche Ernährungsweise deinem Rezept zugeordnet
           werden sollen.*
-        </label>
+        </span>{" "}
+        <br />
         <SelectMulti
           setDataArray={setDiet}
           route="diets"
           placeholder="Ernährungsform
  auswählen"
-        />{" "}
+        />
         <br />
-        <span>
+        <span className="field-categorie-span">
           Bitte wähle aus, welche Kategorien deinem Rezept zugeordnet werden
           sollen.
-        </span>
+        </span>{" "}
+        <br />
         <SelectSingel
           dataArray={categoriesData}
           setDataArray={setCategoriesData}
