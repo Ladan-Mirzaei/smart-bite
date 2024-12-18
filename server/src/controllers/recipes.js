@@ -286,15 +286,11 @@ export async function updateRecipe(req, res) {
       .where({ id })
       .update({ image: null });
 
-    if (!deletedImage) {
-      return res.status(404).json({ message: "Recipe not found" });
-    }
-
     const updatedRecipeId = await db("recipe").where({ id }).update({
       image: image_url,
     });
 
-    if (updatedRecipeId === 0) {
+    if (!updatedRecipeId || updatedRecipeId.length === 0) {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
