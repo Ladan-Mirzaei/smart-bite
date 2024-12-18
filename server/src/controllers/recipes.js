@@ -13,6 +13,18 @@ import admin from "firebase-admin";
     category_id,
     createdAt: new Date()
  }
+    {
+ "category_id": 1,
+"cooking_time": 60,
+"description": "test",
+"diet_types": [3],
+"difficulty_level": "mittel",
+"image": "https://res.cloudinary.com/dxneunm1q/image/upload/v1734512796/ilqh6lnpzkc0jtvtljin.jpg",
+"ingredients": [{"ingredient_id": 1, "quantity": 1, "unit": "kg"}],
+"portions": 1,
+"preparation_time": 60,
+"title": "test"
+}
  *
  */
 
