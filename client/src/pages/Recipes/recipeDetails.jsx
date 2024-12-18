@@ -190,7 +190,7 @@ const RecipeDetails = () => {
   console.log("recipeRating", recipeRating);
   return (
     <>
-      {/* <Link to={`/edit-recipeform/${id}`}>update</Link> */}
+      <Link to={`/edit-recipeform/${id}`}>update</Link>
       <div className="" ref={contentRef}>
         <div className="p-15">
           <div className="p-15-header">
