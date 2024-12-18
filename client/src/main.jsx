@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/recipe-generator",
+        path: "/recipegenerator",
         element: <RecipeGenerator />,
       },
 
