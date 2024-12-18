@@ -9,6 +9,7 @@ export default function CreateRecipeForm() {
   const [recipeID, setRecipeID] = useState();
   const navigate = useNavigate();
   const onFormSubmit = async (finalData) => {
+    console.log("finalData in Pages<<<", finalData);
     if (!user) {
       console.error("User not logged in");
       return;

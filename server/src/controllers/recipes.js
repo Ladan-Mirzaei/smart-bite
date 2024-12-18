@@ -29,7 +29,10 @@ export async function createRecipe(req, res) {
     difficulty_level,
     image_url,
   } = req.body;
+  console.log("body", req.body);
   const uid = req.user.uid;
+  console.log("uid", uid);
+
   try {
     const user = await db("recipe_user").select("id").where({ uid }).first();
     if (!user) {
@@ -51,6 +54,9 @@ export async function createRecipe(req, res) {
       })
       .returning("id");
     const finalRecipeId = recipeId[0].id;
+
+    console.log("finalRecipeId", finalRecipeId);
+
     const ingredientsData = ingredients.map((item) => ({
       recipe_id: finalRecipeId, //z.B. `3` hier
       ingredient_id: item.ingredient_id,

@@ -1,14 +1,11 @@
-// import "../../pages/PersonalInfo/style.css";
 import "./recipeForm.css";
 import { useState } from "react";
-// import { useFetch } from "../../hooks/fetch.jsx";
 import ZutatenForm from "../Select/selectIngredients.jsx";
 import UploadImage from "../UploadImage/index.jsx";
 import SelectMulti from "../Select/selectMulti.jsx";
 import SelectSingel from "../Select/selectSingel.jsx";
 
 export default function Recipe({ onFormSubmit }) {
-  // const { fetchData } = useFetch();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -36,6 +33,8 @@ export default function Recipe({ onFormSubmit }) {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+    console.log("changDAta>>>>>,", e);
+    console.log("changDAta>>>>>,", name, ":", value);
 
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
@@ -73,9 +72,10 @@ export default function Recipe({ onFormSubmit }) {
       image_url: imgUrl, //wichtig füt register form
     };
     onFormSubmit(finalData);
-    console.log("finalData", finalData);
+    console.log("finalData>>>>>>>", finalData);
   };
   console.log("imageURL", imgUrl);
+  console.log("formData>>>>>>", imgUrl);
 
   return (
     <div className="recipeform-container">
