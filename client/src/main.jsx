@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import RecipeAll from "./pages/Recipes/recipeAll.jsx";
 import Allergen from "./pages/UserInfo/AllergyInfo.jsx";
 import UserInfo from "./pages/UserInfo/index.jsx";
-
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/index.jsx";
 import Profile from "./pages/Profile/index.jsx";
@@ -24,7 +23,7 @@ import FavoriteRecipes from "./pages/FavoriteRecipes";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
 import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
 import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
-import ApiFood from "./pages/Scanner/food.jsx";
+import RecipeGenerator from "./pages/RecipeGenerator/RecipeGenerator.jsx";
 import AuthLayout from "./AuthLayout.jsx";
 import StepperLayout from "./pages/StepperLayout";
 import UpdateRecipeForm from "./pages/Recipes/UpdateRecipeForm.jsx";
@@ -38,8 +37,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/food",
-        element: <ApiFood />,
+        path: "/recipe-generator",
+        element: <RecipeGenerator />,
       },
 
       {
