@@ -27,6 +27,10 @@ export default function Navbar({ homeOnly = false }) {
               <NavLink to="/recipeAll">Rezepte</NavLink>
             </li>
             <li>
+              <NavLink to="/recipe-search">Barcode suchen</NavLink>
+            </li>
+
+            <li>
               <NavLink to="/BMI">BMI</NavLink>
             </li>
           </>
@@ -79,6 +83,9 @@ export default function Navbar({ homeOnly = false }) {
         </NavLink>
         <NavLink className="menu-item" to="/recipeAll" onClick={closeMenu}>
           Rezepte
+        </NavLink>
+        <NavLink className="menu-item" to="/recipe-search" onClick={closeMenu}>
+          Barcode suchen
         </NavLink>
         <NavLink className="menu-item" to="/BMI" onClick={closeMenu}>
           BMI

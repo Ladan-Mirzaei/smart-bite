@@ -22,8 +22,7 @@ import Scanner from "./pages/Scanner/index.jsx";
 import FavoriteRecipes from "./pages/FavoriteRecipes";
 import ShoppingList from "./components/Calendar/shoppingList.jsx";
 import UserDietInfo from "./pages/UserDietInfo/UserDietInfo.jsx";
-// import BScanner from "./pages/BarcodeRecipe/Bscanner.jsx";
-// import RecipeGenerator from "./pages/RecipeGenerator/RecipeGenerator.jsx";
+import RecipeSearch from "./pages/RecipeSearch/RecipeSearch.jsx";
 import AuthLayout from "./AuthLayout.jsx";
 import StepperLayout from "./pages/StepperLayout";
 import UpdateRecipeForm from "./pages/Recipes/UpdateRecipeForm.jsx";
@@ -36,15 +35,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      // {
-      //   path: "/recipegenerator",
-      //   element: <RecipeGenerator />,
-      // },
-
-      // {
-      //   path: "/bscanner",
-      //   element: <BScanner />,
-      // },
+      {
+        path: "/recipe-search",
+        element: <RecipeSearch />,
+      },
 
       {
         path: "/editForm",
