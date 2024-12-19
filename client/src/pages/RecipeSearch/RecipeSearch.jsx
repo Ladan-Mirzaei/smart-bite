@@ -66,6 +66,7 @@ const RecipeSearch = () => {
       const response = await fetch(
         `${API_URL}?ingredients=${ingredientsQuery}&number=5&apiKey=${API_KEY}`
       );
+      console.log(response);
 
       if (!response.ok) {
         throw new Error("Fehler beim Abrufen der Rezepte");
