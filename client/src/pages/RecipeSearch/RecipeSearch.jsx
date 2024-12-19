@@ -49,7 +49,7 @@ const RecipeSearch = () => {
 
   /************** API Spoonacular Rezept durch Zutaten suchen ***************/
   const fetchRecipes = async () => {
-    console.log("productName", productName);
+    console.log("productName-----", productName);
     if (!productName.trim()) return;
 
     setLoading(true);
@@ -60,11 +60,11 @@ const RecipeSearch = () => {
       .map((word) => word.trim().toLowerCase())
       .filter((word) => word);
     console.log("words<<<<<<", words);
-    const productName = words.join(",");
+    const ingredientsQuery = words.join(",");
 
     try {
       const response = await fetch(
-        `${API_URL}?ingredients=${productName}&number=5&apiKey=${API_KEY}`
+        `${API_URL}?ingredients=${ingredientsQuery}&number=5&apiKey=${API_KEY}`
       );
 
       if (!response.ok) {
