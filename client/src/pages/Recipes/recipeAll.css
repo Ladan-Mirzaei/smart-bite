@@ -53,6 +53,7 @@
   width: 100%;
   border: 1px solid black;
   min-width: 230px;
+  object-fit: cover;
 }
 
 .recipe-card-title {
