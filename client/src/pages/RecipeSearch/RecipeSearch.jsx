@@ -10,7 +10,7 @@ const RecipeSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [detailedRecipes, setDetailedRecipes] = useState([]);
-  const [barcode, setBarcode] = useState("");
+  // const [barcode, setBarcode] = useState("");
   const [productData, setProductData] = useState(null);
   const [barcodeScanner, setBarcodeScanner] = useState("");
   const [productName, setProductName] = useState("");
@@ -89,7 +89,8 @@ const RecipeSearch = () => {
       setDetailedRecipes(detailedUrls);
     } catch (err) {
       setError(
-        "Fehler beim Abrufen der Rezepte. Bitte versuche es später erneut."
+        "Fehler beim Abrufen der Rezepte. Bitte versuche es später erneut.",
+        err
       );
     } finally {
       setLoading(false);

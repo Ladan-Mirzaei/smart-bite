@@ -11,6 +11,7 @@ import "./calender.css";
 const localizer = momentLocalizer(moment);
 moment.tz.setDefault("Europe/Berlin");
 const API_URL = import.meta.env.VITE_API_URL;
+const VERCEL_URL = "https://smart-bite-amber.vercel.app";
 
 const RecipePlanner = ({ name, recipe_id }) => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const RecipePlanner = ({ name, recipe_id }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const { user } = useContext(AuthContext);
   const [showWeek, setShowWeek] = useState(false);
-  const shoppingListUrl = `https://192.168.2.124:5173/shoppinglist?user_uid=${user.uid}`;
+  const shoppingListUrl = `${VERCEL_URL}/shoppinglist?user_uid=${user.uid}`;
 
   useEffect(() => {
     const saveEventToServer = async (newEvent) => {
