@@ -178,7 +178,7 @@ const RecipePlanner = ({ name, recipe_id }) => {
       )}
       {showWeek && (
         <div>
-          <h3>Meine Einkaufsliste für diese Woche</h3>
+          <h3>Wochenplan</h3>
           {Object.keys(result).length > 0 ? (
             <ul className="week-events">
               {Object.keys(result).map((date, index) => (
