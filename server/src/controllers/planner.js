@@ -37,7 +37,6 @@ export async function getEvents(req, res) {
   const { uid } = req.body;
 
   try {
-    // 1. Hol die User-ID basierend auf der UID
     const user = await db("recipe_user").select("id").where({ uid }).first();
 
     if (!user) {
@@ -46,7 +45,6 @@ export async function getEvents(req, res) {
 
     const user_id = user.id;
 
-    // 2. Hol die Events und synchronisiere die Zutaten-Daten
     const events = await db("recipe_planner")
       .where("recipe_planner.user_id", user_id)
       .select(
@@ -75,12 +73,10 @@ export async function getEvents(req, res) {
       .leftJoin("recipe", "recipe.id", "recipe_planner.recipe_id")
       .groupBy("recipe_planner.planner_id", "recipe.title");
 
-    // 3. Kein Event gefunden
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No Events found" });
     }
 
-    // 4. Events zurückgeben
     res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching Weeks Events:", error);
