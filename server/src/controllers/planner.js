@@ -37,23 +37,26 @@ export async function getEvents(req, res) {
   const { uid } = req.body;
 
   try {
+    // 1. Hol die User-ID basierend auf der UID
     const user = await db("recipe_user").select("id").where({ uid }).first();
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     const user_id = user.id;
 
+    // 2. Hol die Events und synchronisiere die Zutaten-Daten
     const events = await db("recipe_planner")
       .where("recipe_planner.user_id", user_id)
       .select(
-        db.raw(
-          "JSON_BUILD_OBJECT(" +
-            "'ingredient_names', ARRAY_AGG(DISTINCT recipe_ingredient.name), " +
-            "'ingredient_units', ARRAY_AGG(DISTINCT recipe_ingredient_details.unit), " +
-            "'ingredient_quantities', ARRAY_AGG(DISTINCT recipe_ingredient_details.quantity) " +
-            ") AS ingredients"
-        ),
+        db.raw(`
+          JSON_BUILD_OBJECT(
+            'ingredient_names', ARRAY_AGG(recipe_ingredient.name ORDER BY recipe_ingredient.id),
+            'ingredient_units', ARRAY_AGG(COALESCE(recipe_ingredient_details.unit, 'n/a') ORDER BY recipe_ingredient.id),
+            'ingredient_quantities', ARRAY_AGG(COALESCE(recipe_ingredient_details.quantity, 0) ORDER BY recipe_ingredient.id)
+          ) AS ingredients
+        `),
         "recipe_planner.planner_id as event_id",
         "recipe.title as event_name",
         "recipe_planner.date",
@@ -72,10 +75,12 @@ export async function getEvents(req, res) {
       .leftJoin("recipe", "recipe.id", "recipe_planner.recipe_id")
       .groupBy("recipe_planner.planner_id", "recipe.title");
 
+    // 3. Kein Event gefunden
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No Events found" });
     }
 
+    // 4. Events zurückgeben
     res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching Weeks Events:", error);
