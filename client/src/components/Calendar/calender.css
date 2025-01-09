@@ -154,6 +154,10 @@
 .Calendar {
   margin-top: 40px;
 }
+.week-events {
+  padding-left: 0;
+  margin-left: 0;
+}
 @media (max-width: 768px) {
   .meal-planner {
     padding: 10px;
