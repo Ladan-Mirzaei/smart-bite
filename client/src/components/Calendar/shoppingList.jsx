@@ -14,20 +14,6 @@ const RecipePlanner = () => {
   const [searchParams] = useSearchParams();
   const uIdFromSearchParams = searchParams.get("user_uid");
 
-  const normalizeIngredients = (ingredients) => {
-    const maxLength = Math.max(
-      ingredients.ingredient_names.length,
-      ingredients.ingredient_units?.length || 0,
-      ingredients.ingredient_quantities?.length || 0
-    );
-
-    return ingredients.ingredient_names.map((name, idx) => ({
-      name: name || "Unbekannt",
-      unit: ingredients.ingredient_units?.[idx] || "n/a",
-      quantity: ingredients.ingredient_quantities?.[idx] || "n/a",
-    }));
-  };
-
   useEffect(() => {
     async function fetchEvents() {
       const uid = uIdFromSearchParams ? uIdFromSearchParams : user.uid;
@@ -48,7 +34,13 @@ const RecipePlanner = () => {
 
         const savedEvents = await response.json();
         const mappedEvents = savedEvents.map((event) => {
-          const ingredients = normalizeIngredients(event.ingredients);
+          const ingredients = event.ingredients.ingredient_names.map(
+            (name, idx) => ({
+              name,
+              unit: event.ingredients.ingredient_units?.[idx] || "n/a",
+              quantity: event.ingredients.ingredient_quantities?.[idx] || "n/a",
+            })
+          );
 
           return {
             ...event,
